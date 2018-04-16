@@ -15,8 +15,8 @@ public abstract class StpPoint extends StpGeometricRepresentationItem {
     @Override
     public String toString() {
         return "StpPoint{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+                "id=" + id +
+                ", name='" + name + '\'' +
+                "} ";
     }
 }

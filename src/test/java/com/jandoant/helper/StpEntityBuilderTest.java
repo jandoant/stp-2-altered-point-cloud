@@ -1,7 +1,9 @@
 package com.jandoant.helper;
 
+import com.jandoant.stp_entities.StpAxis2Placement3D;
 import com.jandoant.stp_entities.StpCartesianPoint;
 import com.jandoant.stp_entities.StpDirection;
+import com.jandoant.stp_entities.StpRepresentationItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -91,7 +93,12 @@ class StpEntityBuilderTest {
         StpEntityBuilder builder = new StpEntityBuilder(testDescription);
 
         //expectation
-        StpCartesianPoint expected = new StpCartesianPoint(67, "", 0.3, 0.0, 15.0);
+        StpCartesianPoint expected = new StpCartesianPoint(
+                67,
+                "",
+                0.3,
+                0.0,
+                15.0);
 
         //Act
         StpCartesianPoint actual = (StpCartesianPoint) builder.extractStpEntity();
@@ -120,9 +127,30 @@ class StpEntityBuilderTest {
         StpDirection actual = (StpDirection) builder.extractStpEntity();
 
         //Assert
-
         assertTrue(actual.equals(expected));
     }
 
+    @Test
+    @DisplayName("should instantiate Axis2Placement3D if correct description is given")
+    void correctAxis2Placement3D(){
+
+        //SetUp
+        String testDescription = "#58=AXIS2_PLACEMENT_3D('',#68,#61,#62);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        StpAxis2Placement3D expected = new StpAxis2Placement3D(
+                58,
+                "",
+                68,
+                61,
+                62);
+
+        //Act
+        StpAxis2Placement3D actual = (StpAxis2Placement3D) builder.extractStpEntity();
+
+        //assert
+        assertTrue(actual.equals(expected));
+
+    }
 
 }

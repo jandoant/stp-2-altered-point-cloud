@@ -1,9 +1,6 @@
 package com.jandoant.helper;
 
-import com.jandoant.stp_entities.EntityTypes;
-import com.jandoant.stp_entities.StpCartesianPoint;
-import com.jandoant.stp_entities.StpDirection;
-import com.jandoant.stp_entities.StpRepresentationItem;
+import com.jandoant.stp_entities.*;
 
 import java.util.Arrays;
 
@@ -50,11 +47,14 @@ public class StpEntityBuilder {
         StpRepresentationItem result;
 
         switch(this.type){
-            case EntityTypes.CARTESIAN_POINT :
+            case EntityTypesContract.CARTESIAN_POINT :
                 result = makeCartesianPoint();
                 break;
-            case EntityTypes.DIRECTION :
+            case EntityTypesContract.DIRECTION :
                 result = makeDirection();
+                break;
+            case EntityTypesContract.AXIS2_PLACEMENT_3D :
+                result = makeAxis2Placement3D();
                 break;
             default:
                 return null;
@@ -63,13 +63,20 @@ public class StpEntityBuilder {
         return result;
     }
 
+    private StpRepresentationItem makeAxis2Placement3D() {
+
+        int locationId = Integer.parseInt(this.argumentsList[1]);
+        int axisId = Integer.parseInt(this.argumentsList[2]);
+        int refDirectionId = Integer.parseInt(this.argumentsList[3]);
+
+        return new StpAxis2Placement3D(this.id, this.name, locationId, axisId, refDirectionId);
+    }
+
     private StpRepresentationItem makeDirection() {
 
         double xDirection = Double.parseDouble(this.argumentsList[1]);
         double yDirection = Double.parseDouble(this.argumentsList[2]);
         double zDirection = Double.parseDouble(this.argumentsList[3]);
-
-        System.out.println(this.name);
 
         return new StpDirection(this.id, this.name, xDirection, yDirection, zDirection);
     }
@@ -83,13 +90,13 @@ public class StpEntityBuilder {
         return new StpCartesianPoint(this.id, this.name, x, y, z);
     }
 
-
     private void extractArgumentsListFromDescription() {
 
-        String arguments = this.partsOfDescription[2];
+        String argumentsString = this.partsOfDescription[2];
 
-        this.argumentsList = arguments.split("[\\,\\(\\)\\;]+");
+        this.argumentsList = argumentsString.split("[\\,\\(\\)\\;]+");
 
+        // change certain things about the arguments
         for (int i = 0; i < this.argumentsList.length ; i++) {
 
             if(this.argumentsList[i] == ".T."){
@@ -104,6 +111,9 @@ public class StpEntityBuilder {
             if(this.argumentsList[i].charAt(this.argumentsList[i].length()-1)=='.'){
                 this.argumentsList[i] += '0';
             }
+
+            //remove hashtags from arguments
+            this.argumentsList[i] = this.argumentsList[i].replace("#", "");
         }
     }
 

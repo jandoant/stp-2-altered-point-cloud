@@ -11,7 +11,11 @@ import java.util.Objects;
  */
 public class StpCartesianPoint extends StpPoint {
 
-    public double x,y,z;
+
+    //int id;
+    //String name;
+
+    private double x,y,z;
 
     /**
      *
@@ -32,11 +36,11 @@ public class StpCartesianPoint extends StpPoint {
     @Override
     public String toString() {
         return "StpCartesianPoint{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", z=" + z +
+                "id=" + this.id +
+                ", name='" + this.name + '\'' +
+                ", x=" + this.x +
+                ", y=" + this.y +
+                ", z=" + this.z +
                 '}';
     }
 
@@ -44,14 +48,13 @@ public class StpCartesianPoint extends StpPoint {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StpCartesianPoint that = (StpCartesianPoint) o;
-        return  Double.compare(that.x, x) == 0 &&
-                Double.compare(that.y, y) == 0 &&
-                Double.compare(that.z, z) == 0;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y, z);
+        StpCartesianPoint that = (StpCartesianPoint) o;
+
+        if (id != that.id) return false;
+        if (Double.compare(that.x, x) != 0) return false;
+        if (Double.compare(that.y, y) != 0) return false;
+        if (Double.compare(that.z, z) != 0) return false;
+        return name.equals(that.name);
     }
 }

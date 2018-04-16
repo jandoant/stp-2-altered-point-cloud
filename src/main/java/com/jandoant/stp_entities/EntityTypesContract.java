@@ -1,12 +1,14 @@
 package com.jandoant.stp_entities;
 
 /**
- * Klasse EntityTypes
+ * Klasse EntityTypesContract
  * Created by Jan Doant on 12.04.2018
  */
-public class EntityTypes {
+public class EntityTypesContract {
 
     public static final String CARTESIAN_POINT = "CARTESIAN_POINT";
     public static final String DIRECTION = "DIRECTION";
+    public static final String AXIS2_PLACEMENT_3D = "AXIS2_PLACEMENT_3D";
+
 
 }

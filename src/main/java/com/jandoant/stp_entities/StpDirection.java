@@ -6,6 +6,9 @@ package com.jandoant.stp_entities;
  */
 public class StpDirection extends StpGeometricRepresentationItem {
 
+    //int id;
+    //String name;
+
     double xDirection;
     double yDirection;
     double zDirection;
@@ -13,7 +16,7 @@ public class StpDirection extends StpGeometricRepresentationItem {
     public StpDirection(int id, String name, double xDirection, double yDirection , double zDirection){
         this.id = id;
         this.name = name;
-        //to make sure that directions are of length 1
+
         this.xDirection = xDirection;
         this.yDirection = yDirection;
         this.zDirection = zDirection;
@@ -31,21 +34,6 @@ public class StpDirection extends StpGeometricRepresentationItem {
         if (Double.compare(that.yDirection, yDirection) != 0) return false;
         if (Double.compare(that.zDirection, zDirection) != 0) return false;
         return name.equals(that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + name.hashCode();
-        temp = Double.doubleToLongBits(xDirection);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(yDirection);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(zDirection);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
     }
 
     @Override

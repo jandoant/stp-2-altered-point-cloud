@@ -13,13 +13,13 @@ public abstract class StpRepresentationItem {
     //Methoden
     public int getId(){
         return this.id;
-    };
+    }
 
     @Override
     public String toString() {
         return "StpRepresentationItem{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

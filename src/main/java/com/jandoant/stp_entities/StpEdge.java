@@ -18,7 +18,6 @@ public class StpEdge extends StpTopologicalRepresentationItem {
         this.edgeStart = edgeStart;
         this.edgeEnd = edgeEnd;
     }
-
     //Methoden
 
 }
