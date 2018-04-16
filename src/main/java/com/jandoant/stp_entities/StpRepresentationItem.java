@@ -7,12 +7,16 @@ package com.jandoant.stp_entities;
 public abstract class StpRepresentationItem {
 
     //Attribute
-    public String name;
+    protected String name;
     protected int id;
 
     //Methoden
     public int getId(){
         return this.id;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Override

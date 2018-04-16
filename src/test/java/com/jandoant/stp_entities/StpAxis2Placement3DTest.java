@@ -121,7 +121,7 @@ class StpAxis2Placement3DTest {
         //expectations
         StpCartesianPoint expectedLocation = possibleLocations.get(2);
         //assert
-        assertTrue(placement.location.equals(expectedLocation));
+        assertTrue(placement.getLocation().equals(expectedLocation));
     }
 
     @Test
@@ -133,7 +133,7 @@ class StpAxis2Placement3DTest {
         //expectations
         StpDirection expectedAxis = possibleDirections.get(0);
         //assert
-        assertTrue(placement.axis.equals(expectedAxis));
+        assertTrue(placement.getAxis().equals(expectedAxis));
     }
 
     @Test
@@ -145,7 +145,7 @@ class StpAxis2Placement3DTest {
         //expectation
         StpDirection expectedRefDirection = possibleDirections.get(1);
         //assert
-        assertTrue(placement.refDirection.equals(expectedRefDirection));
+        assertTrue(placement.getRefDirection().equals(expectedRefDirection));
     }
 
     @AfterEach

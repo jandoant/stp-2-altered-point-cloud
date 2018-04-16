@@ -1,9 +1,6 @@
 package com.jandoant.helper;
 
-import com.jandoant.stp_entities.StpAxis2Placement3D;
-import com.jandoant.stp_entities.StpCartesianPoint;
-import com.jandoant.stp_entities.StpDirection;
-import com.jandoant.stp_entities.StpRepresentationItem;
+import com.jandoant.stp_entities.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -150,7 +147,29 @@ class StpEntityBuilderTest {
 
         //assert
         assertTrue(actual.equals(expected));
+    }
 
+    @Test
+    @DisplayName("Should instantiate a StpVector if correct Descripton is given")
+    void testCorrectVector(){
+
+        //SetUp
+        String testDescription = "#22=VECTOR('',#66,10.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpVector expected = new StpVector(
+                22,
+                "",
+                66,
+                10.0);
+
+        //Act
+        StpVector actual = (StpVector) builder.extractStpEntity();
+        System.out.println(actual.toString());
+
+        //Assert
+        assertTrue(actual.equals(expected));
     }
 
 }

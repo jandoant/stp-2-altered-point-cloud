@@ -56,11 +56,23 @@ public class StpEntityBuilder {
             case EntityTypesContract.AXIS2_PLACEMENT_3D :
                 result = makeAxis2Placement3D();
                 break;
+            case EntityTypesContract.VECTOR :
+                result = makeVector();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpRepresentationItem makeVector() {
+
+        int directionId = Integer.parseInt(this.argumentsList[1]);
+        double magnitude = Double.parseDouble(this.argumentsList[2]);
+
+        return new StpVector(this.id, this.name, directionId, magnitude);
+
     }
 
     private StpRepresentationItem makeAxis2Placement3D() {

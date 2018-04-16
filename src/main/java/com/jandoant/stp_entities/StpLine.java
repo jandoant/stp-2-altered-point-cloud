@@ -8,27 +8,39 @@ package com.jandoant.stp_entities;
  */
 public class StpLine extends StpCurve {
 
+    //int id;
+    //String name;
+
     //Attribute
+
+    int startingPointId;
+    int directionVectorId;
+
     StpCartesianPoint startingPoint;
-    StpVector direction;
+    StpVector directionVector;
 
-    /**
-     * Constructs and initializes a Line from a startingPoint.
-     * The direction and length of the Line is desctibed through a Vector
-     *
-     * @param id - ID of the Curve
-     * @param name - Name of the Curve
-     * @param startingPoint - Starting Point of the Curve
-     * @param direction - Direction and length of the Line, represented by a StpVector
-     */
-
-    public StpLine(int id, String name, StpCartesianPoint startingPoint, StpVector direction) {
+    //Konstruktor
+    public StpLine(int id, String name, int startingPointId, int directionVectorId) {
         this.id = id;
         this.name = name;
-        this.startingPoint = startingPoint;
-        this.direction = direction;
+        this.startingPointId = startingPointId;
+        this.directionVectorId = directionVectorId;
     }
 
     //Methoden
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        StpLine stpLine = (StpLine) o;
+
+        if (id != stpLine.id) return false;
+        if (startingPointId != stpLine.startingPointId) return false;
+        if (directionVectorId != stpLine.directionVectorId) return false;
+        if (!name.equals(stpLine.name)) return false;
+        if (startingPoint != null ? !startingPoint.equals(stpLine.startingPoint) : stpLine.startingPoint != null)
+            return false;
+        return directionVector != null ? directionVector.equals(stpLine.directionVector) : stpLine.directionVector == null;
+    }
 }

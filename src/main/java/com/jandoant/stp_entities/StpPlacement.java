@@ -7,11 +7,11 @@ package com.jandoant.stp_entities;
 public abstract class StpPlacement extends StpGeometricRepresentationItem {
 
     //Attribute
-    StpCartesianPoint location;
-
-
-    //Konstruktor
+    protected int locationId;
+    protected StpCartesianPoint location;
 
     //Methoden
-
+    public StpCartesianPoint getLocation() {
+        return this.location;
+    }
 }

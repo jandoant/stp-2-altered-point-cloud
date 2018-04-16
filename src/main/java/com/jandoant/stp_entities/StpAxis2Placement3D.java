@@ -9,15 +9,17 @@ import java.util.ArrayList;
 public class StpAxis2Placement3D extends StpPlacement {
 
     //Attribute
-    int locationId, axisId, refDirectionId;
+    private int axisId, refDirectionId;
 
-    StpDirection axis;
-    StpDirection refDirection;
+    private StpDirection axis;
+    private StpDirection refDirection;
 
     //Konstruktor
     public StpAxis2Placement3D(int id, String name, int locationId, int axisId, int refDirectionId) {
+
         this.id = id;
         this.name = name;
+
         this.locationId = locationId;
         this.axisId = axisId;
         this.refDirectionId = refDirectionId;
@@ -64,5 +66,11 @@ public class StpAxis2Placement3D extends StpPlacement {
         return refDirection != null ? refDirection.equals(that.refDirection) : that.refDirection == null;
     }
 
+    public StpDirection getAxis() {
+        return axis;
+    }
 
+    public StpDirection getRefDirection() {
+        return refDirection;
+    }
 }
