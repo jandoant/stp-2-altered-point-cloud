@@ -166,7 +166,28 @@ class StpEntityBuilderTest {
 
         //Act
         StpVector actual = (StpVector) builder.extractStpEntity();
-        System.out.println(actual.toString());
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate a StpLine if correct Descripton is given")
+    void testCorrectLine(){
+
+        //SetUp
+        String testDescription = "#18=LINE('',#76,#22);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpLine expected = new StpLine(
+                18,
+                "",
+                76,
+                22);
+
+        //Act
+        StpLine actual = (StpLine) builder.extractStpEntity();
 
         //Assert
         assertTrue(actual.equals(expected));

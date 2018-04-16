@@ -59,11 +59,22 @@ public class StpEntityBuilder {
             case EntityTypesContract.VECTOR :
                 result = makeVector();
                 break;
+            case EntityTypesContract.LINE :
+                result = makeLine();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpRepresentationItem makeLine() {
+
+        int startingPointId = Integer.parseInt(this.argumentsList[1]);
+        int directionVectorId = Integer.parseInt(this.argumentsList[2]);
+
+        return new StpLine(this.id, this.name, startingPointId, directionVectorId);
     }
 
     private StpRepresentationItem makeVector() {

@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * A line is an unbounded curve with constant tangent direction. A line is defined by a point and a direction.
  * The positive direction of the line is in the direction of the direction vector.
@@ -12,12 +14,11 @@ public class StpLine extends StpCurve {
     //String name;
 
     //Attribute
+    private int startingPointId;
+    private int directionVectorId;
 
-    int startingPointId;
-    int directionVectorId;
-
-    StpCartesianPoint startingPoint;
-    StpVector directionVector;
+    private StpCartesianPoint startingPoint;
+    private StpVector directionVector;
 
     //Konstruktor
     public StpLine(int id, String name, int startingPointId, int directionVectorId) {
@@ -27,7 +28,40 @@ public class StpLine extends StpCurve {
         this.directionVectorId = directionVectorId;
     }
 
+    public void convertFromIds(ArrayList<StpCartesianPoint> possibleStartingPoints, ArrayList<StpVector> possibleDirectionVectors) {
+
+        for (StpCartesianPoint pt:possibleStartingPoints) {
+            if(pt.getId() == this.startingPointId){
+                this.startingPoint = pt;
+            }
+        }
+
+        for (StpVector dir:possibleDirectionVectors) {
+
+            if(dir.getId() == this.directionVectorId){
+                this.directionVector = dir;
+            }
+        }
+
+    }
+
     //Methoden
+    public void setStartingPoint(StpCartesianPoint startingPoint) {
+        this.startingPoint = startingPoint;
+    }
+
+    public void setDirectionVector(StpVector directionVector) {
+        this.directionVector = directionVector;
+    }
+
+    public StpCartesianPoint getStartingPoint() {
+        return startingPoint;
+    }
+
+    public StpVector getDirectionVector() {
+        return directionVector;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
