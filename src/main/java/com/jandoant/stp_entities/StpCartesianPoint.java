@@ -1,29 +1,25 @@
 package com.jandoant.stp_entities;
 
-import java.util.Objects;
-
 /**
  * A startingPoint defined by its coordinates in a three dimensional rectangular Cartesian coordinate system,
  * or in a two dimensional parameter space.
  * The entity is defined in a three dimensional space.
- *
+ * <p>
  * Created by Jan Doant on 11.04.2018
  */
 public class StpCartesianPoint extends StpPoint {
 
-
     //int id;
     //String name;
 
-    private double x,y,z;
+    private double x, y, z;
 
     /**
-     *
-     * @param id - ID of the Entity
+     * @param id   - ID of the Entity
      * @param name - Name of the Entity
-     * @param x - x-Coordinate
-     * @param y - y-Coordinate
-     * @param z - z-Coordinate
+     * @param x    - x-Coordinate
+     * @param y    - y-Coordinate
+     * @param z    - z-Coordinate
      */
     public StpCartesianPoint(int id, String name, double x, double y, double z) {
         this.id = id;

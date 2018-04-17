@@ -43,8 +43,8 @@ public class StpVector extends StpGeometricRepresentationItem {
     //Methoden
     public void convertFromIds(ArrayList<StpDirection> possibleDirections) {
 
-        for (StpDirection dir:possibleDirections) {
-            if(dir.getId() == this.directionId){
+        for (StpDirection dir : possibleDirections) {
+            if (dir.getId() == this.directionId) {
                 this.direction = dir;
             }
         }

@@ -8,9 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpLineTest {
+
+    ArrayList<StpCartesianPoint> possibleStartingPoints;
+    ArrayList<StpVector> possibleDirectionVectors;
+    StpLine line;
 
     @Test
     @DisplayName("should return true if the two compared instances have the same values")
@@ -124,6 +129,7 @@ class StpLineTest {
         assertFalse(line1.equals(line2));
         assertFalse(line2.equals(line1));
     }
+
     @Test
     @DisplayName("should return false if the two compared instances have different directionVectorId-values")
     void testEqualsNotDirectionVectorId() {
@@ -135,10 +141,6 @@ class StpLineTest {
         assertFalse(line2.equals(line1));
     }
 
-    ArrayList<StpCartesianPoint> possibleStartingPoints;
-    ArrayList<StpVector> possibleDirectionVectors;
-    StpLine line;
-
     @BeforeEach
     void setUp() {
 
@@ -147,7 +149,7 @@ class StpLineTest {
         possibleDirectionVectors = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpCartesianPoint [] points = {
+        StpCartesianPoint[] points = {
                 new StpCartesianPoint(71, "", 0.0, 0.0, 0.0),
                 new StpCartesianPoint(73, "", 0.0, 20.0, 0.0),
                 new StpCartesianPoint(75, "", 0.0, 20.0, 30.0),
@@ -156,7 +158,7 @@ class StpLineTest {
         possibleStartingPoints.addAll(Arrays.asList(points));
 
         //Put all available Directions in List
-        StpVector [] vectors = {
+        StpVector[] vectors = {
                 new StpVector(19, "", 63, 10.0),
                 new StpVector(20, "", 64, 10.0),
                 new StpVector(21, "", 65, 10.0),
@@ -168,10 +170,9 @@ class StpLineTest {
         line = new StpLine(18, "", 76, 22);
     }
 
-
     @Test
     @DisplayName("should write correct StartingPoint from given Lists")
-    void testConvertFromIdsStartingPoint(){
+    void testConvertFromIdsStartingPoint() {
 
         //act -- fill the fields
         line.convertFromIds(possibleStartingPoints, possibleDirectionVectors);
@@ -183,7 +184,7 @@ class StpLineTest {
 
     @Test
     @DisplayName("should write correct DirectionVector from given Lists")
-    void testConvertFromIdsDirectionVector(){
+    void testConvertFromIdsDirectionVector() {
 
         //act -- fill the fields
         line.convertFromIds(possibleStartingPoints, possibleDirectionVectors);
@@ -199,7 +200,5 @@ class StpLineTest {
         possibleDirectionVectors = null;
         line = null;
     }
-
-
 
 }

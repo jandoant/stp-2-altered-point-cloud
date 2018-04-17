@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpAxis2Placement3DTest {
 
+    ArrayList<StpCartesianPoint> possibleLocations;
+    ArrayList<StpDirection> possibleDirections;
+    StpAxis2Placement3D placement;
+
     @Test
     @DisplayName("should return true if the two compared instances have the same values")
     void testEquals() {
@@ -79,10 +83,6 @@ class StpAxis2Placement3DTest {
         assertFalse(plmt2.equals(plmt1));
     }
 
-    ArrayList<StpCartesianPoint> possibleLocations;
-    ArrayList<StpDirection> possibleDirections;
-    StpAxis2Placement3D placement;
-
     @BeforeEach
     void setUp() {
 
@@ -91,7 +91,7 @@ class StpAxis2Placement3DTest {
         possibleDirections = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpCartesianPoint [] points = {
+        StpCartesianPoint[] points = {
                 new StpCartesianPoint(76, "", 0.0, 0.0, 30.0),
                 new StpCartesianPoint(75, "", 0.0, 20.0, 30.0),
                 new StpCartesianPoint(68, "Origin", 0.0, 10.0, 15.0)};
@@ -99,7 +99,7 @@ class StpAxis2Placement3DTest {
         possibleLocations.addAll(Arrays.asList(points));
 
         //Put all available Directions in List
-        StpDirection [] directions = {
+        StpDirection[] directions = {
                 new StpDirection(61, "center_axis", 1.0, 0.0, 0.0),
                 new StpDirection(62, "ref_axis", 0.0, 0.0, 1.0),
                 new StpDirection(63, "", 0.0, 1.0, 0.0),
@@ -111,10 +111,9 @@ class StpAxis2Placement3DTest {
         placement = new StpAxis2Placement3D(58, "", 68, 61, 62);
     }
 
-
     @Test
     @DisplayName("should write correct Location from given Lists")
-    void testConvertFromIdsLocation(){
+    void testConvertFromIdsLocation() {
 
         //act -- fill the fields
         placement.convertFromIds(possibleLocations, possibleDirections);
@@ -126,7 +125,7 @@ class StpAxis2Placement3DTest {
 
     @Test
     @DisplayName("should write correct Axis from given Lists")
-    void testConvertFromIdsAxis(){
+    void testConvertFromIdsAxis() {
 
         //act -- fill the fields
         placement.convertFromIds(possibleLocations, possibleDirections);
@@ -138,7 +137,7 @@ class StpAxis2Placement3DTest {
 
     @Test
     @DisplayName("should write correct RefDirection from given Lists")
-    void testConvertFromIdsRefDirection(){
+    void testConvertFromIdsRefDirection() {
 
         //act -- fill the fields
         placement.convertFromIds(possibleLocations, possibleDirections);
@@ -154,6 +153,5 @@ class StpAxis2Placement3DTest {
         possibleDirections = null;
         placement = null;
     }
-
 
 }

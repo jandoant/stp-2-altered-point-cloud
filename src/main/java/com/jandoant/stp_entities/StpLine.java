@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * A line is an unbounded curve with constant tangent direction. A line is defined by a point and a direction.
  * The positive direction of the line is in the direction of the direction vector.
- *
+ * <p>
  * Created by Jan Doant on 11.04.2018
  */
 public class StpLine extends StpCurve {
@@ -30,19 +30,23 @@ public class StpLine extends StpCurve {
 
     public void convertFromIds(ArrayList<StpCartesianPoint> possibleStartingPoints, ArrayList<StpVector> possibleDirectionVectors) {
 
-        for (StpCartesianPoint pt:possibleStartingPoints) {
-            if(pt.getId() == this.startingPointId){
+        for (StpCartesianPoint pt : possibleStartingPoints) {
+            if (pt.getId() == this.startingPointId) {
                 this.startingPoint = pt;
             }
         }
 
-        for (StpVector dir:possibleDirectionVectors) {
+        for (StpVector dir : possibleDirectionVectors) {
 
-            if(dir.getId() == this.directionVectorId){
+            if (dir.getId() == this.directionVectorId) {
                 this.directionVector = dir;
             }
         }
 
+    }
+
+    public StpCartesianPoint getStartingPoint() {
+        return startingPoint;
     }
 
     //Methoden
@@ -50,16 +54,12 @@ public class StpLine extends StpCurve {
         this.startingPoint = startingPoint;
     }
 
-    public void setDirectionVector(StpVector directionVector) {
-        this.directionVector = directionVector;
-    }
-
-    public StpCartesianPoint getStartingPoint() {
-        return startingPoint;
-    }
-
     public StpVector getDirectionVector() {
         return directionVector;
+    }
+
+    public void setDirectionVector(StpVector directionVector) {
+        this.directionVector = directionVector;
     }
 
     @Override

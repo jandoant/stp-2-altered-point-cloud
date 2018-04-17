@@ -11,7 +11,7 @@ public abstract class StpRepresentationItem {
     protected int id;
 
     //Methoden
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 

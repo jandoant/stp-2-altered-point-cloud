@@ -7,13 +7,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpEntityBuilderTest {
 
     @ParameterizedTest
-    @ValueSource(ints = { 1, 2, 3 })
+    @ValueSource(ints = {1, 2, 3})
     void testWithValueSource(int argument) {
         assertTrue(argument > 0 && argument < 4);
     }
@@ -35,7 +34,7 @@ class StpEntityBuilderTest {
             "#14=EDGE_LOOP('',(#31,#32,#33,#34));",
             "#13=FACE_OUTER_BOUND('',#14,.T.);"
     })
-    void testDescribesEntityTrue(String argument){
+    void testDescribesEntityTrue(String argument) {
         //act
         StpEntityBuilder builder = new StpEntityBuilder(argument);
         //assert
@@ -55,7 +54,7 @@ class StpEntityBuilderTest {
             "ENDSEC;",
             "DATA;"
     })
-    void testDescribesEntityFalse(String testDescription){
+    void testDescribesEntityFalse(String testDescription) {
         //act
         StpEntityBuilder builder = new StpEntityBuilder(testDescription);
         //assert
@@ -64,7 +63,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate a StpCartesianPoint if correct Descripton is given")
-    void testCorrectCartesianPoint(){
+    void testCorrectCartesianPoint() {
         //SetUp
         String testDescription = "#76=CARTESIAN_POINT('CARTPoint1',(0.,0.,30.));";
         StpEntityBuilder builder = new StpEntityBuilder(testDescription);
@@ -83,7 +82,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate another StpCartesianPoint if correct Descripton is given")
-    void testAnotherCorrectCartesianPoint(){
+    void testAnotherCorrectCartesianPoint() {
 
         //SetUp
         String testDescription = "#67=CARTESIAN_POINT('',(0.3,0.,15.));";
@@ -106,7 +105,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate a StpDirection if correct Descripton is given")
-    void testCorrectDirection(){
+    void testCorrectDirection() {
 
         //SetUp
         String testDescription = "#66=DIRECTION('',(0.,0.,-1.));";
@@ -129,7 +128,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("should instantiate Axis2Placement3D if correct description is given")
-    void correctAxis2Placement3D(){
+    void correctAxis2Placement3D() {
 
         //SetUp
         String testDescription = "#58=AXIS2_PLACEMENT_3D('',#68,#61,#62);";
@@ -151,7 +150,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate a StpVector if correct Descripton is given")
-    void testCorrectVector(){
+    void testCorrectVector() {
 
         //SetUp
         String testDescription = "#22=VECTOR('',#66,10.);";
@@ -173,7 +172,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate a StpLine if correct Descripton is given")
-    void testCorrectLine(){
+    void testCorrectLine() {
 
         //SetUp
         String testDescription = "#18=LINE('',#76,#22);";

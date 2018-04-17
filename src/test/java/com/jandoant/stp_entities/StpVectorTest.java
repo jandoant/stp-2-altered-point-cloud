@@ -6,11 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpVectorTest {
+
+    ArrayList<StpDirection> possibleDirections;
+    StpVector vector;
 
     @Test
     @DisplayName("should return true if the two compared instances have the same values")
@@ -100,9 +103,6 @@ class StpVectorTest {
         assertFalse(vector2.equals(vector1));
     }
 
-    ArrayList<StpDirection> possibleDirections;
-    StpVector vector;
-
     @BeforeEach
     void setUp() {
 
@@ -110,7 +110,7 @@ class StpVectorTest {
         possibleDirections = new ArrayList<>();
 
         //Put all available Directions in List
-        StpDirection [] directions = {
+        StpDirection[] directions = {
                 new StpDirection(61, "center_axis", 1.0, 0.0, 0.0),
                 new StpDirection(62, "ref_axis", 0.0, 0.0, 1.0),
                 new StpDirection(63, "", 0.0, 1.0, 0.0),
@@ -123,7 +123,7 @@ class StpVectorTest {
 
     @Test
     @DisplayName("should write correct Direction from given List")
-    void testConvertFromIdsLocation(){
+    void testConvertFromIdsLocation() {
         //act
         vector.convertFromIds(possibleDirections);
         //expectations
@@ -131,10 +131,5 @@ class StpVectorTest {
         //assert
         assertTrue(vector.getDirection().equals(expectedDirection));
     }
-
-
-
-
-
 
 }

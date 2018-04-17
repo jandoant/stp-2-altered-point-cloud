@@ -10,7 +10,6 @@ public class StpEdgeCurve extends StpEdge {
     StpCurve edgeGeometry;
     boolean sameSense;
 
-
     //Konstruktor
 
     public StpEdgeCurve(int id, String name, StpVertex edgeStart, StpVertex edgeEnd, StpCurve edgeGeometry, boolean sameSense) {

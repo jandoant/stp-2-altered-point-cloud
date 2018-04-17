@@ -28,19 +28,19 @@ public class StpAxis2Placement3D extends StpPlacement {
     //Methoden
     public void convertFromIds(ArrayList<StpCartesianPoint> possibleLocations, ArrayList<StpDirection> possibleDirections) {
 
-        for (StpCartesianPoint pt:possibleLocations) {
-            if(pt.getId() == this.locationId){
+        for (StpCartesianPoint pt : possibleLocations) {
+            if (pt.getId() == this.locationId) {
                 this.location = pt;
             }
         }
 
-        for (StpDirection dir:possibleDirections) {
+        for (StpDirection dir : possibleDirections) {
 
-            if(dir.getId() == this.axisId){
+            if (dir.getId() == this.axisId) {
                 this.axis = dir;
             }
 
-            if(dir.getId() == this.refDirectionId){
+            if (dir.getId() == this.refDirectionId) {
                 this.refDirection = dir;
             }
         }

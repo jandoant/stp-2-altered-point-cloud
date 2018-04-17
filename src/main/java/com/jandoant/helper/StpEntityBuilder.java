@@ -16,9 +16,8 @@ public class StpEntityBuilder {
 
     int id;
     String type;
-    String [] argumentsList;
+    String[] argumentsList;
     String name;
-
 
     //Konstruktor
     public StpEntityBuilder(String description) {
@@ -46,20 +45,20 @@ public class StpEntityBuilder {
 
         StpRepresentationItem result;
 
-        switch(this.type){
-            case EntityTypesContract.CARTESIAN_POINT :
+        switch (this.type) {
+            case EntityTypesContract.CARTESIAN_POINT:
                 result = makeCartesianPoint();
                 break;
-            case EntityTypesContract.DIRECTION :
+            case EntityTypesContract.DIRECTION:
                 result = makeDirection();
                 break;
-            case EntityTypesContract.AXIS2_PLACEMENT_3D :
+            case EntityTypesContract.AXIS2_PLACEMENT_3D:
                 result = makeAxis2Placement3D();
                 break;
-            case EntityTypesContract.VECTOR :
+            case EntityTypesContract.VECTOR:
                 result = makeVector();
                 break;
-            case EntityTypesContract.LINE :
+            case EntityTypesContract.LINE:
                 result = makeLine();
                 break;
             default:
@@ -120,18 +119,18 @@ public class StpEntityBuilder {
         this.argumentsList = argumentsString.split("[\\,\\(\\)\\;]+");
 
         // change certain things about the arguments
-        for (int i = 0; i < this.argumentsList.length ; i++) {
+        for (int i = 0; i < this.argumentsList.length; i++) {
 
-            if(this.argumentsList[i] == ".T."){
+            if (this.argumentsList[i] == ".T.") {
                 this.argumentsList[i] = "true";
             }
 
-            if(this.argumentsList[i] == ".F."){
+            if (this.argumentsList[i] == ".F.") {
                 this.argumentsList[i] = "false";
             }
 
             //if argument ends with '.', add a 0
-            if(this.argumentsList[i].charAt(this.argumentsList[i].length()-1)=='.'){
+            if (this.argumentsList[i].charAt(this.argumentsList[i].length() - 1) == '.') {
                 this.argumentsList[i] += '0';
             }
 
@@ -150,14 +149,14 @@ public class StpEntityBuilder {
     }
 
     private void parseDescription() {
-        this.partsOfDescription = this.description.split("[\\=\\(\\)\\;]+",3);
+        this.partsOfDescription = this.description.split("[\\=\\(\\)\\;]+", 3);
     }
 
-    public boolean describesEntity(){
+    public boolean describesEntity() {
 
         boolean describesEntity = true;
 
-        if(this.description.charAt(0)!='#'){
+        if (this.description.charAt(0) != '#') {
             return false;
         }
 
