@@ -65,13 +65,12 @@ public class StpLine extends StpCurve {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpLine stpLine = (StpLine) o;
 
-        if (id != stpLine.id) return false;
         if (startingPointId != stpLine.startingPointId) return false;
         if (directionVectorId != stpLine.directionVectorId) return false;
-        if (!name.equals(stpLine.name)) return false;
         if (startingPoint != null ? !startingPoint.equals(stpLine.startingPoint) : stpLine.startingPoint != null)
             return false;
         return directionVector != null ? directionVector.equals(stpLine.directionVector) : stpLine.directionVector == null;

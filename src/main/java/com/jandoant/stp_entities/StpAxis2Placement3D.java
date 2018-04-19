@@ -48,18 +48,13 @@ public class StpAxis2Placement3D extends StpPlacement {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpAxis2Placement3D that = (StpAxis2Placement3D) o;
 
-        if (this.id != that.id) return false;
-        if (!name.equals(that.name)) return false;
-
-        if (this.locationId != that.locationId) return false;
-        if (this.axisId != that.axisId) return false;
-        if (this.refDirectionId != that.refDirectionId) return false;
-
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
+        if (axisId != that.axisId) return false;
+        if (refDirectionId != that.refDirectionId) return false;
         if (axis != null ? !axis.equals(that.axis) : that.axis != null) return false;
         return refDirection != null ? refDirection.equals(that.refDirection) : that.refDirection == null;
     }

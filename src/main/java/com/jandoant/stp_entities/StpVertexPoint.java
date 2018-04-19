@@ -32,17 +32,15 @@ public class StpVertexPoint extends StpVertex {
         }
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpVertexPoint that = (StpVertexPoint) o;
 
-        if (id != that.id) return false;
         if (vertexGeometryId != that.vertexGeometryId) return false;
-        if (!name.equals(that.name)) return false;
         return vertexGeometry != null ? vertexGeometry.equals(that.vertexGeometry) : that.vertexGeometry == null;
     }
 

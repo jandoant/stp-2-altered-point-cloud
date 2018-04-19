@@ -37,15 +37,6 @@ public class StpEdgeCurve extends StpEdge {
         return edgeGeometry != null ? edgeGeometry.equals(that.edgeGeometry) : that.edgeGeometry == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + edgeGeometryId;
-        result = 31 * result + (edgeGeometry != null ? edgeGeometry.hashCode() : 0);
-        result = 31 * result + (sameSense ? 1 : 0);
-        return result;
-    }
-
     //Methoden
     @Override
     public String toString() {

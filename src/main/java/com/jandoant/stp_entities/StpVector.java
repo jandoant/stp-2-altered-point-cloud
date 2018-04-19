@@ -25,21 +25,20 @@ public class StpVector extends StpGeometricRepresentationItem {
     }
 
     //Methoden
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpVector stpVector = (StpVector) o;
 
-        if (id != stpVector.id) return false;
         if (directionId != stpVector.directionId) return false;
         if (Double.compare(stpVector.magnitude, magnitude) != 0) return false;
-        if (!name.equals(stpVector.name)) return false;
         return direction != null ? direction.equals(stpVector.direction) : stpVector.direction == null;
     }
 
-    //Methoden
     public void convertFromIds(ArrayList<StpDirection> possibleDirections) {
 
         for (StpDirection dir : possibleDirections) {

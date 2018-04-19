@@ -34,13 +34,12 @@ public class StpCartesianPoint extends StpPoint {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpCartesianPoint that = (StpCartesianPoint) o;
 
-        if (id != that.id) return false;
         if (Double.compare(that.x, x) != 0) return false;
         if (Double.compare(that.y, y) != 0) return false;
-        if (Double.compare(that.z, z) != 0) return false;
-        return name.equals(that.name);
+        return Double.compare(that.z, z) == 0;
     }
 }

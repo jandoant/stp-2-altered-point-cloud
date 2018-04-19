@@ -24,14 +24,13 @@ public class StpDirection extends StpGeometricRepresentationItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         StpDirection that = (StpDirection) o;
 
-        if (id != that.id) return false;
         if (Double.compare(that.xDirection, xDirection) != 0) return false;
         if (Double.compare(that.yDirection, yDirection) != 0) return false;
-        if (Double.compare(that.zDirection, zDirection) != 0) return false;
-        return name.equals(that.name);
+        return Double.compare(that.zDirection, zDirection) == 0;
     }
 
     @Override
