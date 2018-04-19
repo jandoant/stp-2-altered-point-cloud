@@ -15,9 +15,9 @@ public class StpEntityBuilder {
     String[] partsOfDescription;
 
     int id;
+    String name;
     String type;
     String[] argumentsList;
-    String name;
 
     //Konstruktor
     public StpEntityBuilder(String description) {
@@ -61,11 +61,37 @@ public class StpEntityBuilder {
             case EntityTypesContract.LINE:
                 result = makeLine();
                 break;
+            case EntityTypesContract.VERTEX_POINT:
+                result = makeVertexPoint();
+                break;
+            case EntityTypesContract.EDGE_CURVE:
+                result = makeEdgeCurve();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpEdgeCurve makeEdgeCurve() {
+
+
+
+        int edgeStartVertexId = Integer.parseInt(argumentsList[1]);
+        int edgeEndVertexId = Integer.parseInt(argumentsList[2]);
+        int edgeGeometryId = Integer.parseInt(argumentsList[3]);
+        boolean sameSense = Boolean.parseBoolean(argumentsList[4]);
+
+        return new StpEdgeCurve(this.id, this.name, edgeStartVertexId, edgeEndVertexId, edgeGeometryId, sameSense);
+
+    }
+
+    private StpRepresentationItem makeVertexPoint() {
+
+        int vertexGeometryId = Integer.parseInt(argumentsList[1]);
+
+        return new StpVertexPoint(this.id, this.name, vertexGeometryId);
     }
 
     private StpRepresentationItem makeLine() {
@@ -121,11 +147,11 @@ public class StpEntityBuilder {
         // change certain things about the arguments
         for (int i = 0; i < this.argumentsList.length; i++) {
 
-            if (this.argumentsList[i] == ".T.") {
+            if (this.argumentsList[i].equals(".T.")) {
                 this.argumentsList[i] = "true";
             }
 
-            if (this.argumentsList[i] == ".F.") {
+            if (this.argumentsList[i].equals(".F.")) {
                 this.argumentsList[i] = "false";
             }
 

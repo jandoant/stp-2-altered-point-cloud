@@ -4,20 +4,53 @@ package com.jandoant.stp_entities;
  * Klasse StpEdge
  * Created by Jan Doant on 11.04.2018
  */
-public class StpEdge extends StpTopologicalRepresentationItem {
+public abstract class StpEdge extends StpTopologicalRepresentationItem {
 
     //Attribute
-    StpVertex edgeStart;
-    StpVertex edgeEnd;
 
-    //Konstruktor
+    int edgeStartVertexId;
+    int edgeEndVertexId;
 
-    public StpEdge(int id, String name, StpVertex edgeStart, StpVertex edgeEnd) {
-        this.id = id;
-        this.name = name;
-        this.edgeStart = edgeStart;
-        this.edgeEnd = edgeEnd;
+    StpVertex edgeStartVertex;
+    StpVertex edgeEndVertex;
+
+    public StpEdge(int id, String name, int edgeStartVertexId, int edgeEndVertexId) {
+        super(id, name);
+        this.edgeStartVertexId = edgeStartVertexId;
+        this.edgeEndVertexId = edgeEndVertexId;
     }
-    //Methoden
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        StpEdge stpEdge = (StpEdge) o;
+
+        if (edgeStartVertexId != stpEdge.edgeStartVertexId) return false;
+        if (edgeEndVertexId != stpEdge.edgeEndVertexId) return false;
+        if (edgeStartVertex != null ? !edgeStartVertex.equals(stpEdge.edgeStartVertex) : stpEdge.edgeStartVertex != null)
+            return false;
+        return edgeEndVertex != null ? edgeEndVertex.equals(stpEdge.edgeEndVertex) : stpEdge.edgeEndVertex == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = edgeStartVertexId;
+        result = 31 * result + edgeEndVertexId;
+        result = 31 * result + (edgeStartVertex != null ? edgeStartVertex.hashCode() : 0);
+        result = 31 * result + (edgeEndVertex != null ? edgeEndVertex.hashCode() : 0);
+        return result;
+    }
+
+    //Methoden
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", edgeStartVertexId=" + edgeStartVertexId +
+                ", edgeStartVertex=" + edgeStartVertex +
+                ", edgeEndVertexId=" + edgeEndVertexId +
+                ", edgeEndVertex=" + edgeEndVertex;
+    }
 }

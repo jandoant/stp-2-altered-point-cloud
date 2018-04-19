@@ -11,4 +11,6 @@ public class EntityTypesContract {
     public static final String VECTOR = "VECTOR";
     public static final String AXIS2_PLACEMENT_3D = "AXIS2_PLACEMENT_3D";
     public static final String LINE = "LINE";
+    public static final String VERTEX_POINT = "VERTEX_POINT";
+    public static final String EDGE_CURVE = "EDGE_CURVE";
 }

@@ -17,10 +17,8 @@ public class StpAxis2Placement3D extends StpPlacement {
     //Konstruktor
     public StpAxis2Placement3D(int id, String name, int locationId, int axisId, int refDirectionId) {
 
-        this.id = id;
-        this.name = name;
+        super(id, name, locationId);
 
-        this.locationId = locationId;
         this.axisId = axisId;
         this.refDirectionId = refDirectionId;
     }

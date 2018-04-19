@@ -18,8 +18,7 @@ public class StpVertexPoint extends StpVertex {
 
     //Konstruktor
     public StpVertexPoint(int id, String name, int vertexGeometryId) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.vertexGeometryId = vertexGeometryId;
     }
 

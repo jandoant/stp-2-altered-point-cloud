@@ -19,8 +19,7 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     //Konstruktor
     public StpVector(int id, String name, int directionId, double magnitude) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.directionId = directionId;
         this.magnitude = magnitude;
     }

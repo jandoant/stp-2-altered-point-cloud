@@ -11,6 +11,12 @@ public abstract class StpRepresentationItem {
     protected int id;
 
     //Methoden
+
+    public StpRepresentationItem(int id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
     public int getId() {
         return this.id;
     }
@@ -21,9 +27,19 @@ public abstract class StpRepresentationItem {
 
     @Override
     public String toString() {
-        return "StpRepresentationItem{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return this.getClass().getSimpleName() + "{" +
+                "id=" + this.id +
+                ", name='" + this.name + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StpRepresentationItem that = (StpRepresentationItem) o;
+
+        if (id != that.id) return false;
+        return name.equals(that.name);
     }
 }

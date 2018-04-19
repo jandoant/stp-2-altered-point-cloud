@@ -14,9 +14,7 @@ public class StpDirection extends StpGeometricRepresentationItem {
     double zDirection;
 
     public StpDirection(int id, String name, double xDirection, double yDirection, double zDirection) {
-        this.id = id;
-        this.name = name;
-
+        super(id, name);
         this.xDirection = xDirection;
         this.yDirection = yDirection;
         this.zDirection = zDirection;

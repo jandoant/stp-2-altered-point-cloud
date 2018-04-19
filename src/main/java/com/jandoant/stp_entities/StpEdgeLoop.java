@@ -11,8 +11,7 @@ public class StpEdgeLoop extends StpLoop {
 
     //Konstruktor
     public StpEdgeLoop(int id, String name, StpOrientedEdge[] edgeList) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.edgeList = edgeList;
     }
 

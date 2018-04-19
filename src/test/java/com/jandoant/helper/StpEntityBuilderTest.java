@@ -192,4 +192,52 @@ class StpEntityBuilderTest {
         assertTrue(actual.equals(expected));
     }
 
+    @Test
+    @DisplayName("Should instantiate a StpVertexPoint if correct Descripton is given")
+    void testCorrectVertexPoint() {
+
+        //SetUp
+        String testDescription = "#26=VERTEX_POINT('',#74);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpVertexPoint expected = new StpVertexPoint(
+                26,
+                "",
+                74);
+
+        //Act
+        StpVertexPoint actual = (StpVertexPoint) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate a StpEdgeCurve if correct Descripton is given")
+    void testCorrectEdgeCurve() {
+
+        //SetUp
+        String testDescription = "#27=EDGE_CURVE('',#23,#24,#15,.T.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpEdgeCurve expected = new StpEdgeCurve(
+                27,
+                "",
+                23,
+                24,
+                15,
+                true);
+
+        //Act
+        StpEdgeCurve actual = (StpEdgeCurve) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+
+    }
+
+
+
 }

@@ -22,8 +22,7 @@ public class StpLine extends StpCurve {
 
     //Konstruktor
     public StpLine(int id, String name, int startingPointId, int directionVectorId) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.startingPointId = startingPointId;
         this.directionVectorId = directionVectorId;
     }

@@ -11,5 +11,16 @@ public abstract class StpGeometricRepresentationItem extends StpRepresentationIt
 
     //Konstruktor
 
+    public StpGeometricRepresentationItem(int id, String name) {
+        super(id, name);
+    }
+
     //Methoden
+
+
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -9,7 +9,14 @@ public abstract class StpTopologicalRepresentationItem extends StpRepresentation
     //Attribute
 
     //Konstruktor
+    public StpTopologicalRepresentationItem(int id, String name) {
+        super(id, name);
+    }
 
     //Methoden
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

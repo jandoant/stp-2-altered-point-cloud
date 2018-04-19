@@ -7,10 +7,13 @@ package com.jandoant.stp_entities;
  */
 public abstract class StpCurve extends StpGeometricRepresentationItem {
 
+
     //Attribute
 
     //Konstruktor
-
+    public StpCurve(int id, String name) {
+        super(id, name);
+    }
     //Methoden
 
 }

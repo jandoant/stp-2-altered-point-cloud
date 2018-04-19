@@ -10,6 +10,11 @@ public abstract class StpPlacement extends StpGeometricRepresentationItem {
     protected int locationId;
     protected StpCartesianPoint location;
 
+    public StpPlacement(int id, String name, int locationId) {
+        super(id, name);
+        this.locationId = locationId;
+    }
+
     //Methoden
     public StpCartesianPoint getLocation() {
         return this.location;

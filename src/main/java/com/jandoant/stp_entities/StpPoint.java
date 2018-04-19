@@ -6,17 +6,18 @@ package com.jandoant.stp_entities;
  */
 public abstract class StpPoint extends StpGeometricRepresentationItem {
 
+
     //Attribute
 
     //Konstruktor
+    public StpPoint(int id, String name) {
+        super(id, name);
+    }
 
     //Methoden
 
     @Override
     public String toString() {
-        return "StpPoint{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                "} ";
+        return super.toString();
     }
 }

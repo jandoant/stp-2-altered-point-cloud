@@ -6,10 +6,13 @@ package com.jandoant.stp_entities;
  */
 public abstract class StpVertex extends StpTopologicalRepresentationItem {
 
+
     //Attribute
 
     //Konstruktor
-
+    public StpVertex(int id, String name) {
+        super(id, name);
+    }
     //Methoden
 
 }

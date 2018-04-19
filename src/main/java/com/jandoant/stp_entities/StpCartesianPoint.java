@@ -14,16 +14,8 @@ public class StpCartesianPoint extends StpPoint {
 
     private double x, y, z;
 
-    /**
-     * @param id   - ID of the Entity
-     * @param name - Name of the Entity
-     * @param x    - x-Coordinate
-     * @param y    - y-Coordinate
-     * @param z    - z-Coordinate
-     */
     public StpCartesianPoint(int id, String name, double x, double y, double z) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,13 +23,11 @@ public class StpCartesianPoint extends StpPoint {
 
     @Override
     public String toString() {
-        return "StpCartesianPoint{" +
-                "id=" + this.id +
-                ", name='" + this.name + '\'' +
-                ", x=" + this.x +
-                ", y=" + this.y +
-                ", z=" + this.z +
-                '}';
+        return super.toString() +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                "}";
     }
 
     @Override
