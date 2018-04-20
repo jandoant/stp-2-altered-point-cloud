@@ -13,4 +13,5 @@ public class EntityTypesContract {
     public static final String LINE = "LINE";
     public static final String VERTEX_POINT = "VERTEX_POINT";
     public static final String EDGE_CURVE = "EDGE_CURVE";
+    public static final String ORIENTED_EDGE = "ORIENTED_EDGE";
 }

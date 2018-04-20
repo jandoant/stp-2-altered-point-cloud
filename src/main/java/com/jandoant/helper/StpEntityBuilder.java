@@ -67,11 +67,38 @@ public class StpEntityBuilder {
             case EntityTypesContract.EDGE_CURVE:
                 result = makeEdgeCurve();
                 break;
+            case EntityTypesContract.ORIENTED_EDGE:
+                result = makeOrientedEdge();
+                break;    
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpOrientedEdge makeOrientedEdge() {
+
+        int edgeStartVertexId;
+        int edgeEndVertexId;
+
+        int edgeElementId = Integer.parseInt(this.argumentsList[3]);
+
+        if (this.argumentsList[1].equals("*")){
+            edgeStartVertexId = edgeElementId;
+        } else {
+            edgeStartVertexId = Integer.parseInt(this.argumentsList[1]);
+        }
+
+        if (this.argumentsList[2].equals("*")){
+            edgeEndVertexId = edgeElementId;
+        } else {
+            edgeEndVertexId = Integer.parseInt(this.argumentsList[2]);
+        }
+
+        boolean orientation = Boolean.parseBoolean(this.argumentsList[4]);
+
+        return new StpOrientedEdge(this.id, this.name, edgeStartVertexId, edgeEndVertexId, edgeElementId, orientation);
     }
 
     private StpEdgeCurve makeEdgeCurve() {
@@ -87,14 +114,14 @@ public class StpEntityBuilder {
 
     }
 
-    private StpRepresentationItem makeVertexPoint() {
+    private StpVertexPoint makeVertexPoint() {
 
         int vertexGeometryId = Integer.parseInt(argumentsList[1]);
 
         return new StpVertexPoint(this.id, this.name, vertexGeometryId);
     }
 
-    private StpRepresentationItem makeLine() {
+    private StpLine makeLine() {
 
         int startingPointId = Integer.parseInt(this.argumentsList[1]);
         int directionVectorId = Integer.parseInt(this.argumentsList[2]);
@@ -102,7 +129,7 @@ public class StpEntityBuilder {
         return new StpLine(this.id, this.name, startingPointId, directionVectorId);
     }
 
-    private StpRepresentationItem makeVector() {
+    private StpVector makeVector() {
 
         int directionId = Integer.parseInt(this.argumentsList[1]);
         double magnitude = Double.parseDouble(this.argumentsList[2]);
@@ -111,7 +138,7 @@ public class StpEntityBuilder {
 
     }
 
-    private StpRepresentationItem makeAxis2Placement3D() {
+    private StpAxis2Placement3D makeAxis2Placement3D() {
 
         int locationId = Integer.parseInt(this.argumentsList[1]);
         int axisId = Integer.parseInt(this.argumentsList[2]);
@@ -120,7 +147,7 @@ public class StpEntityBuilder {
         return new StpAxis2Placement3D(this.id, this.name, locationId, axisId, refDirectionId);
     }
 
-    private StpRepresentationItem makeDirection() {
+    private StpDirection makeDirection() {
 
         double xDirection = Double.parseDouble(this.argumentsList[1]);
         double yDirection = Double.parseDouble(this.argumentsList[2]);

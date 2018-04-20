@@ -37,19 +37,10 @@ public class StpEdgeCurve extends StpEdge {
     }
 
     public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpCurve> possibleEdgeGeometries){
-        for (StpVertex vtx : possibleVertices) {
 
-            if (vtx.getId() == this.edgeStartVertexId) {
-                this.edgeStartVertex = vtx;
-            }
-
-            if (vtx.getId() == this.edgeEndVertexId) {
-                this.edgeEndVertex = vtx;
-            }
-        }
+        super.convertFromIds(possibleVertices);
 
         for (StpCurve curve : possibleEdgeGeometries) {
-
             if (curve.getId() == this.edgeGeometryId) {
                 this.edgeGeometry = curve;
             }

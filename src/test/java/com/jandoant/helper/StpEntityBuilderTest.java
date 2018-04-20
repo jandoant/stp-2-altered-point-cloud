@@ -235,7 +235,110 @@ class StpEntityBuilderTest {
 
         //Assert
         assertTrue(actual.equals(expected));
+    }
 
+    @Test
+    @DisplayName("Should instantiate another StpEdgeCurve if correct Descripton is given")
+    void testCorrectEdgeCurve2() {
+
+        //SetUp
+        String testDescription = "#27=EDGE_CURVE('',#23,#24,#15,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpEdgeCurve expected = new StpEdgeCurve(
+                27,
+                "",
+                23,
+                24,
+                15,
+                false);
+
+        //Act
+        StpEdgeCurve actual = (StpEdgeCurve) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate a StpOrientedEdge if correct Descripton is given")
+    void testCorrectOrientedEdge() {
+
+        //SetUp
+        String testDescription = "#31=ORIENTED_EDGE('',#23,#24,#27,.T.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpOrientedEdge expected = new StpOrientedEdge(31, "", 23, 24, 27, true);
+        //Act
+        StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpOrientedEdge if correct Descripton is given")
+    void testCorrectOrientedEdge2() {
+
+        //SetUp
+        String testDescription = "#31=ORIENTED_EDGE('',#23,#24,#27,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpOrientedEdge expected = new StpOrientedEdge(31, "", 23, 24, 27, false);
+        //Act
+        StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpOrientedEdge if correct Descripton is given")
+    void testCorrectOrientedEdge3() {
+
+        //SetUp
+        String testDescription = "#31=ORIENTED_EDGE('',*,#24,#27,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpOrientedEdge expected = new StpOrientedEdge(31, "", 27, 24, 27, false);
+        //Act
+        StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpOrientedEdge if correct Descripton is given")
+    void testCorrectOrientedEdge4() {
+
+        //SetUp
+        String testDescription = "#31=ORIENTED_EDGE('',#23,*,#27,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpOrientedEdge expected = new StpOrientedEdge(31, "", 23, 27, 27, false);
+        //Act
+        StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpOrientedEdge if correct Descripton is given")
+    void testCorrectOrientedEdge5() {
+
+        //SetUp
+        String testDescription = "#31=ORIENTED_EDGE('',*,*,#27,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpOrientedEdge expected = new StpOrientedEdge(31, "", 27, 27, 27, false);
+        //Act
+        StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
     }
 
 

@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * Klasse StpEdge
  * Created by Jan Doant on 11.04.2018
@@ -19,6 +21,21 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
         this.edgeStartVertexId = edgeStartVertexId;
         this.edgeEndVertexId = edgeEndVertexId;
     }
+
+    public void convertFromIds(ArrayList<StpVertex> possibleVertices){
+        for (StpVertex vtx : possibleVertices) {
+
+            if (vtx.getId() == this.edgeStartVertexId) {
+                this.edgeStartVertex = vtx;
+            }
+
+            if (vtx.getId() == this.edgeEndVertexId) {
+                this.edgeEndVertex = vtx;
+            }
+        }
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
