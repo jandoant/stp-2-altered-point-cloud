@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -130,6 +131,17 @@ class StpVectorTest {
         StpDirection expectedDirection = possibleDirections.get(1);
         //assert
         assertTrue(vector.getDirection().equals(expectedDirection));
+    }
+
+    @Test
+    void testToString(){
+
+        StpVector v = new StpVector(13, "Vector1", 12, 3.3);
+
+        String expected = "StpVector{id=13, name='Vector1', directionId=12, direction=null, magnitude=3.3}";
+
+        assertEquals(v.toString(), expected);
+
     }
 
 }

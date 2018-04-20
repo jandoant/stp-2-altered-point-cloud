@@ -35,15 +35,6 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
         return edgeEndVertex != null ? edgeEndVertex.equals(stpEdge.edgeEndVertex) : stpEdge.edgeEndVertex == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = edgeStartVertexId;
-        result = 31 * result + edgeEndVertexId;
-        result = 31 * result + (edgeStartVertex != null ? edgeStartVertex.hashCode() : 0);
-        result = 31 * result + (edgeEndVertex != null ? edgeEndVertex.hashCode() : 0);
-        return result;
-    }
-
     //Methoden
     @Override
     public String toString() {
@@ -52,5 +43,21 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
                 ", edgeStartVertex=" + edgeStartVertex +
                 ", edgeEndVertexId=" + edgeEndVertexId +
                 ", edgeEndVertex=" + edgeEndVertex;
+    }
+
+    public StpVertex getEdgeStartVertex() {
+        return edgeStartVertex;
+    }
+
+    public void setEdgeStartVertex(StpVertex edgeStartVertex) {
+        this.edgeStartVertex = edgeStartVertex;
+    }
+
+    public StpVertex getEdgeEndVertex() {
+        return edgeEndVertex;
+    }
+
+    public void setEdgeEndVertex(StpVertex edgeEndVertex) {
+        this.edgeEndVertex = edgeEndVertex;
     }
 }

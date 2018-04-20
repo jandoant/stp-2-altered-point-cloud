@@ -9,9 +9,6 @@ package com.jandoant.stp_entities;
  */
 public class StpCartesianPoint extends StpPoint {
 
-    //int id;
-    //String name;
-
     private double x, y, z;
 
     public StpCartesianPoint(int id, String name, double x, double y, double z) {

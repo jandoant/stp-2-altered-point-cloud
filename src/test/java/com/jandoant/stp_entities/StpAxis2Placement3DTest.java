@@ -154,4 +154,16 @@ class StpAxis2Placement3DTest {
         placement = null;
     }
 
+    @Test
+    void testToString() {
+
+        StpAxis2Placement3D p = new StpAxis2Placement3D(12, "Placement1", 12, 13, 14);
+
+        String expected = "StpAxis2Placement3D{id=12, name='Placement1', locationId=12, location=null, axisId=13, axis=null, refDirectionId=14, refDirection=null}";
+
+        assertTrue(p.toString().equals(expected));
+
+
+
+    }
 }

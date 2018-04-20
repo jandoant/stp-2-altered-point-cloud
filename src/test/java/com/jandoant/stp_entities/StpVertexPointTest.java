@@ -92,4 +92,14 @@ class StpVertexPointTest {
         assertTrue(point.getVertexGeometry().equals(expectedPoint));
     }
 
+    @Test
+    void testToString() {
+
+        StpVertexPoint pt = new StpVertexPoint(12, "Point1", 13);
+
+        String expected = "StpVertexPoint{id=12, name='Point1', vertexGeometryId=13, vertexGeometry=null}";
+
+        assertTrue(pt.toString().equals(expected));
+
+    }
 }

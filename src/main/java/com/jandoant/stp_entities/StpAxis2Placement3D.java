@@ -66,4 +66,14 @@ public class StpAxis2Placement3D extends StpPlacement {
     public StpDirection getRefDirection() {
         return refDirection;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", axisId=" + axisId +
+                ", axis=" + axis +
+                ", refDirectionId=" + refDirectionId +
+                ", refDirection=" + refDirection +
+                "}";
+    }
 }

@@ -75,4 +75,14 @@ public class StpLine extends StpCurve {
             return false;
         return directionVector != null ? directionVector.equals(stpLine.directionVector) : stpLine.directionVector == null;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", startingPointId=" + startingPointId +
+                ", startingPoint=" + startingPoint +
+                ", directionVectorId=" + directionVectorId +
+                ", directionVector=" + directionVector +
+                "}";
+    }
 }

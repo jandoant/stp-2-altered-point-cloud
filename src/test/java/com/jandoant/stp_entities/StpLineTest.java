@@ -201,4 +201,14 @@ class StpLineTest {
         line = null;
     }
 
+    @Test
+    void testToString() {
+
+        StpLine line = new StpLine(12, "Line1", 13, 14);
+
+        String expected = "StpLine{id=12, name='Line1', startingPointId=13, startingPoint=null, directionVectorId=14, directionVector=null}";
+
+        assertTrue(line.toString().equals(expected));
+
+    }
 }

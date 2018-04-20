@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * Klasse StpEdgeCurve
  * Created by Jan Doant on 11.04.2018
@@ -7,9 +9,6 @@ package com.jandoant.stp_entities;
 public class StpEdgeCurve extends StpEdge {
 
     //Attribute
-
-    //String name;
-    //int id;
 
     int edgeGeometryId;
 
@@ -37,6 +36,26 @@ public class StpEdgeCurve extends StpEdge {
         return edgeGeometry != null ? edgeGeometry.equals(that.edgeGeometry) : that.edgeGeometry == null;
     }
 
+    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpCurve> possibleEdgeGeometries){
+        for (StpVertex vtx : possibleVertices) {
+
+            if (vtx.getId() == this.edgeStartVertexId) {
+                this.edgeStartVertex = vtx;
+            }
+
+            if (vtx.getId() == this.edgeEndVertexId) {
+                this.edgeEndVertex = vtx;
+            }
+        }
+
+        for (StpCurve curve : possibleEdgeGeometries) {
+
+            if (curve.getId() == this.edgeGeometryId) {
+                this.edgeGeometry = curve;
+            }
+        }
+    }
+
     //Methoden
     @Override
     public String toString() {
@@ -47,9 +66,7 @@ public class StpEdgeCurve extends StpEdge {
                 "}";
     }
 
-
-
-
-
-
+    public StpCurve getEdgeGeometry() {
+        return edgeGeometry;
+    }
 }

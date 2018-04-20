@@ -8,9 +8,6 @@ import java.util.ArrayList;
  */
 public class StpVector extends StpGeometricRepresentationItem {
 
-    //int id;
-    //String name;
-
     int directionId;
 
     //Attribute
@@ -50,13 +47,11 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     @Override
     public String toString() {
-        return "StpVector{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                "directionId=" + directionId +
+        return super.toString() +
+                ", directionId=" + directionId +
                 ", direction=" + direction +
                 ", magnitude=" + magnitude +
-                '}';
+                "}";
     }
 
     public StpDirection getDirection() {

@@ -35,13 +35,10 @@ public class StpDirection extends StpGeometricRepresentationItem {
 
     @Override
     public String toString() {
-        return "StpDirection{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return super.toString() +
                 ", xDirection=" + xDirection +
                 ", yDirection=" + yDirection +
                 ", zDirection=" + zDirection +
-                '}';
+                "}";
     }
-
 }

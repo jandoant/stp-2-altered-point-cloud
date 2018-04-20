@@ -8,9 +8,6 @@ import java.util.ArrayList;
  */
 public class StpVertexPoint extends StpVertex {
 
-    //int id;
-    //String name;
-
     //Attribute
     private int vertexGeometryId;
 
@@ -58,5 +55,13 @@ public class StpVertexPoint extends StpVertex {
 
     public void setVertexGeometry(StpPoint vertexGeometry) {
         this.vertexGeometry = vertexGeometry;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", vertexGeometryId=" + vertexGeometryId +
+                ", vertexGeometry=" + vertexGeometry +
+                "}";
     }
 }

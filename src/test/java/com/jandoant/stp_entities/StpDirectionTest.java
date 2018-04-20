@@ -76,5 +76,4 @@ class StpDirectionTest {
 
         assertEquals(dir.toString(), expected);
     }
-
 }
