@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -337,6 +339,50 @@ class StpEntityBuilderTest {
         StpOrientedEdge expected = new StpOrientedEdge(31, "", 27, 27, 27, false);
         //Act
         StpOrientedEdge actual = (StpOrientedEdge) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate StpEdgeLoop if correct Descripton is given")
+    void testCorrectEdgeLoop() {
+
+        //SetUp
+        String testDescription = "#14=EDGE_LOOP('',(#31,#32,#33,#34));";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        ArrayList<Integer> edgesIds = new ArrayList<>();
+        edgesIds.add(31);
+        edgesIds.add(32);
+        edgesIds.add(33);
+        edgesIds.add(34);
+        StpEdgeLoop expected = new StpEdgeLoop(14, "", edgesIds);
+        //Act
+        StpEdgeLoop actual = (StpEdgeLoop) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpEdgeLoop if correct Descripton is given")
+    void testCorrectEdgeLoop2() {
+
+        //SetUp
+        String testDescription = "#14=EDGE_LOOP('',(#31,#32,#33,#34,#35,#36));";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        ArrayList<Integer> edgesIds = new ArrayList<>();
+        edgesIds.add(31);
+        edgesIds.add(32);
+        edgesIds.add(33);
+        edgesIds.add(34);
+        edgesIds.add(35);
+        edgesIds.add(36);
+        StpEdgeLoop expected = new StpEdgeLoop(14, "", edgesIds);
+        //Act
+        StpEdgeLoop actual = (StpEdgeLoop) builder.extractStpEntity();
         //Assert
         assertTrue(actual.equals(expected));
     }

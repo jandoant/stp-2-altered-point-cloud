@@ -6,9 +6,6 @@ package com.jandoant.stp_entities;
  */
 public abstract class StpLoop extends StpTopologicalRepresentationItem {
 
-
-    //Attribute
-
     //Konstruktor
     public StpLoop(int id, String name) {
         super(id, name);

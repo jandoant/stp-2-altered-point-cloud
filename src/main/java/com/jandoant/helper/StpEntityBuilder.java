@@ -2,6 +2,7 @@ package com.jandoant.helper;
 
 import com.jandoant.stp_entities.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -69,12 +70,26 @@ public class StpEntityBuilder {
                 break;
             case EntityTypesContract.ORIENTED_EDGE:
                 result = makeOrientedEdge();
-                break;    
+                break;
+            case EntityTypesContract.EDGE_LOOP:
+                result = makeEdgeLoop();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpEdgeLoop makeEdgeLoop() {
+
+       ArrayList<Integer> edgesIds = new ArrayList<>();
+
+        for (int i = 1; i < argumentsList.length; i++) {
+            edgesIds.add(Integer.valueOf(argumentsList[i]));
+        }
+
+       return new StpEdgeLoop(this.id, this.name, edgesIds);
     }
 
     private StpOrientedEdge makeOrientedEdge() {
