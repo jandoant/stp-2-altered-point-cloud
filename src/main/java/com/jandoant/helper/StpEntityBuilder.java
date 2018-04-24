@@ -74,11 +74,19 @@ public class StpEntityBuilder {
             case EntityTypesContract.EDGE_LOOP:
                 result = makeEdgeLoop();
                 break;
+            case EntityTypesContract.PLANE:
+                result = makePlane();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpPlane makePlane() {
+        int positionId = Integer.parseInt(this.argumentsList[1]);
+        return new StpPlane(this.id, this.name, positionId);
     }
 
     private StpEdgeLoop makeEdgeLoop() {

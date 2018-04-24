@@ -387,6 +387,22 @@ class StpEntityBuilderTest {
         assertTrue(actual.equals(expected));
     }
 
+    @Test
+    @DisplayName("Should instantiate a StpPlane if correct Descripton is given")
+    void testCorrectPlane() {
+
+        //SetUp
+        String testDescription = "#35=PLANE('',#58);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpPlane expected = new StpPlane(35, "", 58);
+        //Act
+        StpPlane actual = (StpPlane) builder.extractStpEntity();
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
 
 
 }

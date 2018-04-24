@@ -15,4 +15,5 @@ public class EntityTypesContract {
     public static final String EDGE_CURVE = "EDGE_CURVE";
     public static final String ORIENTED_EDGE = "ORIENTED_EDGE";
     public static final String EDGE_LOOP = "EDGE_LOOP";
+    public static final String PLANE = "PLANE";
 }
