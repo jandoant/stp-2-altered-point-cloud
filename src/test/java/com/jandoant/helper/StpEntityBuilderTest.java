@@ -421,4 +421,42 @@ class StpEntityBuilderTest {
         assertTrue(actual.equals(expected));
     }
 
+    @Test
+    @DisplayName("Should instantiate a StpFaceOuterBound if correct Descripton is given")
+    void testCorrectFaceOuterBound() {
+
+        //SetUp
+        String testDescription = "#19=FACE_OUTER_BOUND('',#25,.T.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpFaceOuterBound expected = new StpFaceOuterBound(19, "", 25, true);
+
+        //Act
+        StpFaceOuterBound actual = (StpFaceOuterBound) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpFaceOuterBound if correct Descripton is given")
+    void testCorrectFaceOuterBoun2() {
+
+        //SetUp
+        String testDescription = "#19=FACE_OUTER_BOUND('',#25,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpFaceOuterBound expected = new StpFaceOuterBound(19, "", 25, false);
+
+        //Act
+        StpFaceOuterBound actual = (StpFaceOuterBound) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+
+
 }

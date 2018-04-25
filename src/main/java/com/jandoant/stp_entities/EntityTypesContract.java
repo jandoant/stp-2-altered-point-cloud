@@ -17,4 +17,5 @@ public class EntityTypesContract {
     public static final String EDGE_LOOP = "EDGE_LOOP";
     public static final String PLANE = "PLANE";
     public static final String CYLINDRICAL_SURFACE = "CYLINDRICAL_SURFACE";
+    public static final String FACE_OUTER_BOUND = "FACE_OUTER_BOUND";
 }
