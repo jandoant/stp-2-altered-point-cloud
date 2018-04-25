@@ -403,8 +403,6 @@ class StpEntityBuilderTest {
         assertTrue(actual.equals(expected));
     }
 
-
-
     @Test
     @DisplayName("Should instantiate a StpCylindricalSurface if correct Descripton is given")
     void testCorrectCylindricalSurface() {
@@ -414,7 +412,7 @@ class StpEntityBuilderTest {
         StpEntityBuilder builder = new StpEntityBuilder(testDescription);
 
         //expectation
-        StpCylindricalSurface expected = new StpCylindricalSurface(35, "", 59,5.0);
+        StpCylindricalSurface expected = new StpCylindricalSurface(35, "", 59, 5.0);
 
         //Act
         StpCylindricalSurface actual = (StpCylindricalSurface) builder.extractStpEntity();
@@ -422,6 +420,5 @@ class StpEntityBuilderTest {
         //Assert
         assertTrue(actual.equals(expected));
     }
-
 
 }

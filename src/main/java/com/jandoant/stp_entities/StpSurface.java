@@ -4,7 +4,7 @@ package com.jandoant.stp_entities;
  * Klasse StpSurface
  * Created by Jan Doant on 23.04.2018
  */
-public class StpSurface extends StpGeometricRepresentationItem {
+public abstract class StpSurface extends StpGeometricRepresentationItem {
 
     //Attribute
 

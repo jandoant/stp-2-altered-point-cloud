@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StpCylindricalSurfaceTest {
+
+    ArrayList<StpAxis2Placement3D> possiblePositions;
+    StpCylindricalSurface cyl;
 
     @Test
     void testToString() {
@@ -120,9 +121,6 @@ class StpCylindricalSurfaceTest {
         assertNotEquals(cyl2, cyl1);
 
     }
-
-    ArrayList<StpAxis2Placement3D> possiblePositions;
-    StpCylindricalSurface cyl;
 
     @BeforeEach
     void setUp() {
