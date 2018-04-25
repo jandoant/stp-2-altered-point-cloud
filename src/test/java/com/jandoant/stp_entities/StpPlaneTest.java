@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpPlaneTest {
 
+    ArrayList<StpAxis2Placement3D> possiblePositions;
+    StpPlane plane;
+
     @Test
     void testToString() {
 
@@ -51,7 +54,6 @@ class StpPlaneTest {
         assertTrue(plane2.equals(plane1));
 
     }
-
 
     @Test
     @DisplayName("should return true if the two compared instances have different id-values")
@@ -107,15 +109,12 @@ class StpPlaneTest {
 
     }
 
-    ArrayList<StpAxis2Placement3D> possiblePositions;
-    StpPlane plane;
-
     @BeforeEach
     void setUp() {
 
         possiblePositions = new ArrayList<>();
 
-        StpAxis2Placement3D [] placements = {
+        StpAxis2Placement3D[] placements = {
                 new StpAxis2Placement3D(57, "", 67, 59, 60),
                 new StpAxis2Placement3D(58, "", 68, 81, 61),
                 new StpAxis2Placement3D(59, "", 69, 80, 62),
@@ -137,12 +136,7 @@ class StpPlaneTest {
         StpAxis2Placement3D actual = plane.getPosition();
 
         assertTrue(actual.equals(expected));
-        }
-
-
-
-
-
+    }
 
     @AfterEach
     void tearDown() {

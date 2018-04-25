@@ -8,9 +8,9 @@ import java.util.ArrayList;
  */
 public abstract class StpElementarySurface extends StpSurface {
 
+    protected StpAxis2Placement3D position;
     //Attribute
     int positionId;
-    protected StpAxis2Placement3D position;
 
     //Konstruktor
     public StpElementarySurface(int id, String name, int positionId) {
@@ -48,13 +48,11 @@ public abstract class StpElementarySurface extends StpSurface {
 
     public void convertFromIDs(ArrayList<StpAxis2Placement3D> possiblePositions) {
 
-        for (StpAxis2Placement3D placement: possiblePositions) {
-            if(this.positionId == placement.getId()){
+        for (StpAxis2Placement3D placement : possiblePositions) {
+            if (this.positionId == placement.getId()) {
                 this.position = placement;
             }
         }
-
-
 
     }
 }

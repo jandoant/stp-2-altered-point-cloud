@@ -77,11 +77,22 @@ public class StpEntityBuilder {
             case EntityTypesContract.PLANE:
                 result = makePlane();
                 break;
+            case EntityTypesContract.CYLINDRICAL_SURFACE:
+                result = makeCylindricalSurface();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpCylindricalSurface makeCylindricalSurface() {
+
+        int positionId = Integer.parseInt(this.argumentsList[1]);
+        double radius = Double.parseDouble(this.argumentsList[2]);
+
+        return new StpCylindricalSurface(this.id, this.name, positionId, radius);
     }
 
     private StpPlane makePlane() {
@@ -91,13 +102,13 @@ public class StpEntityBuilder {
 
     private StpEdgeLoop makeEdgeLoop() {
 
-       ArrayList<Integer> edgesIds = new ArrayList<>();
+        ArrayList<Integer> edgesIds = new ArrayList<>();
 
         for (int i = 1; i < argumentsList.length; i++) {
             edgesIds.add(Integer.valueOf(argumentsList[i]));
         }
 
-       return new StpEdgeLoop(this.id, this.name, edgesIds);
+        return new StpEdgeLoop(this.id, this.name, edgesIds);
     }
 
     private StpOrientedEdge makeOrientedEdge() {
@@ -107,13 +118,13 @@ public class StpEntityBuilder {
 
         int edgeElementId = Integer.parseInt(this.argumentsList[3]);
 
-        if (this.argumentsList[1].equals("*")){
+        if (this.argumentsList[1].equals("*")) {
             edgeStartVertexId = edgeElementId;
         } else {
             edgeStartVertexId = Integer.parseInt(this.argumentsList[1]);
         }
 
-        if (this.argumentsList[2].equals("*")){
+        if (this.argumentsList[2].equals("*")) {
             edgeEndVertexId = edgeElementId;
         } else {
             edgeEndVertexId = Integer.parseInt(this.argumentsList[2]);
@@ -125,8 +136,6 @@ public class StpEntityBuilder {
     }
 
     private StpEdgeCurve makeEdgeCurve() {
-
-
 
         int edgeStartVertexId = Integer.parseInt(argumentsList[1]);
         int edgeEndVertexId = Integer.parseInt(argumentsList[2]);

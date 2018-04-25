@@ -29,6 +29,5 @@ public abstract class StpPoint extends StpGeometricRepresentationItem {
 
         //Methoden
 
-
     }
 }

@@ -163,7 +163,5 @@ class StpAxis2Placement3DTest {
 
         assertTrue(p.toString().equals(expected));
 
-
-
     }
 }

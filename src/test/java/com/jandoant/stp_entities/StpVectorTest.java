@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StpVectorTest {
 
@@ -134,7 +132,7 @@ class StpVectorTest {
     }
 
     @Test
-    void testToString(){
+    void testToString() {
 
         StpVector v = new StpVector(13, "Vector1", 12, 3.3);
 

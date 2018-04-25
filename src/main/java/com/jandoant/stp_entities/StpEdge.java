@@ -22,7 +22,7 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
         this.edgeEndVertexId = edgeEndVertexId;
     }
 
-    public void convertFromIds(ArrayList<StpVertex> possibleVertices){
+    public void convertFromIds(ArrayList<StpVertex> possibleVertices) {
         for (StpVertex vtx : possibleVertices) {
 
             if (vtx.getId() == this.edgeStartVertexId) {
@@ -34,8 +34,6 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
             }
         }
     }
-
-
 
     @Override
     public boolean equals(Object o) {

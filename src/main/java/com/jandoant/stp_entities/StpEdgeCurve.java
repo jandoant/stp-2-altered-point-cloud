@@ -36,7 +36,7 @@ public class StpEdgeCurve extends StpEdge {
         return edgeGeometry != null ? edgeGeometry.equals(that.edgeGeometry) : that.edgeGeometry == null;
     }
 
-    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpCurve> possibleEdgeGeometries){
+    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpCurve> possibleEdgeGeometries) {
 
         super.convertFromIds(possibleVertices);
 

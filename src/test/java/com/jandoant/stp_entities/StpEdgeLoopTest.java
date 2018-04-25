@@ -12,9 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpEdgeLoopTest {
 
+    ArrayList<StpOrientedEdge> possibleEdges;
+    StpEdgeLoop edgeLoop;
+
     @Test
     void testToString() {
-
 
         ArrayList<Integer> edgesIds = new ArrayList<>();
         edgesIds.add(11);
@@ -23,7 +25,6 @@ class StpEdgeLoopTest {
         edgesIds.add(14);
 
         StpEdgeLoop loop = new StpEdgeLoop(12, "Loop1", edgesIds);
-
 
         String expected = "StpEdgeLoop{id=12, name='Loop1', edgesIds=[11, 12, 13, 14], edgesList=[]}";
 
@@ -45,7 +46,6 @@ class StpEdgeLoopTest {
         edgesIds2.add(12);
         edgesIds2.add(13);
         edgesIds2.add(14);
-
 
         StpEdgeLoop loop1 = new StpEdgeLoop(12, "Loop1", edgesIds1);
         StpEdgeLoop loop2 = new StpEdgeLoop(12, "Loop1", edgesIds2);
@@ -70,7 +70,6 @@ class StpEdgeLoopTest {
         edgesIds2.add(13);
         edgesIds2.add(14);
 
-
         StpEdgeLoop loop1 = new StpEdgeLoop(11, "Loop1", edgesIds1);
         StpEdgeLoop loop2 = new StpEdgeLoop(12, "Loop1", edgesIds2);
 
@@ -93,7 +92,6 @@ class StpEdgeLoopTest {
         edgesIds2.add(12);
         edgesIds2.add(13);
         edgesIds2.add(14);
-
 
         StpEdgeLoop loop1 = new StpEdgeLoop(11, "Loop1", edgesIds1);
         StpEdgeLoop loop2 = new StpEdgeLoop(11, "Loop2", edgesIds2);
@@ -118,7 +116,6 @@ class StpEdgeLoopTest {
         edgesIds2.add(13);
         edgesIds2.add(15);
 
-
         StpEdgeLoop loop1 = new StpEdgeLoop(11, "Loop1", edgesIds1);
         StpEdgeLoop loop2 = new StpEdgeLoop(11, "Loop1", edgesIds2);
 
@@ -126,15 +123,12 @@ class StpEdgeLoopTest {
         assertFalse(loop2.equals(loop1));
     }
 
-    ArrayList<StpOrientedEdge> possibleEdges;
-    StpEdgeLoop edgeLoop;
-
     @BeforeEach
     void setUp() {
 
         possibleEdges = new ArrayList<>();
 
-        StpOrientedEdge [] orientedEdges = {
+        StpOrientedEdge[] orientedEdges = {
                 new StpOrientedEdge(71, "0", 59, 59, 59, true),
                 new StpOrientedEdge(72, "1", 60, 60, 60, true),
                 new StpOrientedEdge(73, "2", 61, 61, 61, false),
@@ -202,9 +196,9 @@ class StpEdgeLoopTest {
         edgeLoop.convertFromIds(possibleEdges);
 
         assertTrue(edgeLoop.edgesList.contains(possibleEdges.get(0))
-                &&  edgeLoop.edgesList.contains(possibleEdges.get(1))
-                &&  edgeLoop.edgesList.contains(possibleEdges.get(2))
-                &&  edgeLoop.edgesList.contains(possibleEdges.get(3))
+                && edgeLoop.edgesList.contains(possibleEdges.get(1))
+                && edgeLoop.edgesList.contains(possibleEdges.get(2))
+                && edgeLoop.edgesList.contains(possibleEdges.get(3))
         );
     }
 
@@ -223,15 +217,12 @@ class StpEdgeLoopTest {
         edgeLoop.convertFromIds(possibleEdges);
 
         assertFalse(edgeLoop.edgesList.contains(possibleEdges.get(5))
-                ||  edgeLoop.edgesList.contains(possibleEdges.get(6))
-                ||  edgeLoop.edgesList.contains(possibleEdges.get(7))
-                ||  edgeLoop.edgesList.contains(possibleEdges.get(8))
-                ||  edgeLoop.edgesList.contains(possibleEdges.get(9))
+                || edgeLoop.edgesList.contains(possibleEdges.get(6))
+                || edgeLoop.edgesList.contains(possibleEdges.get(7))
+                || edgeLoop.edgesList.contains(possibleEdges.get(8))
+                || edgeLoop.edgesList.contains(possibleEdges.get(9))
         );
     }
-
-
-
 
     @AfterEach
     void tearDown() {

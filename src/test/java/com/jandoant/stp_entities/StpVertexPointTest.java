@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpVertexPointTest {
 
+    ArrayList<StpPoint> possibleVertexGeometries;
+    StpVertexPoint point;
+
     @Test
     @DisplayName("should return true if the two compared instances have the same values")
     void testEquals() {
@@ -59,9 +62,6 @@ class StpVertexPointTest {
         assertFalse(pt2.equals(pt1));
 
     }
-
-    ArrayList<StpPoint> possibleVertexGeometries;
-    StpVertexPoint point;
 
     @BeforeEach
     void setUp() {

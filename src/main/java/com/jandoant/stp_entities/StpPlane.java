@@ -17,6 +17,6 @@ public class StpPlane extends StpElementarySurface {
 
     @Override
     public String toString() {
-        return super.toString()+ "}";
+        return super.toString() + "}";
     }
 }

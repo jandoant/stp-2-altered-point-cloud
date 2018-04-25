@@ -8,9 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpEdgeCurveTest {
+
+    ArrayList<StpVertex> possibleVertices;
+    ArrayList<StpCurve> possibleEdgeGeometries;
+    StpEdgeCurve edgeCurve;
 
     @Test
     @DisplayName("should display the correct Message to describe Object-Instance")
@@ -132,10 +137,6 @@ class StpEdgeCurveTest {
         assertFalse(curve1.equals(curve2));
         assertFalse(curve2.equals(curve1));
     }
-
-    ArrayList<StpVertex> possibleVertices;
-    ArrayList<StpCurve> possibleEdgeGeometries;
-    StpEdgeCurve edgeCurve;
 
     @BeforeEach
     void setUp() {

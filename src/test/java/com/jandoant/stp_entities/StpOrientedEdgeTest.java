@@ -8,14 +8,22 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpOrientedEdgeTest {
+
+    ArrayList<StpVertex> possibleVertices;
+    ArrayList<StpEdge> possibleEdgeElements;
+    StpOrientedEdge edgeNormal;
+    StpOrientedEdge edgeWithInheritance1;
+    StpOrientedEdge edgeWithInheritance2;
+    StpOrientedEdge edgeWithInheritance3;
 
     @Test
     void testToString() {
 
-        StpOrientedEdge oEdge = new StpOrientedEdge(12, "OrientedEdge1", 13, 14, 15, true );
+        StpOrientedEdge oEdge = new StpOrientedEdge(12, "OrientedEdge1", 13, 14, 15, true);
 
         String expected = "StpOrientedEdge{id=12, name='OrientedEdge1', edgeStartVertexId=13, edgeStartVertex=null, edgeEndVertexId=14, edgeEndVertex=null, edgeElementId=15, edgeElement=null, orientation=true}";
 
@@ -103,8 +111,6 @@ class StpOrientedEdgeTest {
         assertFalse(e2.equals(e1));
     }
 
-
-
     @Test
     @DisplayName("should return false if the two compared instances have different edgeElementId-values")
     void testEqualsNotEdgeElementId() {
@@ -140,13 +146,6 @@ class StpOrientedEdgeTest {
         assertFalse(e1.equals(e2));
         assertFalse(e2.equals(e1));
     }
-
-    ArrayList<StpVertex> possibleVertices;
-    ArrayList<StpEdge> possibleEdgeElements;
-    StpOrientedEdge edgeNormal;
-    StpOrientedEdge edgeWithInheritance1;
-    StpOrientedEdge edgeWithInheritance2;
-    StpOrientedEdge edgeWithInheritance3;
 
     @BeforeEach
     void setUp() {
@@ -277,6 +276,7 @@ class StpOrientedEdgeTest {
         //assert
         assertTrue(edgeWithInheritance1.getEdgeEndVertex().equals(expectedEdgeEndVertex));
     }
+
     @Test
     @DisplayName("should write correct EdgeStartVertex (inherited) from given Lists")
     void testConvertFromIdsEdgeStartVertexInherited3() {
@@ -313,10 +313,10 @@ class StpOrientedEdgeTest {
     @AfterEach
     void tearDown() {
         possibleVertices = null;
-        possibleEdgeElements= null;
+        possibleEdgeElements = null;
         edgeNormal = null;
         edgeWithInheritance1 = null;
-        edgeWithInheritance2= null;
+        edgeWithInheritance2 = null;
         edgeWithInheritance3 = null;
     }
 }

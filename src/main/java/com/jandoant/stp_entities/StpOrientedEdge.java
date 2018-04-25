@@ -21,56 +21,49 @@ public class StpOrientedEdge extends StpEdge {
         this.orientation = orientation;
     }
 
-
     //Methoden
-    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpEdge> possibleEdgeElements){
+    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpEdge> possibleEdgeElements) {
 
         //super.convertFromIds(possibleVertices);
 
         //Erstmal edgeElement festlegen
-        for (StpEdge edge: possibleEdgeElements) {
-            if(this.edgeElementId == edge.getId()){
+        for (StpEdge edge : possibleEdgeElements) {
+            if (this.edgeElementId == edge.getId()) {
                 this.edgeElement = edge;
             }
         }
 
         //beide Vertices gleich
-        if(this.edgeElementId == this.edgeStartVertexId && this.edgeElementId == this.edgeEndVertexId){
+        if (this.edgeElementId == this.edgeStartVertexId && this.edgeElementId == this.edgeEndVertexId) {
             this.edgeStartVertex = this.edgeElement.getEdgeStartVertex();
             this.edgeEndVertex = this.edgeElement.getEdgeEndVertex();
         }
 
-
         //beide vertices unterschiedlich
-        if(this.edgeElementId != this.edgeStartVertexId && this.edgeElementId !=this.edgeEndVertexId){
+        if (this.edgeElementId != this.edgeStartVertexId && this.edgeElementId != this.edgeEndVertexId) {
             super.convertFromIds(possibleVertices);
         }
 
         //startVertexId unterschiedlich
-        if(this.edgeElementId == this.edgeStartVertexId){
+        if (this.edgeElementId == this.edgeStartVertexId) {
             this.edgeStartVertex = this.edgeElement.getEdgeStartVertex();
-            for (StpVertex vtx: possibleVertices) {
-                if(vtx.getId() == this.edgeEndVertexId){
+            for (StpVertex vtx : possibleVertices) {
+                if (vtx.getId() == this.edgeEndVertexId) {
                     this.edgeEndVertex = vtx;
                 }
             }
         }
 
         //endVertexId unterschiedlich
-        if(this.edgeElementId == this.edgeEndVertexId){
+        if (this.edgeElementId == this.edgeEndVertexId) {
             this.edgeEndVertex = this.edgeElement.getEdgeEndVertex();
-            for (StpVertex vtx: possibleVertices) {
-                if(vtx.getId() == this.edgeStartVertexId){
+            for (StpVertex vtx : possibleVertices) {
+                if (vtx.getId() == this.edgeStartVertexId) {
                     this.edgeStartVertex = vtx;
                 }
             }
         }
 
-
-    }
-
-    public void setEdgeElement(StpEdge edgeElement) {
-        this.edgeElement = edgeElement;
     }
 
     @Override
@@ -97,5 +90,9 @@ public class StpOrientedEdge extends StpEdge {
 
     public StpEdge getEdgeElement() {
         return edgeElement;
+    }
+
+    public void setEdgeElement(StpEdge edgeElement) {
+        this.edgeElement = edgeElement;
     }
 }
