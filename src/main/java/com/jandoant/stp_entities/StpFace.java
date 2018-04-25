@@ -28,6 +28,13 @@ public abstract class StpFace extends StpTopologicalRepresentationItem {
         }
     }
 
+    public ArrayList<StpFaceBound> getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(ArrayList<StpFaceBound> bounds) {
+        this.bounds = bounds;
+    }
 
     @Override
     public boolean equals(Object o) {

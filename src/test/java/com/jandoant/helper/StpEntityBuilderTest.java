@@ -1,12 +1,15 @@
 package com.jandoant.helper;
 
 import com.jandoant.stp_entities.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -441,7 +444,7 @@ class StpEntityBuilderTest {
 
     @Test
     @DisplayName("Should instantiate another StpFaceOuterBound if correct Descripton is given")
-    void testCorrectFaceOuterBoun2() {
+    void testCorrectFaceOuterBound2() {
 
         //SetUp
         String testDescription = "#19=FACE_OUTER_BOUND('',#25,.F.);";
@@ -457,6 +460,45 @@ class StpEntityBuilderTest {
         assertTrue(actual.equals(expected));
     }
 
+    @Test
+    @DisplayName("Should instantiate a StpAdvancedFace if correct Descripton is given")
+    void testCorrectAdvancedFace() {
 
+        //SetUp
+        String testDescription = "#101=ADVANCED_FACE('',(#15, #16),#95,.T.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
 
+        //expectation
+        ArrayList<Integer> boundsIds = new ArrayList<>();
+        boundsIds.add(15);
+        boundsIds.add(16);
+        StpAdvancedFace expected = new StpAdvancedFace(101, "", boundsIds, 95, true);
+
+        //Act
+        StpAdvancedFace actual = (StpAdvancedFace) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    @DisplayName("Should instantiate another StpAdvancedFace if correct Descripton is given")
+    void testCorrectAdvancedFace2() {
+
+        //SetUp
+        String testDescription = "#101=ADVANCED_FACE('',(#15, #16),#95,.F.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        ArrayList<Integer> boundsIds = new ArrayList<>();
+        boundsIds.add(15);
+        boundsIds.add(16);
+        StpAdvancedFace expected = new StpAdvancedFace(101, "", boundsIds, 95, false);
+
+        //Act
+        StpAdvancedFace actual = (StpAdvancedFace) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
 }

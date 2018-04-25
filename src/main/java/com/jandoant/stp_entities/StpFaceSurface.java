@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Klasse StpFaceSurface
  * Created by Jan Doant on 25.04.2018
  */
-public class StpFaceSurface extends StpFace {
+public abstract class StpFaceSurface extends StpFace {
 
     //Attribute
     int faceGeometryId;
@@ -30,6 +30,14 @@ public class StpFaceSurface extends StpFace {
                 this.faceGeometry = surface;
             }
         }
+    }
+
+    public StpSurface getFaceGeometry() {
+        return faceGeometry;
+    }
+
+    public void setFaceGeometry(StpSurface faceGeometry) {
+        this.faceGeometry = faceGeometry;
     }
 
     @Override

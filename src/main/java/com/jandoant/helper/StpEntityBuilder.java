@@ -83,11 +83,27 @@ public class StpEntityBuilder {
             case EntityTypesContract.FACE_OUTER_BOUND:
                 result = makeFaceOuterBound();
                 break;
+            case EntityTypesContract.ADVANCED_FACE:
+                result = makeAdvancedFace();
+                break;
             default:
                 return null;
         }
 
         return result;
+    }
+
+    private StpAdvancedFace makeAdvancedFace() {
+
+        ArrayList<Integer> boundsIds = new ArrayList<>();
+        for (int i = 1; i < this.argumentsList.length - 2; i++) {
+            boundsIds.add(Integer.valueOf(this.argumentsList[i]));
+        }
+
+        int faceGeometryId = Integer.parseInt(this.argumentsList[this.argumentsList.length - 2]);
+        Boolean sameSense = Boolean.valueOf(this.argumentsList[this.argumentsList.length - 1]);
+
+        return new StpAdvancedFace(this.id, this.name, boundsIds, faceGeometryId, sameSense);
     }
 
     private StpFaceOuterBound makeFaceOuterBound() {
@@ -232,6 +248,9 @@ public class StpEntityBuilder {
 
             //remove hashtags from arguments
             this.argumentsList[i] = this.argumentsList[i].replace("#", "");
+
+            //remove spaces from arguments
+            this.argumentsList[i] = this.argumentsList[i].replace(" ", "");
         }
     }
 
