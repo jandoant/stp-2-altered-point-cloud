@@ -21,6 +21,7 @@ public abstract class StpFaceSurface extends StpFace {
     }
 
     //Methoden
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
         super.convertFromIds(availableEntities);

@@ -143,7 +143,7 @@ class StpCylindricalSurfaceTest {
     @DisplayName("should write correct Position from given Lists")
     void testConvertFromIdsPosition() {
 
-        cyl.convertFromIDs(allAvailableEntities);
+        cyl.convertFromIds(allAvailableEntities);
 
         StpAxis2Placement3D expected = (StpAxis2Placement3D) allAvailableEntities.get(1);
         StpAxis2Placement3D actual = cyl.getPosition();

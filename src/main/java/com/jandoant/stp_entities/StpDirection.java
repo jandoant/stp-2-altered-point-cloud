@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * Klasse StpDirection
  * Created by Jan Doant on 11.04.2018
@@ -31,6 +33,11 @@ public class StpDirection extends StpGeometricRepresentationItem {
         if (Double.compare(that.xDirection, xDirection) != 0) return false;
         if (Double.compare(that.yDirection, yDirection) != 0) return false;
         return Double.compare(that.zDirection, zDirection) == 0;
+    }
+
+    @Override
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
+        //is not needed, because StpDirection does not reference other entities
     }
 
     @Override

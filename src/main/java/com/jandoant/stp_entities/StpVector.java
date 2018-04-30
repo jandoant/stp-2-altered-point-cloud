@@ -36,6 +36,7 @@ public class StpVector extends StpGeometricRepresentationItem {
         return direction != null ? direction.equals(stpVector.direction) : stpVector.direction == null;
     }
 
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntites) {
 
         for (StpRepresentationItem entity : availableEntites) {

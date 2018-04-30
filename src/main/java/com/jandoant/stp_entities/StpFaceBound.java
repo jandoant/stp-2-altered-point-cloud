@@ -21,7 +21,7 @@ public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
     }
 
     //Methoden
-
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
         for (StpRepresentationItem entity : availableEntities) {
             if (entity.getId() == this.boundId) {

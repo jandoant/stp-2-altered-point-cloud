@@ -22,6 +22,7 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
         this.edgeEndVertexId = edgeEndVertexId;
     }
 
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
         for (StpRepresentationItem entity : allEntities) {
 

@@ -36,6 +36,7 @@ public class StpEdgeCurve extends StpEdge {
         return edgeGeometry != null ? edgeGeometry.equals(that.edgeGeometry) : that.edgeGeometry == null;
     }
 
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
 
         super.convertFromIds(allEntities);

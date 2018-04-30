@@ -130,7 +130,7 @@ class StpPlaneTest {
     @DisplayName("should write correct Position from given Lists")
     void testConvertFromIdsPosition() {
 
-        plane.convertFromIDs(allAvailableEntities);
+        plane.convertFromIds(allAvailableEntities);
 
         StpAxis2Placement3D expectedPosition = (StpAxis2Placement3D) allAvailableEntities.get(1);
         StpAxis2Placement3D actualPosition = plane.getPosition();

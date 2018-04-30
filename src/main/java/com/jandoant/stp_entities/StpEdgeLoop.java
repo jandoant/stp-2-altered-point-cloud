@@ -23,6 +23,7 @@ public class StpEdgeLoop extends StpLoop {
     }
 
     //Methoden
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
         for (StpRepresentationItem entity : availableEntities) {

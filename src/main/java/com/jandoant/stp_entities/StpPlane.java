@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * Klasse StpPlane
  * Created by Jan Doant on 24.04.2018
@@ -14,7 +16,6 @@ public class StpPlane extends StpElementarySurface {
     }
 
     //Methoden
-
     @Override
     public String toString() {
         return super.toString() + "}";

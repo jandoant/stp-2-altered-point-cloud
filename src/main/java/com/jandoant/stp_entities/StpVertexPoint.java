@@ -20,6 +20,7 @@ public class StpVertexPoint extends StpVertex {
     }
 
     //Methoden
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
 
         for (StpRepresentationItem entity : allEntities) {

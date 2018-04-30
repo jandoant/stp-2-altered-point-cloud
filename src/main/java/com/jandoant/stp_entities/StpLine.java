@@ -27,6 +27,7 @@ public class StpLine extends StpCurve {
         this.directionVectorId = directionVectorId;
     }
 
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
         for (StpRepresentationItem entity : availableEntities) {
@@ -36,9 +37,7 @@ public class StpLine extends StpCurve {
             } else if (entity.getId() == this.directionVectorId) {
                 this.directionVector = (StpVector) entity;
             }
-
         }
-
     }
 
     public StpCartesianPoint getStartingPoint() {

@@ -22,6 +22,8 @@ public class StpOrientedEdge extends StpEdge {
     }
 
     //Methoden
+
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
 
         //Erstmal edgeElement festlegen

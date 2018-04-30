@@ -24,6 +24,7 @@ public class StpAxis2Placement3D extends StpPlacement {
     }
 
     //Methoden
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
         for (StpRepresentationItem entitiy : availableEntities) {
@@ -40,7 +41,6 @@ public class StpAxis2Placement3D extends StpPlacement {
                 this.refDirection = (StpDirection) entitiy;
             }
         }
-
     }
 
     @Override

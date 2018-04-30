@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * Klasse StpRepresentationItem
  * Created by Jan Doant on 11.04.2018
@@ -16,6 +18,8 @@ public abstract class StpRepresentationItem {
         this.name = name;
         this.id = id;
     }
+
+    public abstract void convertFromIds(ArrayList<StpRepresentationItem> availableEntities);
 
     public int getId() {
         return this.id;

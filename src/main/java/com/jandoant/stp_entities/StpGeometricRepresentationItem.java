@@ -16,7 +16,6 @@ public abstract class StpGeometricRepresentationItem extends StpRepresentationIt
     }
 
     //Methoden
-
     @Override
     public String toString() {
         return super.toString();

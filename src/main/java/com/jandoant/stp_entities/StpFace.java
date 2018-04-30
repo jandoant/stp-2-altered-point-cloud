@@ -20,6 +20,7 @@ public abstract class StpFace extends StpTopologicalRepresentationItem {
     }
 
     //Methoden
+    @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
         for (StpRepresentationItem entity : availableEntities) {
             if (this.boundsIds.contains(entity.getId())) {

@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import java.util.ArrayList;
+
 /**
  * A startingPoint defined by its coordinates in a three dimensional rectangular Cartesian coordinate system,
  * or in a two dimensional parameter space.
@@ -16,6 +18,11 @@ public class StpCartesianPoint extends StpPoint {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    @Override
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
+        //is not needed, because StpCartesian does not reference other entities
     }
 
     @Override

@@ -46,7 +46,8 @@ public abstract class StpElementarySurface extends StpSurface {
         this.position = position;
     }
 
-    public void convertFromIDs(ArrayList<StpRepresentationItem> availableEntites) {
+    @Override
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntites) {
 
         for (StpRepresentationItem entity : availableEntites) {
             if (this.positionId == entity.getId()) {
