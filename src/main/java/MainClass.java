@@ -28,8 +28,6 @@ public class MainClass {
 
             //manipulate the single points of each advanced face
 
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

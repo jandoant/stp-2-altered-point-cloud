@@ -36,11 +36,11 @@ public class StpVector extends StpGeometricRepresentationItem {
         return direction != null ? direction.equals(stpVector.direction) : stpVector.direction == null;
     }
 
-    public void convertFromIds(ArrayList<StpDirection> possibleDirections) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntites) {
 
-        for (StpDirection dir : possibleDirections) {
-            if (dir.getId() == this.directionId) {
-                this.direction = dir;
+        for (StpRepresentationItem entity : availableEntites) {
+            if (entity.getId() == this.directionId) {
+                this.direction = (StpDirection) entity;
             }
         }
     }

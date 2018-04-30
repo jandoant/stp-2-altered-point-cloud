@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpEdgeCurveTest {
 
-    ArrayList<StpVertex> possibleVertices;
-    ArrayList<StpCurve> possibleEdgeGeometries;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpEdgeCurve edgeCurve;
 
     @Test
@@ -142,27 +141,20 @@ class StpEdgeCurveTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleVertices = new ArrayList<>();
-        possibleEdgeGeometries = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpVertex[] vertices = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpVertexPoint(12, "", 44),
                 new StpVertexPoint(13, "", 45),
                 new StpVertexPoint(14, "", 46),
-                new StpVertexPoint(15, "", 47)
-        };
-        possibleVertices.addAll(Arrays.asList(vertices));
-
-        //Put all available Directions in List
-        StpCurve[] curves = {
+                new StpVertexPoint(15, "", 47),
                 new StpLine(22, "", 34, 35),
                 new StpLine(23, "", 36, 37),
                 new StpLine(24, "", 38, 39),
                 new StpLine(25, "", 40, 41),
         };
-
-        possibleEdgeGeometries.addAll(Arrays.asList(curves));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
         //extracted Object from String-description
         edgeCurve = new StpEdgeCurve(10, "", 13, 15, 24, true);
@@ -173,9 +165,9 @@ class StpEdgeCurveTest {
     void testConvertFromIdsEdgeStartVertex() {
 
         //act -- fill the fields
-        edgeCurve.convertFromIds(possibleVertices, possibleEdgeGeometries);
+        edgeCurve.convertFromIds(allAvailableEntities);
         //expectations
-        StpVertex expectedEgeStartVertex = possibleVertices.get(1);
+        StpVertex expectedEgeStartVertex = (StpVertex) allAvailableEntities.get(1);
         //assert
         assertTrue(edgeCurve.getEdgeStartVertex().equals(expectedEgeStartVertex));
     }
@@ -185,9 +177,9 @@ class StpEdgeCurveTest {
     void testConvertFromIdsEdgeEndVertex() {
 
         //act -- fill the fields
-        edgeCurve.convertFromIds(possibleVertices, possibleEdgeGeometries);
+        edgeCurve.convertFromIds(allAvailableEntities);
         //expectations
-        StpVertex expectedEdgeEndVertex = possibleVertices.get(3);
+        StpVertex expectedEdgeEndVertex = (StpVertex) allAvailableEntities.get(3);
         //assert
         assertTrue(edgeCurve.getEdgeEndVertex().equals(expectedEdgeEndVertex));
     }
@@ -197,17 +189,16 @@ class StpEdgeCurveTest {
     void testConvertFromIdsEdgeGeometry() {
 
         //act -- fill the fields
-        edgeCurve.convertFromIds(possibleVertices, possibleEdgeGeometries);
+        edgeCurve.convertFromIds(allAvailableEntities);
         //expectations
-        StpCurve expectedEdgeGeometry = possibleEdgeGeometries.get(2);
+        StpCurve expectedEdgeGeometry = (StpCurve) allAvailableEntities.get(6);
         //assert
         assertTrue(edgeCurve.getEdgeGeometry().equals(expectedEdgeGeometry));
     }
 
     @AfterEach
     void tearDown() {
-        possibleVertices = null;
-        possibleEdgeGeometries = null;
+        allAvailableEntities = null;
         edgeCurve = null;
     }
 }

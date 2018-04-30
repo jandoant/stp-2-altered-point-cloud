@@ -8,13 +8,12 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StpOrientedEdgeTest {
 
-    ArrayList<StpVertex> possibleVertices;
-    ArrayList<StpEdge> possibleEdgeElements;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
+
     StpOrientedEdge edgeNormal;
     StpOrientedEdge edgeWithInheritance1;
     StpOrientedEdge edgeWithInheritance2;
@@ -151,33 +150,54 @@ class StpOrientedEdgeTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleVertices = new ArrayList<>();
-        possibleEdgeElements = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpVertex[] vertices = {
+        StpRepresentationItem[] entities = {
                 new StpVertexPoint(11, "", 74),
                 new StpVertexPoint(12, "", 75),
                 new StpVertexPoint(13, "", 76),
                 new StpVertexPoint(14, "", 77),
-                new StpVertexPoint(15, "", 78)
-        };
-        possibleVertices.addAll(Arrays.asList(vertices));
-
-        //Put all available Directions in List
-        StpEdge[] edges = {
+                new StpVertexPoint(15, "", 78),
                 new StpEdgeCurve(41, "", 12, 13, 61, true),
                 new StpEdgeCurve(42, "", 14, 15, 61, false),
                 new StpEdgeCurve(43, "", 14, 12, 61, true),
                 new StpEdgeCurve(44, "", 11, 15, 64, true),
         };
-        possibleEdgeElements.addAll(Arrays.asList(edges));
+        allAvailableEntities.addAll(Arrays.asList(entities));
 
         //extracted Object from String-description
-        edgeNormal = new StpOrientedEdge(12, "", 12, 13, 44, true);
-        edgeWithInheritance1 = new StpOrientedEdge(12, "", 44, 44, 44, true);
-        edgeWithInheritance2 = new StpOrientedEdge(12, "", 12, 44, 44, true);
-        edgeWithInheritance3 = new StpOrientedEdge(12, "", 44, 13, 44, true);
+        edgeNormal = new StpOrientedEdge(91, "", 12, 13, 44, true);
+
+        edgeWithInheritance1 = new StpOrientedEdge(92, "", 44, 44, 44, true);
+        edgeWithInheritance2 = new StpOrientedEdge(93, "", 12, 44, 44, true);
+        edgeWithInheritance3 = new StpOrientedEdge(93, "", 44, 13, 44, true);
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId from given Lists")
+    void testConvertFromIdsEdgeStartVertexId() {
+
+        edgeNormal.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeStartVertexId = 12;
+
+        //assert
+        assertEquals(expectedEdgeStartVertexId, edgeNormal.getEdgeStartVertexId());
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId from given Lists")
+    void testConvertFromIdsEdgeEndVertexId() {
+
+        edgeNormal.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeStartVertexId = 13;
+
+        //assert
+        assertEquals(edgeNormal.getEdgeEndVertexId(), expectedEdgeStartVertexId);
     }
 
     @Test
@@ -185,9 +205,9 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeStartVertex() {
 
         //act -- fill the fields
-        edgeNormal.convertFromIds(possibleVertices, possibleEdgeElements);
+        edgeNormal.convertFromIds(allAvailableEntities);
         //expectations
-        StpVertex expectedEdgeStartVertex = possibleVertices.get(1);
+        StpVertex expectedEdgeStartVertex = (StpVertex) allAvailableEntities.get(1);
         //assert
         assertTrue(edgeNormal.getEdgeStartVertex().equals(expectedEdgeStartVertex));
     }
@@ -197,9 +217,9 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeEndVertex() {
 
         //act -- fill the fields
-        edgeNormal.convertFromIds(possibleVertices, possibleEdgeElements);
+        edgeNormal.convertFromIds(allAvailableEntities);
         //expectations
-        StpVertex expectedEdgeEndVertex = possibleVertices.get(2);
+        StpVertex expectedEdgeEndVertex = (StpVertex) allAvailableEntities.get(2);
         //assert
         assertTrue(edgeNormal.getEdgeEndVertex().equals(expectedEdgeEndVertex));
     }
@@ -209,42 +229,101 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeElement() {
 
         //act -- fill the fields
-        edgeNormal.convertFromIds(possibleVertices, possibleEdgeElements);
+        edgeNormal.convertFromIds(allAvailableEntities);
         //expectations
-        StpEdge expectedEdgeElement = possibleEdgeElements.get(3);
+        StpEdge expectedEdgeElement = (StpEdge) allAvailableEntities.get(8);
+
         //assert
         assertTrue(edgeNormal.getEdgeElement().equals(expectedEdgeElement));
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeStartVertexIdInherited1() {
+
+        edgeWithInheritance1.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeStartVertexId = 11;
+
+        //assert
+        assertEquals(edgeWithInheritance1.getEdgeStartVertexId(), expectedEdgeStartVertexId);
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeEndVertexIdInherited1() {
+
+        edgeWithInheritance1.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeEndVertexId = 15;
+
+        //assert
+        assertEquals(edgeWithInheritance1.getEdgeEndVertexId(), expectedEdgeEndVertexId);
     }
 
     @Test
     @DisplayName("should write correct EdgeStartVertex (inherited) from given Lists")
     void testConvertFromIdsEdgeStartVertexInherited1() {
 
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance1.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance1.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeStartVertex = possibleEdgeElements.get(3).getEdgeStartVertex();
+        StpVertex expectedEdgeStartVertex = (StpVertex) allAvailableEntities.get(0);
 
-        //System.out.println(edgeWithInheritance1.getEdgeStartVertex());
+        StpVertex actualEdgeStartVertex = edgeWithInheritance1.getEdgeStartVertex();
 
         //assert
-        assertTrue(edgeWithInheritance1.getEdgeStartVertex().equals(expectedEdgeStartVertex));
+        assertTrue(expectedEdgeStartVertex.equals(actualEdgeStartVertex));
     }
 
     @Test
-    @DisplayName("should write correct EdgeStartVertex (inherited) from given Lists")
+    @DisplayName("should write correct EdgeEndVertex (inherited) from given Lists")
     void testConvertFromIdsEdgeEndVertexInherited1() {
 
         //act -- fill the fields
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance1.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance1.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeEndVertex = possibleEdgeElements.get(3).getEdgeEndVertex();
+        StpVertex expectedEdgeEndVertex = (StpVertex) allAvailableEntities.get(4);
+
+        StpVertex actualEdgeEndVertex = edgeWithInheritance1.getEdgeEndVertex();
 
         //assert
-        assertTrue(edgeWithInheritance1.getEdgeEndVertex().equals(expectedEdgeEndVertex));
+        assertTrue(expectedEdgeEndVertex.equals(actualEdgeEndVertex));
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeStartVertexIdInherited2() {
+
+        edgeWithInheritance2.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeStartVertexId = 12;
+
+        //assert
+        assertEquals(edgeWithInheritance2.getEdgeStartVertexId(), expectedEdgeStartVertexId);
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeEndVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeEndVertexIdInherited2() {
+
+        edgeWithInheritance2.convertFromIds(allAvailableEntities);
+        
+        //expectations
+        int expectedEdgeEndVertexId = 15;
+
+        //assert
+        assertEquals(edgeWithInheritance2.getEdgeEndVertexId(), expectedEdgeEndVertexId);
     }
 
     @Test
@@ -252,29 +331,63 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeStartVertexInherited2() {
 
         //act -- fill the fields
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance2.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance2.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeStartVertex = possibleVertices.get(1);
+        StpVertex expectedEdgeStartVertex = (StpVertex) allAvailableEntities.get(1);
+
+        StpVertex actualEdgeStartVertex = edgeWithInheritance2.getEdgeStartVertex();
 
         //assert
-        assertTrue(edgeWithInheritance2.getEdgeStartVertex().equals(expectedEdgeStartVertex));
+        assertTrue(expectedEdgeStartVertex.equals(actualEdgeStartVertex));
     }
 
     @Test
-    @DisplayName("should write correct EdgeStartVertex (inherited) from given Lists")
+    @DisplayName("should write correct EdgeEndVertex (inherited) from given Lists")
     void testConvertFromIdsEdgeEndVertexInherited2() {
 
         //act -- fill the fields
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance1.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance2.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeEndVertex = possibleEdgeElements.get(3).getEdgeEndVertex();
+        StpVertex expectedEdgeEndVertex = (StpVertex) allAvailableEntities.get(4);
+
+        StpVertex actualEdgeEndVertex = edgeWithInheritance2.getEdgeEndVertex();
 
         //assert
-        assertTrue(edgeWithInheritance1.getEdgeEndVertex().equals(expectedEdgeEndVertex));
+        assertTrue(expectedEdgeEndVertex.equals(actualEdgeEndVertex));
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeStartVertexIdInherited3() {
+
+        edgeWithInheritance3.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeStartVertexId = 11;
+
+        //assert
+        assertEquals(edgeWithInheritance3.getEdgeStartVertexId(), expectedEdgeStartVertexId);
+    }
+
+    @Test
+    @DisplayName("should write correct EdgeStartVertexId (inherited) from given Lists")
+    void testConvertFromIdsEdgeEndVertexIdInherited3() {
+
+        edgeWithInheritance3.convertFromIds(allAvailableEntities);
+
+        //expectations
+        int expectedEdgeEndVertexId = 13;
+
+        //assert
+        assertEquals(edgeWithInheritance3.getEdgeEndVertexId(), expectedEdgeEndVertexId);
     }
 
     @Test
@@ -282,38 +395,42 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeStartVertexInherited3() {
 
         //act -- fill the fields
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance3.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance3.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeStartVertex = possibleEdgeElements.get(3).getEdgeStartVertex();
+        StpVertex expectedEdgeStartVertex = (StpVertex) allAvailableEntities.get(0);
+        StpVertex actualEdgeStartVertex = edgeWithInheritance3.getEdgeStartVertex();
 
         //assert
-        assertTrue(edgeWithInheritance3.getEdgeStartVertex().equals(expectedEdgeStartVertex));
+        assertTrue(expectedEdgeStartVertex.equals(actualEdgeStartVertex));
     }
 
     @Test
-    @DisplayName("should write correct EdgeStartVertex (inherited) from given Lists")
+    @DisplayName("should write correct EdgeEndVertex (inherited) from given Lists")
     void testConvertFromIdsEdgeEndVertexInherited3() {
 
         //act -- fill the fields
-        possibleEdgeElements.get(3).convertFromIds(possibleVertices);
-        edgeWithInheritance3.convertFromIds(possibleVertices, possibleEdgeElements);
+        StpEdge edgeElement = (StpEdge) allAvailableEntities.get(8);
+        edgeElement.convertFromIds(allAvailableEntities);
+
+        edgeWithInheritance3.convertFromIds(allAvailableEntities);
 
         //expectations
-        StpVertex expectedEdgeEndVertex = possibleVertices.get(2);
+        StpVertex expectedEdgeEndVertex = (StpVertex) allAvailableEntities.get(2);
 
-        //System.out.println(expectedEdgeEndVertex);
-        //System.out.println(edgeWithInheritance3.getEdgeEndVertex());
+        StpVertex actualEdgeEndVertex = edgeWithInheritance3.getEdgeEndVertex();
 
         //assert
-        assertTrue(edgeWithInheritance3.getEdgeEndVertex().equals(expectedEdgeEndVertex));
+        assertTrue(expectedEdgeEndVertex.equals(actualEdgeEndVertex));
     }
 
     @AfterEach
     void tearDown() {
-        possibleVertices = null;
-        possibleEdgeElements = null;
+        allAvailableEntities = null;
+
         edgeNormal = null;
         edgeWithInheritance1 = null;
         edgeWithInheritance2 = null;

@@ -20,11 +20,11 @@ public class StpVertexPoint extends StpVertex {
     }
 
     //Methoden
-    public void convertFromIds(ArrayList<StpPoint> possibleVertexGeometries) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
 
-        for (StpPoint pt : possibleVertexGeometries) {
-            if (pt.getId() == this.vertexGeometryId) {
-                this.vertexGeometry = pt;
+        for (StpRepresentationItem entity : allEntities) {
+            if (entity.getId() == this.vertexGeometryId) {
+                this.vertexGeometry = (StpPoint) entity;
             }
         }
     }

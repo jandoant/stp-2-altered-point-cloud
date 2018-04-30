@@ -17,14 +17,12 @@ public class StpModelBuilder {
 
     //Attribute
 
-    private ArrayList<String> entityStringList;
-    private ArrayList<StpRepresentationItem> entityList;
-
     ArrayList<StpAdvancedFace> advancedFaces;
-
     String filePath;
     FileReader fileReader;
     BufferedReader bufferedReader;
+    private ArrayList<String> entityStringList;
+    private ArrayList<StpRepresentationItem> entityList;
 
     //Konstruktor
     public StpModelBuilder(String filePath) throws FileNotFoundException {

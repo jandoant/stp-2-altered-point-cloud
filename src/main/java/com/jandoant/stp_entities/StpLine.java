@@ -27,19 +27,16 @@ public class StpLine extends StpCurve {
         this.directionVectorId = directionVectorId;
     }
 
-    public void convertFromIds(ArrayList<StpCartesianPoint> possibleStartingPoints, ArrayList<StpVector> possibleDirectionVectors) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        for (StpCartesianPoint pt : possibleStartingPoints) {
-            if (pt.getId() == this.startingPointId) {
-                this.startingPoint = pt;
+        for (StpRepresentationItem entity : availableEntities) {
+
+            if (entity.getId() == this.startingPointId) {
+                this.startingPoint = (StpCartesianPoint) entity;
+            } else if (entity.getId() == this.directionVectorId) {
+                this.directionVector = (StpVector) entity;
             }
-        }
 
-        for (StpVector dir : possibleDirectionVectors) {
-
-            if (dir.getId() == this.directionVectorId) {
-                this.directionVector = dir;
-            }
         }
 
     }

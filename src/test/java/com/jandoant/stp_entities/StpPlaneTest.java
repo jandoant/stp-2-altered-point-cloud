@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpPlaneTest {
 
-    ArrayList<StpAxis2Placement3D> possiblePositions;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpPlane plane;
 
     @Test
@@ -112,15 +112,15 @@ class StpPlaneTest {
     @BeforeEach
     void setUp() {
 
-        possiblePositions = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
-        StpAxis2Placement3D[] placements = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpAxis2Placement3D(57, "", 67, 59, 60),
                 new StpAxis2Placement3D(58, "", 68, 81, 61),
                 new StpAxis2Placement3D(59, "", 69, 80, 62),
         };
 
-        possiblePositions.addAll(Arrays.asList(placements));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
         plane = new StpPlane(35, "", 58);
 
@@ -130,17 +130,17 @@ class StpPlaneTest {
     @DisplayName("should write correct Position from given Lists")
     void testConvertFromIdsPosition() {
 
-        plane.convertFromIDs(possiblePositions);
+        plane.convertFromIDs(allAvailableEntities);
 
-        StpAxis2Placement3D expected = possiblePositions.get(1);
-        StpAxis2Placement3D actual = plane.getPosition();
+        StpAxis2Placement3D expectedPosition = (StpAxis2Placement3D) allAvailableEntities.get(1);
+        StpAxis2Placement3D actualPosition = plane.getPosition();
 
-        assertTrue(actual.equals(expected));
+        assertTrue(actualPosition.equals(expectedPosition));
     }
 
     @AfterEach
     void tearDown() {
-        possiblePositions = null;
+        allAvailableEntities = null;
         plane = null;
     }
 }

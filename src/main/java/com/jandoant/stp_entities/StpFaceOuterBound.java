@@ -6,7 +6,6 @@ package com.jandoant.stp_entities;
  */
 public class StpFaceOuterBound extends StpFaceBound {
 
-
     //Attribute
 
     //Konstruktor
@@ -15,7 +14,6 @@ public class StpFaceOuterBound extends StpFaceBound {
     }
 
     //Methoden
-
     @Override
     public String toString() {
         return super.toString() + "}";

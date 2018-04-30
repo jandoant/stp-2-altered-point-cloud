@@ -24,22 +24,20 @@ public class StpAxis2Placement3D extends StpPlacement {
     }
 
     //Methoden
-    public void convertFromIds(ArrayList<StpCartesianPoint> possibleLocations, ArrayList<StpDirection> possibleDirections) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        for (StpCartesianPoint pt : possibleLocations) {
-            if (pt.getId() == this.locationId) {
-                this.location = pt;
-            }
-        }
+        for (StpRepresentationItem entitiy : availableEntities) {
 
-        for (StpDirection dir : possibleDirections) {
-
-            if (dir.getId() == this.axisId) {
-                this.axis = dir;
+            if (entitiy.getId() == this.locationId) {
+                this.location = (StpCartesianPoint) entitiy;
             }
 
-            if (dir.getId() == this.refDirectionId) {
-                this.refDirection = dir;
+            if (entitiy.getId() == this.axisId) {
+                this.axis = (StpDirection) entitiy;
+            }
+
+            if (entitiy.getId() == this.refDirectionId) {
+                this.refDirection = (StpDirection) entitiy;
             }
         }
 

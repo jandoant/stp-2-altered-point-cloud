@@ -46,11 +46,11 @@ public abstract class StpElementarySurface extends StpSurface {
         this.position = position;
     }
 
-    public void convertFromIDs(ArrayList<StpAxis2Placement3D> possiblePositions) {
+    public void convertFromIDs(ArrayList<StpRepresentationItem> availableEntites) {
 
-        for (StpAxis2Placement3D placement : possiblePositions) {
-            if (this.positionId == placement.getId()) {
-                this.position = placement;
+        for (StpRepresentationItem entity : availableEntites) {
+            if (this.positionId == entity.getId()) {
+                this.position = (StpAxis2Placement3D) entity;
             }
         }
 

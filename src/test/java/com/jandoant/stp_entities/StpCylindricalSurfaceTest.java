@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpCylindricalSurfaceTest {
 
-    ArrayList<StpAxis2Placement3D> possiblePositions;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpCylindricalSurface cyl;
 
     @Test
@@ -125,15 +125,15 @@ class StpCylindricalSurfaceTest {
     @BeforeEach
     void setUp() {
 
-        possiblePositions = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
-        StpAxis2Placement3D[] placements = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpAxis2Placement3D(57, "", 67, 59, 60),
                 new StpAxis2Placement3D(58, "", 68, 81, 61),
                 new StpAxis2Placement3D(59, "", 69, 80, 62),
         };
 
-        possiblePositions.addAll(Arrays.asList(placements));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
         cyl = new StpCylindricalSurface(35, "", 58, 13.0);
 
@@ -143,9 +143,9 @@ class StpCylindricalSurfaceTest {
     @DisplayName("should write correct Position from given Lists")
     void testConvertFromIdsPosition() {
 
-        cyl.convertFromIDs(possiblePositions);
+        cyl.convertFromIDs(allAvailableEntities);
 
-        StpAxis2Placement3D expected = possiblePositions.get(1);
+        StpAxis2Placement3D expected = (StpAxis2Placement3D) allAvailableEntities.get(1);
         StpAxis2Placement3D actual = cyl.getPosition();
 
         assertTrue(actual.equals(expected));
@@ -153,7 +153,7 @@ class StpCylindricalSurfaceTest {
 
     @AfterEach
     void tearDown() {
-        possiblePositions = null;
+        allAvailableEntities = null;
         cyl = null;
     }
 

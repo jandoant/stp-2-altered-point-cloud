@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpAxis2Placement3DTest {
 
-    ArrayList<StpCartesianPoint> possibleLocations;
-    ArrayList<StpDirection> possibleDirections;
+    ArrayList<StpRepresentationItem> allAvailableEntites;
     StpAxis2Placement3D placement;
 
     @Test
@@ -87,25 +86,19 @@ class StpAxis2Placement3DTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleLocations = new ArrayList<>();
-        possibleDirections = new ArrayList<>();
+        allAvailableEntites = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpCartesianPoint[] points = {
+        StpRepresentationItem[] entities = {
                 new StpCartesianPoint(76, "", 0.0, 0.0, 30.0),
                 new StpCartesianPoint(75, "", 0.0, 20.0, 30.0),
-                new StpCartesianPoint(68, "Origin", 0.0, 10.0, 15.0)};
-
-        possibleLocations.addAll(Arrays.asList(points));
-
-        //Put all available Directions in List
-        StpDirection[] directions = {
+                new StpCartesianPoint(68, "Origin", 0.0, 10.0, 15.0),
                 new StpDirection(61, "center_axis", 1.0, 0.0, 0.0),
                 new StpDirection(62, "ref_axis", 0.0, 0.0, 1.0),
                 new StpDirection(63, "", 0.0, 1.0, 0.0),
                 new StpDirection(64, "", 0.0, 0.0, 1.0)
         };
-        possibleDirections.addAll(Arrays.asList(directions));
+        allAvailableEntites.addAll(Arrays.asList(entities));
 
         //extracted Object from String-description
         placement = new StpAxis2Placement3D(58, "", 68, 61, 62);
@@ -116,9 +109,9 @@ class StpAxis2Placement3DTest {
     void testConvertFromIdsLocation() {
 
         //act -- fill the fields
-        placement.convertFromIds(possibleLocations, possibleDirections);
+        placement.convertFromIds(allAvailableEntites);
         //expectations
-        StpCartesianPoint expectedLocation = possibleLocations.get(2);
+        StpCartesianPoint expectedLocation = (StpCartesianPoint) allAvailableEntites.get(2);
         //assert
         assertTrue(placement.getLocation().equals(expectedLocation));
     }
@@ -128,9 +121,9 @@ class StpAxis2Placement3DTest {
     void testConvertFromIdsAxis() {
 
         //act -- fill the fields
-        placement.convertFromIds(possibleLocations, possibleDirections);
+        placement.convertFromIds(allAvailableEntites);
         //expectations
-        StpDirection expectedAxis = possibleDirections.get(0);
+        StpDirection expectedAxis = (StpDirection) allAvailableEntites.get(3);
         //assert
         assertTrue(placement.getAxis().equals(expectedAxis));
     }
@@ -140,17 +133,16 @@ class StpAxis2Placement3DTest {
     void testConvertFromIdsRefDirection() {
 
         //act -- fill the fields
-        placement.convertFromIds(possibleLocations, possibleDirections);
+        placement.convertFromIds(allAvailableEntites);
         //expectation
-        StpDirection expectedRefDirection = possibleDirections.get(1);
+        StpDirection expectedRefDirection = (StpDirection) allAvailableEntites.get(4);
         //assert
         assertTrue(placement.getRefDirection().equals(expectedRefDirection));
     }
 
     @AfterEach
     void tearDown() {
-        possibleLocations = null;
-        possibleDirections = null;
+        allAvailableEntites = null;
         placement = null;
     }
 

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpVectorTest {
 
-    ArrayList<StpDirection> possibleDirections;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpVector vector;
 
     @Test
@@ -42,7 +42,7 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should return true if equal vectors get assigned different directions")
+    @DisplayName("should return false if equal vectors get assigned different directions")
     void testEqualsNotDirection() {
 
         StpVector vector1 = new StpVector(12, "Vector1", 23, 3.0);
@@ -106,16 +106,16 @@ class StpVectorTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleDirections = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
         //Put all available Directions in List
-        StpDirection[] directions = {
+        StpRepresentationItem[] directions = {
                 new StpDirection(61, "center_axis", 1.0, 0.0, 0.0),
                 new StpDirection(62, "ref_axis", 0.0, 0.0, 1.0),
                 new StpDirection(63, "", 0.0, 1.0, 0.0),
                 new StpDirection(64, "", 0.0, 0.0, 1.0)
         };
-        possibleDirections.addAll(Arrays.asList(directions));
+        allAvailableEntities.addAll(Arrays.asList(directions));
         //extracted Object from String-description
         vector = new StpVector(58, "Vector1", 62, 3.3);
     }
@@ -124,9 +124,9 @@ class StpVectorTest {
     @DisplayName("should write correct Direction from given List")
     void testConvertFromIdsLocation() {
         //act
-        vector.convertFromIds(possibleDirections);
+        vector.convertFromIds(allAvailableEntities);
         //expectations
-        StpDirection expectedDirection = possibleDirections.get(1);
+        StpDirection expectedDirection = (StpDirection) allAvailableEntities.get(1);
         //assert
         assertTrue(vector.getDirection().equals(expectedDirection));
     }

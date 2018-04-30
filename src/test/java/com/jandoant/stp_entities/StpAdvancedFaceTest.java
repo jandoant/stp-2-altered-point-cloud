@@ -12,38 +12,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpAdvancedFaceTest {
 
-    ArrayList<StpFaceBound> possibleBounds;
-    ArrayList<StpSurface> possibleFaceGeometries;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpAdvancedFace advancedFace;
-
 
     @BeforeEach
     void setUp() {
 
-        possibleBounds = new ArrayList<>();
-        possibleFaceGeometries = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
-        StpFaceBound[] boundsArr = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpFaceOuterBound(51, "", 31, true),
                 new StpFaceOuterBound(52, "", 32, true),
                 new StpFaceOuterBound(53, "", 33, true),
                 new StpFaceOuterBound(54, "", 34, true),
-
-        };
-        possibleBounds.addAll(Arrays.asList(boundsArr));
-
-        StpSurface[] surfaceArr = {
                 new StpPlane(42, "", 78),
                 new StpPlane(43, "", 79),
                 new StpPlane(44, "", 80),
                 new StpCylindricalSurface(45, "", 81, 10.0)
         };
-        possibleFaceGeometries.addAll(Arrays.asList(surfaceArr));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
-        ArrayList<Integer> boundsIdsS = new ArrayList<>();
-        boundsIdsS.add(52);
-        boundsIdsS.add(53);
-        advancedFace = new StpAdvancedFace(12, "", boundsIdsS, 44, true);
+        ArrayList<Integer> boundsIds = new ArrayList<>();
+        boundsIds.add(52);
+        boundsIds.add(53);
+        advancedFace = new StpAdvancedFace(12, "", boundsIds, 44, true);
     }
 
     @Test
@@ -318,9 +310,9 @@ class StpAdvancedFaceTest {
     @DisplayName("should apply the correct StpFaceGeometry instance from given List")
     void testCorrectFaceGeometryApplied() {
 
-        advancedFace.convertFromIds(possibleBounds, possibleFaceGeometries);
+        advancedFace.convertFromIds(allAvailableEntities);
 
-        StpSurface expected = possibleFaceGeometries.get(2);
+        StpSurface expected = (StpSurface) allAvailableEntities.get(6);
 
         StpSurface actual = advancedFace.getFaceGeometry();
 
@@ -331,7 +323,7 @@ class StpAdvancedFaceTest {
     @DisplayName("should apply the correct number of StpFaceBounds instances from given List")
     void testCorrectNumberOfBoundsApplied() {
 
-        advancedFace.convertFromIds(possibleBounds, possibleFaceGeometries);
+        advancedFace.convertFromIds(allAvailableEntities);
 
         int expectedNumber = 2;
 
@@ -342,21 +334,20 @@ class StpAdvancedFaceTest {
     @DisplayName("should apply the correct StpFaceBounds instances from given List")
     void testCorrectBoundsApplied() {
 
-        advancedFace.convertFromIds(possibleBounds, possibleFaceGeometries);
+        advancedFace.convertFromIds(allAvailableEntities);
 
         boolean hasCorrectInstances =
-                !advancedFace.getBounds().contains(possibleBounds.get(0))
-                && advancedFace.getBounds().contains(possibleBounds.get(1))
-                && advancedFace.getBounds().contains(possibleBounds.get(2))
-                && !advancedFace.getBounds().contains(possibleBounds.get(3));
+                !advancedFace.getBounds().contains(allAvailableEntities.get(0))
+                        && advancedFace.getBounds().contains(allAvailableEntities.get(1))
+                        && advancedFace.getBounds().contains(allAvailableEntities.get(2))
+                        && !advancedFace.getBounds().contains(allAvailableEntities.get(3));
 
         assertTrue(hasCorrectInstances);
     }
 
     @AfterEach
     void tearDown() {
-        possibleBounds = null;
-        possibleFaceGeometries = null;
+        allAvailableEntities = null;
         advancedFace = null;
     }
 

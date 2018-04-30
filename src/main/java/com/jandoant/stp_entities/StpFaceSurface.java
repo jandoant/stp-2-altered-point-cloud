@@ -21,13 +21,13 @@ public abstract class StpFaceSurface extends StpFace {
     }
 
     //Methoden
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-    public void convertFromIds(ArrayList<StpFaceBound> possibleBounds, ArrayList<StpSurface> possibleFaceGeometries){
-        super.convertFromIds(possibleBounds);
+        super.convertFromIds(availableEntities);
 
-        for (StpSurface surface: possibleFaceGeometries) {
-            if(this.faceGeometryId == surface.getId()){
-                this.faceGeometry = surface;
+        for (StpRepresentationItem entity : availableEntities) {
+            if (this.faceGeometryId == entity.getId()) {
+                this.faceGeometry = (StpSurface) entity;
             }
         }
     }

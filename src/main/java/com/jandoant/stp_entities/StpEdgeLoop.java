@@ -23,12 +23,12 @@ public class StpEdgeLoop extends StpLoop {
     }
 
     //Methoden
-    public void convertFromIds(ArrayList<StpOrientedEdge> possibleOrientedEdges) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        for (StpOrientedEdge orientedEdge : possibleOrientedEdges) {
+        for (StpRepresentationItem entity : availableEntities) {
 
-            if (this.edgesIds.contains(orientedEdge.getId())) {
-                this.edgesList.add(orientedEdge);
+            if (this.edgesIds.contains(entity.getId())) {
+                this.edgesList.add((StpOrientedEdge) entity);
             }
 
         }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StpEdgeLoopTest {
 
-    ArrayList<StpOrientedEdge> possibleEdges;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpEdgeLoop edgeLoop;
 
     @Test
@@ -126,9 +126,9 @@ class StpEdgeLoopTest {
     @BeforeEach
     void setUp() {
 
-        possibleEdges = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
-        StpOrientedEdge[] orientedEdges = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpOrientedEdge(71, "0", 59, 59, 59, true),
                 new StpOrientedEdge(72, "1", 60, 60, 60, true),
                 new StpOrientedEdge(73, "2", 61, 61, 61, false),
@@ -140,7 +140,7 @@ class StpEdgeLoopTest {
                 new StpOrientedEdge(79, "8", 67, 67, 67, true),
                 new StpOrientedEdge(80, "9", 68, 68, 68, true)
         };
-        possibleEdges.addAll(Arrays.asList(orientedEdges));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
     }
 
     @Test
@@ -155,7 +155,7 @@ class StpEdgeLoopTest {
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
         //act
-        edgeLoop.convertFromIds(possibleEdges);
+        edgeLoop.convertFromIds(allAvailableEntities);
         //expectations
         int expectedAmount = 4;
         //assert
@@ -175,7 +175,7 @@ class StpEdgeLoopTest {
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
         //act
-        edgeLoop.convertFromIds(possibleEdges);
+        edgeLoop.convertFromIds(allAvailableEntities);
         //expectations
         int expectedAmount = 5;
         //assert
@@ -185,6 +185,7 @@ class StpEdgeLoopTest {
     @Test
     @DisplayName("should return true if the correct instances of StpOrientedEdges have been applied")
     void testConvertFromIdsCorrectEdgesApplied() {
+
         ArrayList<Integer> edgesIds = new ArrayList<>();
         edgesIds.add(71);
         edgesIds.add(72);
@@ -192,13 +193,15 @@ class StpEdgeLoopTest {
         edgesIds.add(74);
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
-        //act
-        edgeLoop.convertFromIds(possibleEdges);
 
-        assertTrue(edgeLoop.edgesList.contains(possibleEdges.get(0))
-                && edgeLoop.edgesList.contains(possibleEdges.get(1))
-                && edgeLoop.edgesList.contains(possibleEdges.get(2))
-                && edgeLoop.edgesList.contains(possibleEdges.get(3))
+        //act
+        edgeLoop.convertFromIds(allAvailableEntities);
+
+
+        assertTrue(edgeLoop.edgesList.contains(allAvailableEntities.get(0))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(1))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(2))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(3))
         );
     }
 
@@ -214,19 +217,19 @@ class StpEdgeLoopTest {
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
         //act
-        edgeLoop.convertFromIds(possibleEdges);
+        edgeLoop.convertFromIds(allAvailableEntities);
 
-        assertFalse(edgeLoop.edgesList.contains(possibleEdges.get(5))
-                || edgeLoop.edgesList.contains(possibleEdges.get(6))
-                || edgeLoop.edgesList.contains(possibleEdges.get(7))
-                || edgeLoop.edgesList.contains(possibleEdges.get(8))
-                || edgeLoop.edgesList.contains(possibleEdges.get(9))
+        assertFalse(edgeLoop.edgesList.contains(allAvailableEntities.get(5))
+                || edgeLoop.edgesList.contains(allAvailableEntities.get(6))
+                || edgeLoop.edgesList.contains(allAvailableEntities.get(7))
+                || edgeLoop.edgesList.contains(allAvailableEntities.get(8))
+                || edgeLoop.edgesList.contains(allAvailableEntities.get(9))
         );
     }
 
     @AfterEach
     void tearDown() {
-        possibleEdges = null;
+        allAvailableEntities = null;
         edgeLoop = null;
     }
 }

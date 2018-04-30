@@ -7,12 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpFaceOuterBoundTest {
+
+    ArrayList<StpRepresentationItem> allAvailableEntities;
+    StpFaceOuterBound outerBound;
 
     @Test
     void testToString() {
@@ -20,6 +23,8 @@ class StpFaceOuterBoundTest {
         StpFaceOuterBound outerBound = new StpFaceOuterBound(12, "FaceOuterBound1", 23, true);
 
         String expected = "StpFaceOuterBound{id=12, name='FaceOuterBound1', boundId=23, bound=null, orientation=true}";
+
+        assertEquals(expected, outerBound.toString());
 
     }
 
@@ -136,48 +141,44 @@ class StpFaceOuterBoundTest {
 
     }
 
-
-    ArrayList<StpLoop> possibleBounds;
-    StpFaceOuterBound outerBound;
-
     @BeforeEach
     void setUp() {
 
-        Integer [] edges41 = {51, 52, 53};
-        Integer [] edges42 = {54, 55, 56, 57};
-        Integer [] edges43 = {58, 59};
-        Integer [] edges44 = {60, 61, 62, 63, 64, 65};
+        Integer[] edgesIds41Arr = {51, 52, 53};
+        Integer[] edgesIds42Arr = {54, 55, 56, 57};
+        Integer[] edgesIds43Arr = {58, 59};
+        Integer[] edgesIds44Arr = {60, 61, 62, 63, 64, 65};
 
         ArrayList<Integer> edgesIds41 = new ArrayList<>();
         ArrayList<Integer> edgesIds42 = new ArrayList<>();
         ArrayList<Integer> edgesIds43 = new ArrayList<>();
         ArrayList<Integer> edgesIds44 = new ArrayList<>();
-        edgesIds41.addAll(Arrays.asList(edges41));
-        edgesIds41.addAll(Arrays.asList(edges42));
-        edgesIds41.addAll(Arrays.asList(edges43));
-        edgesIds41.addAll(Arrays.asList(edges44));
 
+        edgesIds41.addAll(Arrays.asList(edgesIds41Arr));
+        edgesIds41.addAll(Arrays.asList(edgesIds42Arr));
+        edgesIds41.addAll(Arrays.asList(edgesIds43Arr));
+        edgesIds41.addAll(Arrays.asList(edgesIds44Arr));
 
-        StpLoop [] loops = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpEdgeLoop(41, "", edgesIds41),
                 new StpEdgeLoop(42, "", edgesIds42),
                 new StpEdgeLoop(43, "", edgesIds43),
                 new StpEdgeLoop(44, "", edgesIds44)
         };
 
-        possibleBounds = new ArrayList<>();
-        possibleBounds.addAll(Arrays.asList(loops));
-
+        allAvailableEntities = new ArrayList<>();
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
         outerBound = new StpFaceOuterBound(12, "", 43, true);
     }
+
     @Test
     @DisplayName("it should write the correct Bound From the List")
     void testConvertFromIdsBound() {
 
-        outerBound.convertFromIds(possibleBounds);
+        outerBound.convertFromIds(allAvailableEntities);
 
-        StpLoop expectedBound = possibleBounds.get(2);
+        StpLoop expectedBound = (StpLoop) allAvailableEntities.get(2);
 
         StpLoop actualBound = outerBound.getBound();
 
@@ -187,7 +188,7 @@ class StpFaceOuterBoundTest {
 
     @AfterEach
     void tearDown() {
-        possibleBounds = null;
+        allAvailableEntities = null;
         outerBound = null;
     }
 }

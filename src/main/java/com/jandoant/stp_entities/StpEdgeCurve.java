@@ -36,13 +36,13 @@ public class StpEdgeCurve extends StpEdge {
         return edgeGeometry != null ? edgeGeometry.equals(that.edgeGeometry) : that.edgeGeometry == null;
     }
 
-    public void convertFromIds(ArrayList<StpVertex> possibleVertices, ArrayList<StpCurve> possibleEdgeGeometries) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
 
-        super.convertFromIds(possibleVertices);
+        super.convertFromIds(allEntities);
 
-        for (StpCurve curve : possibleEdgeGeometries) {
-            if (curve.getId() == this.edgeGeometryId) {
-                this.edgeGeometry = curve;
+        for (StpRepresentationItem entity : allEntities) {
+            if (entity.getId() == this.edgeGeometryId) {
+                this.edgeGeometry = (StpCurve) entity;
             }
         }
     }

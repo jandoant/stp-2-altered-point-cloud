@@ -22,15 +22,15 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
         this.edgeEndVertexId = edgeEndVertexId;
     }
 
-    public void convertFromIds(ArrayList<StpVertex> possibleVertices) {
-        for (StpVertex vtx : possibleVertices) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
+        for (StpRepresentationItem entity : allEntities) {
 
-            if (vtx.getId() == this.edgeStartVertexId) {
-                this.edgeStartVertex = vtx;
+            if (entity.getId() == this.edgeStartVertexId) {
+                this.edgeStartVertex = (StpVertex) entity;
             }
 
-            if (vtx.getId() == this.edgeEndVertexId) {
-                this.edgeEndVertex = vtx;
+            if (entity.getId() == this.edgeEndVertexId) {
+                this.edgeEndVertex = (StpVertex) entity;
             }
         }
     }
@@ -66,6 +66,14 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
 
     public void setEdgeStartVertex(StpVertex edgeStartVertex) {
         this.edgeStartVertex = edgeStartVertex;
+    }
+
+    public int getEdgeStartVertexId() {
+        return edgeStartVertexId;
+    }
+
+    public int getEdgeEndVertexId() {
+        return edgeEndVertexId;
     }
 
     public StpVertex getEdgeEndVertex() {

@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpLineTest {
 
-    ArrayList<StpCartesianPoint> possibleStartingPoints;
-    ArrayList<StpVector> possibleDirectionVectors;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
     StpLine line;
 
     @Test
@@ -145,26 +144,20 @@ class StpLineTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleStartingPoints = new ArrayList<>();
-        possibleDirectionVectors = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
         //Put all available Cartesian Points in List
-        StpCartesianPoint[] points = {
+        StpRepresentationItem[] entitiesArr = {
                 new StpCartesianPoint(71, "", 0.0, 0.0, 0.0),
                 new StpCartesianPoint(73, "", 0.0, 20.0, 0.0),
                 new StpCartesianPoint(75, "", 0.0, 20.0, 30.0),
-                new StpCartesianPoint(76, "", 0.0, 0.0, 30.0)
-        };
-        possibleStartingPoints.addAll(Arrays.asList(points));
-
-        //Put all available Directions in List
-        StpVector[] vectors = {
+                new StpCartesianPoint(76, "", 0.0, 0.0, 30.0),
                 new StpVector(19, "", 63, 10.0),
                 new StpVector(20, "", 64, 10.0),
                 new StpVector(21, "", 65, 10.0),
                 new StpVector(22, "", 66, 10.0)
         };
-        possibleDirectionVectors.addAll(Arrays.asList(vectors));
+        allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
         //extracted Object from String-description
         line = new StpLine(18, "", 76, 22);
@@ -175,9 +168,9 @@ class StpLineTest {
     void testConvertFromIdsStartingPoint() {
 
         //act -- fill the fields
-        line.convertFromIds(possibleStartingPoints, possibleDirectionVectors);
+        line.convertFromIds(allAvailableEntities);
         //expectations
-        StpCartesianPoint expectedStartingPoint = possibleStartingPoints.get(3);
+        StpCartesianPoint expectedStartingPoint = (StpCartesianPoint) allAvailableEntities.get(3);
         //assert
         assertTrue(line.getStartingPoint().equals(expectedStartingPoint));
     }
@@ -185,19 +178,17 @@ class StpLineTest {
     @Test
     @DisplayName("should write correct DirectionVector from given Lists")
     void testConvertFromIdsDirectionVector() {
-
         //act -- fill the fields
-        line.convertFromIds(possibleStartingPoints, possibleDirectionVectors);
+        line.convertFromIds(allAvailableEntities);
         //expectations
-        StpVector expectedDirectionVector = possibleDirectionVectors.get(3);
+        StpVector expectedDirectionVector = (StpVector) allAvailableEntities.get(7);
         //assert
         assertTrue(line.getDirectionVector().equals(expectedDirectionVector));
     }
 
     @AfterEach
     void tearDown() {
-        possibleStartingPoints = null;
-        possibleDirectionVectors = null;
+        allAvailableEntities = null;
         line = null;
     }
 

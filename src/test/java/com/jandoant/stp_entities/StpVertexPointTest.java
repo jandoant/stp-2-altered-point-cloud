@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StpVertexPointTest {
 
-    ArrayList<StpPoint> possibleVertexGeometries;
-    StpVertexPoint point;
+    ArrayList<StpRepresentationItem> allAvailableEntities;
+    StpVertexPoint vpt;
 
     @Test
     @DisplayName("should return true if the two compared instances have the same values")
@@ -67,7 +67,7 @@ class StpVertexPointTest {
     void setUp() {
 
         //setUp empty Lists
-        possibleVertexGeometries = new ArrayList<>();
+        allAvailableEntities = new ArrayList<>();
 
         //Put all available Directions in List
         StpPoint[] points = {
@@ -76,20 +76,21 @@ class StpVertexPointTest {
                 new StpCartesianPoint(72, "", 0.0, 20.0, 30.0),
                 new StpCartesianPoint(74, "", 0.0, 0.0, 30.0)
         };
-        possibleVertexGeometries.addAll(Arrays.asList(points));
+        allAvailableEntities.addAll(Arrays.asList(points));
+
         //extracted Object from String-description
-        point = new StpVertexPoint(26, "", 74);
+        vpt = new StpVertexPoint(26, "", 74);
     }
 
     @Test
     @DisplayName("should write correct VertexGeometry from given List")
     void testConvertFromIdsLocation() {
         //act
-        point.convertFromIds(possibleVertexGeometries);
+        vpt.convertFromIds(allAvailableEntities);
         //expectations
-        StpCartesianPoint expectedPoint = (StpCartesianPoint) possibleVertexGeometries.get(3);
+        StpPoint expectedPoint = (StpPoint) allAvailableEntities.get(3);
         //assert
-        assertTrue(point.getVertexGeometry().equals(expectedPoint));
+        assertTrue(vpt.getVertexGeometry().equals(expectedPoint));
     }
 
     @Test

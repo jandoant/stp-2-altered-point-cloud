@@ -1,15 +1,12 @@
 package com.jandoant.stp_entities;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Klasse StpFaceBound
  * Created by Jan Doant on 25.04.2018
  */
-public abstract class StpFaceBound extends StpTopologicalRepresentationItem{
+public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
 
     //Attribute
     int boundId;
@@ -25,10 +22,10 @@ public abstract class StpFaceBound extends StpTopologicalRepresentationItem{
 
     //Methoden
 
-    public void convertFromIds(ArrayList<StpLoop> possibleBounds){
-        for (StpLoop loop: possibleBounds) {
-            if(loop.getId() == this.boundId){
-                this.bound = loop;
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
+            if (entity.getId() == this.boundId) {
+                this.bound = (StpLoop) entity;
                 return;
             }
         }

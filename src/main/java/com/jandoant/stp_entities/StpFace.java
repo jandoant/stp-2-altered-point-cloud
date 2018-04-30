@@ -20,10 +20,10 @@ public abstract class StpFace extends StpTopologicalRepresentationItem {
     }
 
     //Methoden
-    public void convertFromIds(ArrayList<StpFaceBound> possibleBounds){
-        for (StpFaceBound bound:possibleBounds) {
-            if(this.boundsIds.contains(bound.getId())){
-                this.bounds.add(bound);
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
+            if (this.boundsIds.contains(entity.getId())) {
+                this.bounds.add((StpFaceBound) entity);
             }
         }
     }
