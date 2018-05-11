@@ -246,7 +246,6 @@ class StpVectorTest {
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
-
         //v1-v2
         StpVector v12 = v1.subtract(v2);
 
@@ -255,6 +254,22 @@ class StpVectorTest {
 
         assertEquals(new StpVector(-1, "", -2, 1, -4), v12);
         assertEquals(new StpVector(-1, "", 2, -1, 4), v21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to scale a vector by a certain Factor")
+    void testScalingOfVector() {
+
+        double scaleFactor = 3;
+
+        StpVector v = new StpVector(-1, "", 3, 2, 5);
+
+        StpVector scaledVector = v.scale(scaleFactor);
+
+        StpVector expectedVector = new StpVector(-1, "", 9, 6, 15);
+
+        assertEquals(expectedVector, scaledVector);
 
     }
 }

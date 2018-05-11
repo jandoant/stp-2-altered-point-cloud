@@ -112,4 +112,10 @@ public class StpVector extends StpGeometricRepresentationItem {
         return new StpVector(-1, "", newX, newY, newZ);
 
     }
+
+    public StpVector scale(double scaleFactor) {
+
+        return new StpVector(-1, "", this.x*scaleFactor, this.y*scaleFactor, this.z*scaleFactor);
+
+    }
 }
