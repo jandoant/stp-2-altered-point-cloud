@@ -154,7 +154,6 @@ class StpModelBuilderTest {
         entityStringList.add("#44=VECTOR('',#144,10.);");
         entityStringList.add("#54=VERTEX_POINT('',#166);");
         entityStringList.add("#59=EDGE_CURVE('',#51,#52,#27,.T.);");
-        entityStringList.add("#73=ORIENTED_EDGE('',*,*,#61,.F.);");
 
         try {
             stpModelBuilder = new StpModelBuilder(PATH_TO_TEST_RESOURCES + "empty.stp");
@@ -180,7 +179,6 @@ class StpModelBuilderTest {
         expectedEntityList.add(new StpVector(44, "", 144, 10.0));
         expectedEntityList.add(new StpVertexPoint(54, "", 166));
         expectedEntityList.add(new StpEdgeCurve(59, "", 51, 52, 27, true));
-        expectedEntityList.add(new StpOrientedEdge(73, "", 61, 61, 61, false));
 
         //assert
         ArrayList<StpRepresentationItem> actualEntityList = stpModelBuilder.getEntityList();
@@ -203,7 +201,6 @@ class StpModelBuilderTest {
         entityStringList.add("#44=VECTOR('',#144,10.);");
         entityStringList.add("#54=VERTEX_POINT('',#166);");
         entityStringList.add("#59=EDGE_CURVE('',#51,#52,#27,.T.);");
-        entityStringList.add("#73=ORIENTED_EDGE('',*,*,#61,.F.);");
 
         try {
             stpModelBuilder = new StpModelBuilder(PATH_TO_TEST_RESOURCES + "empty.stp");
@@ -229,7 +226,6 @@ class StpModelBuilderTest {
         expectedEntityList.add(new StpVector(44, "", 144, 10.0));
         expectedEntityList.add(new StpVertexPoint(54, "", 166));
         expectedEntityList.add(new StpEdgeCurve(59, "", 51, 52, 27, true));
-        expectedEntityList.add(new StpOrientedEdge(73, "", 61, 61, 61, false));
 
         //assert
         ArrayList<StpRepresentationItem> actualEntityList = stpModelBuilder.getEntityList();

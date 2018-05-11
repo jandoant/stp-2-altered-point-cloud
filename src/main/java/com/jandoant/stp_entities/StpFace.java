@@ -24,7 +24,12 @@ public abstract class StpFace extends StpTopologicalRepresentationItem {
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
         for (StpRepresentationItem entity : availableEntities) {
             if (this.boundsIds.contains(entity.getId())) {
-                this.bounds.add((StpFaceBound) entity);
+
+                StpFaceBound faceBound = (StpFaceBound) entity;
+
+                faceBound.convertFromIds(availableEntities);
+
+                this.bounds.add(faceBound);
             }
         }
     }

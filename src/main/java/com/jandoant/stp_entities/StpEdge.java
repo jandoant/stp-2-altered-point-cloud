@@ -23,15 +23,18 @@ public abstract class StpEdge extends StpTopologicalRepresentationItem {
     }
 
     @Override
-    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
-        for (StpRepresentationItem entity : allEntities) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
 
             if (entity.getId() == this.edgeStartVertexId) {
                 this.edgeStartVertex = (StpVertex) entity;
+                this.edgeStartVertex.convertFromIds(availableEntities);
             }
 
             if (entity.getId() == this.edgeEndVertexId) {
                 this.edgeEndVertex = (StpVertex) entity;
+                this.edgeEndVertex.convertFromIds(availableEntities);
+
             }
         }
     }

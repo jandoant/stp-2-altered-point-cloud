@@ -29,7 +29,12 @@ public class StpEdgeLoop extends StpLoop {
         for (StpRepresentationItem entity : availableEntities) {
 
             if (this.edgesIds.contains(entity.getId())) {
-                this.edgesList.add((StpOrientedEdge) entity);
+
+                StpOrientedEdge orientedEdge = (StpOrientedEdge) entity;
+
+                orientedEdge.convertFromIds(availableEntities);
+
+                this.edgesList.add(orientedEdge);
             }
 
         }

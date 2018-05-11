@@ -24,13 +24,15 @@ public class StpOrientedEdge extends StpEdge {
     //Methoden
 
     @Override
-    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
         //Erstmal edgeElement festlegen
         //die edgeElement-Informationen kommen aus der Entity-Liste
-        for (StpRepresentationItem entity : allEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
             if (this.edgeElementId == entity.getId()) {
                 this.edgeElement = (StpEdge) entity;
+
+                this.edgeElement.convertFromIds(availableEntities);
             }
         }
 
@@ -41,7 +43,7 @@ public class StpOrientedEdge extends StpEdge {
 
             //die edgeStart-Informationen kommen aus der Entity-Liste
             //die edgeEnd-Informationen kommen aus der Entity-Liste
-            super.convertFromIds(allEntities);
+            super.convertFromIds(availableEntities);
         }
 
         //beide Vertices gleich zu EdgeElementId =>inherited
@@ -56,6 +58,11 @@ public class StpOrientedEdge extends StpEdge {
             //die edgeEnd-Informationen stammen aus dem edgeElement
             this.edgeStartVertex = this.edgeElement.getEdgeStartVertex();
             this.edgeEndVertex = this.edgeElement.getEdgeEndVertex();
+
+            this.edgeStartVertex.convertFromIds(availableEntities);
+            this.edgeEndVertex.convertFromIds(availableEntities);
+
+
         }
 
         //nur startVertexId unterschiedlich
@@ -64,10 +71,11 @@ public class StpOrientedEdge extends StpEdge {
             //System.out.println("erster unterschiedlich");
 
             //die edgeStart-Informationen kommen aus der Entity-Liste
-            for (StpRepresentationItem entity : allEntities) {
+            for (StpRepresentationItem entity : availableEntities) {
                 if (entity.getId() == this.edgeStartVertexId) {
 
                     this.edgeStartVertex = (StpVertex) entity;
+                    this.edgeStartVertex.convertFromIds(availableEntities);
 
                 }
             }
@@ -75,6 +83,8 @@ public class StpOrientedEdge extends StpEdge {
             //die edgeEnd-Informationen stammen aus dem edgeElement
             this.edgeEndVertexId = this.edgeElement.getEdgeEndVertexId();
             this.edgeEndVertex = this.edgeElement.getEdgeEndVertex();
+
+            this.edgeEndVertex.convertFromIds(availableEntities);
         }
 
         //endVertexId unterschiedlich
@@ -86,10 +96,13 @@ public class StpOrientedEdge extends StpEdge {
             this.edgeStartVertexId = this.edgeElement.getEdgeStartVertexId();
             this.edgeStartVertex = this.edgeElement.getEdgeStartVertex();
 
+            this.edgeStartVertex.convertFromIds(availableEntities);
+
             //die edgeEnd-Informationen kommen aus der Entity-Liste
-            for (StpRepresentationItem entity : allEntities) {
+            for (StpRepresentationItem entity : availableEntities) {
                 if (entity.getId() == this.edgeEndVertexId) {
                     this.edgeEndVertex = (StpVertex) entity;
+                    this.edgeEndVertex.convertFromIds(availableEntities);
                 }
             }
         }

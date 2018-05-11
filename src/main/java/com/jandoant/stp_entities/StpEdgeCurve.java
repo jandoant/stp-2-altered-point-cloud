@@ -37,13 +37,14 @@ public class StpEdgeCurve extends StpEdge {
     }
 
     @Override
-    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        super.convertFromIds(allEntities);
+        super.convertFromIds(availableEntities);
 
-        for (StpRepresentationItem entity : allEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
             if (entity.getId() == this.edgeGeometryId) {
                 this.edgeGeometry = (StpCurve) entity;
+                this.edgeGeometry.convertFromIds(availableEntities);
             }
         }
     }

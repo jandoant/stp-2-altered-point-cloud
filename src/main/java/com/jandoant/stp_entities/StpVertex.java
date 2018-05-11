@@ -12,6 +12,7 @@ public abstract class StpVertex extends StpTopologicalRepresentationItem {
     public StpVertex(int id, String name) {
         super(id, name);
     }
+
     //Methoden
 
 }

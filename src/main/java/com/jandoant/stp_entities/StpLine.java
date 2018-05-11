@@ -34,8 +34,11 @@ public class StpLine extends StpCurve {
 
             if (entity.getId() == this.startingPointId) {
                 this.startingPoint = (StpCartesianPoint) entity;
-            } else if (entity.getId() == this.directionVectorId) {
+                this.startingPoint.convertFromIds(availableEntities);
+            }
+            if (entity.getId() == this.directionVectorId) {
                 this.directionVector = (StpVector) entity;
+                this.directionVector.convertFromIds(availableEntities);
             }
         }
     }

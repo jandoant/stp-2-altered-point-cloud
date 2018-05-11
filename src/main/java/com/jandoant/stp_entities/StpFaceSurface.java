@@ -29,6 +29,7 @@ public abstract class StpFaceSurface extends StpFace {
         for (StpRepresentationItem entity : availableEntities) {
             if (this.faceGeometryId == entity.getId()) {
                 this.faceGeometry = (StpSurface) entity;
+                this.faceGeometry.convertFromIds(availableEntities);
             }
         }
     }

@@ -142,4 +142,97 @@ class StpVectorTest {
 
     }
 
+    @Test
+    @DisplayName("should return the correct XYZ-values")
+    void testXYZConstructor() {
+
+        //SetUp
+        double x = 4;
+        double y = 2;
+        double z = 3;
+
+        StpVector v = new StpVector(-1, "", x, y, z);
+
+        assertEquals(4.0, v.getX());
+        assertEquals(2.0, v.getY());
+        assertEquals(3.0, v.getZ());
+    }
+
+    @Test
+    @DisplayName("should return the correct Direction value")
+    void testXYZConstructorDirection() {
+
+        //SetUp
+        double x = 4;
+        double y = 2;
+        double z = 3;
+
+        StpVector v = new StpVector(0, "", x, y, z);
+
+        double mag = Math.sqrt(x * x + y * y + z * z);
+        StpDirection expectedDirection = new StpDirection(-1, "", x / mag, y / mag, z / mag);
+
+        StpDirection actualDirection = v.getDirection();
+
+        assertEquals(expectedDirection, actualDirection);
+
+    }
+
+    @Test
+    @DisplayName("should return a Direction with a magnitude of 1")
+    void testXYZConstructorDirectionMag() {
+
+        //SetUp
+        double x = 4;
+        double y = 2;
+        double z = 3;
+
+        double expectedDirectionMagnitude = 1.0;
+
+        StpVector v = new StpVector(0, "", x, y, z);
+
+        StpDirection actualDirection = v.getDirection();
+
+        double actualDirectionMagnitude = Math.sqrt(
+                actualDirection.xDirection * actualDirection.xDirection +
+                        actualDirection.yDirection * actualDirection.yDirection +
+                        actualDirection.zDirection * actualDirection.zDirection
+        );
+
+        assertEquals(expectedDirectionMagnitude, actualDirectionMagnitude);
+
+    }
+
+    @Test
+    @DisplayName("should return a Direction with a magnitude of 1")
+    void testXYZConstructorMagnitude() {
+
+        //SetUp
+        double x = 4;
+        double y = 2;
+        double z = 3;
+
+        double expectedMagnitude = Math.sqrt(x * x + y * y + z * z);
+
+        StpVector v = new StpVector(0, "", x, y, z);
+
+        double actualMagnitude = v.getMagnitude();
+
+        assertEquals(expectedMagnitude, actualMagnitude);
+
+    }
+
+    @Test
+    @DisplayName("should be able to add two vectors together")
+    void testAddingTwoVectors() {
+
+        
+
+
+
+
+
+
+
+    }
 }

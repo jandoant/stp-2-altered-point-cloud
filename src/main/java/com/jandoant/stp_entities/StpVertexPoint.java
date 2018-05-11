@@ -21,11 +21,12 @@ public class StpVertexPoint extends StpVertex {
 
     //Methoden
     @Override
-    public void convertFromIds(ArrayList<StpRepresentationItem> allEntities) {
+    public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        for (StpRepresentationItem entity : allEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
             if (entity.getId() == this.vertexGeometryId) {
                 this.vertexGeometry = (StpPoint) entity;
+                this.vertexGeometry.convertFromIds(availableEntities);
             }
         }
     }

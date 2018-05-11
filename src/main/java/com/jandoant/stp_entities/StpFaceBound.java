@@ -26,6 +26,7 @@ public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
         for (StpRepresentationItem entity : availableEntities) {
             if (entity.getId() == this.boundId) {
                 this.bound = (StpLoop) entity;
+                this.bound.convertFromIds(availableEntities);
                 return;
             }
         }

@@ -129,18 +129,62 @@ class StpEdgeLoopTest {
         allAvailableEntities = new ArrayList<>();
 
         StpRepresentationItem[] entitiesArr = {
-                new StpOrientedEdge(71, "0", 59, 59, 59, true),
-                new StpOrientedEdge(72, "1", 60, 60, 60, true),
-                new StpOrientedEdge(73, "2", 61, 61, 61, false),
-                new StpOrientedEdge(74, "3", 62, 62, 62, false),
-                new StpOrientedEdge(75, "4", 63, 63, 63, true),
-                new StpOrientedEdge(76, "5", 64, 64, 64, true),
-                new StpOrientedEdge(77, "6", 65, 65, 65, false),
-                new StpOrientedEdge(78, "7", 66, 66, 66, false),
-                new StpOrientedEdge(79, "8", 67, 67, 67, true),
-                new StpOrientedEdge(80, "9", 68, 68, 68, true)
+
+                new StpCartesianPoint(11, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(12, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(13, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(14, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(15, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(16, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(17, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(18, "", 1.0, 2.3, 3.3),
+                new StpCartesianPoint(19, "", 1.0, 2.3, 3.3),
+
+                new StpDirection(20, "", 1.0, 4.3, 1.2),
+                new StpDirection(21, "", 1.0, 4.3, 1.2),
+                new StpDirection(22, "", 1.0, 4.3, 1.2),
+                new StpDirection(23, "", 1.0, 4.3, 1.2),
+                new StpDirection(24, "", 1.0, 4.3, 1.2),
+                new StpDirection(25, "", 1.0, 4.3, 1.2),
+
+                new StpAxis2Placement3D(31, "", 11, 21, 22),
+                new StpAxis2Placement3D(32, "", 12, 22, 23),
+                new StpAxis2Placement3D(33, "", 13, 23, 24),
+                new StpAxis2Placement3D(34, "", 14, 24, 25),
+
+                new StpVertexPoint(41, "", 11),
+                new StpVertexPoint(42, "", 12),
+                new StpVertexPoint(43, "", 13),
+                new StpVertexPoint(44, "", 14),
+                new StpVertexPoint(45, "", 14),
+
+                new StpVector(51, "", 20, 1.0),
+                new StpVector(52, "", 21, 1.0),
+                new StpVector(53, "", 22, 1.0),
+                new StpVector(54, "", 23, 1.0),
+                new StpVector(55, "", 24, 1.0),
+
+                new StpLine(61, "", 11, 51),
+                new StpLine(62, "", 12, 52),
+                new StpLine(63, "", 13, 53),
+                new StpLine(64, "", 14, 54),
+                new StpLine(65, "", 15, 55),
+                new StpLine(66, "", 16, 51),
+
+                new StpEdgeCurve(71, "35", 41, 44, 61, true),
+                new StpEdgeCurve(72, "36", 42, 45, 62, true),
+                new StpEdgeCurve(73, "37", 43, 41, 63, true),
+                new StpEdgeCurve(74, "38", 44, 42, 64, true),
+                new StpEdgeCurve(75, "39", 45, 43, 65, true),
+                new StpEdgeCurve(76, "40", 41, 44, 66, true),
+
+                new StpOrientedEdge(81, "41", 71, 71, 71, true),
+                new StpOrientedEdge(82, "42", 72, 72, 72, true),
+                new StpOrientedEdge(83, "43", 73, 73, 73, false),
+                new StpOrientedEdge(84, "44", 74, 74, 74, false)
         };
         allAvailableEntities.addAll(Arrays.asList(entitiesArr));
+
     }
 
     @Test
@@ -148,14 +192,16 @@ class StpEdgeLoopTest {
     void testConvertFromIdsAmountEdges1() {
 
         ArrayList<Integer> edgesIds = new ArrayList<>();
-        edgesIds.add(71);
-        edgesIds.add(72);
-        edgesIds.add(73);
-        edgesIds.add(74);
+        edgesIds.add(81);
+        edgesIds.add(82);
+        edgesIds.add(83);
+        edgesIds.add(84);
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
+
         //act
         edgeLoop.convertFromIds(allAvailableEntities);
+
         //expectations
         int expectedAmount = 4;
         //assert
@@ -167,17 +213,14 @@ class StpEdgeLoopTest {
     void testConvertFromIdsAmountEdges2() {
 
         ArrayList<Integer> edgesIds = new ArrayList<>();
-        edgesIds.add(71);
-        edgesIds.add(72);
-        edgesIds.add(73);
-        edgesIds.add(74);
-        edgesIds.add(75);
+        edgesIds.add(81);
+        edgesIds.add(82);
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
         //act
         edgeLoop.convertFromIds(allAvailableEntities);
         //expectations
-        int expectedAmount = 5;
+        int expectedAmount = 2;
         //assert
         assertEquals(edgeLoop.edgesList.size(), expectedAmount);
     }
@@ -186,22 +229,21 @@ class StpEdgeLoopTest {
     @DisplayName("should return true if the correct instances of StpOrientedEdges have been applied")
     void testConvertFromIdsCorrectEdgesApplied() {
 
-        ArrayList<Integer> edgesIds = new ArrayList<>();
-        edgesIds.add(71);
-        edgesIds.add(72);
-        edgesIds.add(73);
-        edgesIds.add(74);
+        ArrayList<Integer> edgesIdsArr = new ArrayList<>();
+        edgesIdsArr.add(81);
+        edgesIdsArr.add(82);
+        edgesIdsArr.add(83);
+        edgesIdsArr.add(84);
 
-        edgeLoop = new StpEdgeLoop(21, "", edgesIds);
+        edgeLoop = new StpEdgeLoop(21, "", edgesIdsArr);
 
         //act
         edgeLoop.convertFromIds(allAvailableEntities);
 
-
-        assertTrue(edgeLoop.edgesList.contains(allAvailableEntities.get(0))
-                && edgeLoop.edgesList.contains(allAvailableEntities.get(1))
-                && edgeLoop.edgesList.contains(allAvailableEntities.get(2))
-                && edgeLoop.edgesList.contains(allAvailableEntities.get(3))
+        assertTrue(edgeLoop.edgesList.contains(allAvailableEntities.get(41))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(42))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(43))
+                && edgeLoop.edgesList.contains(allAvailableEntities.get(44))
         );
     }
 
@@ -210,20 +252,16 @@ class StpEdgeLoopTest {
     void testConvertFromIdsIncorrectEdgesApplied() {
 
         ArrayList<Integer> edgesIds = new ArrayList<>();
-        edgesIds.add(71);
-        edgesIds.add(72);
-        edgesIds.add(73);
-        edgesIds.add(74);
+        edgesIds.add(81);
+        edgesIds.add(82);
 
         edgeLoop = new StpEdgeLoop(21, "", edgesIds);
         //act
         edgeLoop.convertFromIds(allAvailableEntities);
 
-        assertFalse(edgeLoop.edgesList.contains(allAvailableEntities.get(5))
-                || edgeLoop.edgesList.contains(allAvailableEntities.get(6))
-                || edgeLoop.edgesList.contains(allAvailableEntities.get(7))
-                || edgeLoop.edgesList.contains(allAvailableEntities.get(8))
-                || edgeLoop.edgesList.contains(allAvailableEntities.get(9))
+        assertFalse(edgeLoop.edgesList.contains(allAvailableEntities.get(43))
+                || edgeLoop.edgesList.contains(allAvailableEntities.get(44))
+
         );
     }
 

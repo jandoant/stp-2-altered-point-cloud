@@ -14,6 +14,8 @@ public class StpVector extends StpGeometricRepresentationItem {
     private StpDirection direction;
     private double magnitude;
 
+    private double x, y, z;
+
     //Konstruktor
     public StpVector(int id, String name, int directionId, double magnitude) {
         super(id, name);
@@ -21,8 +23,20 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.magnitude = magnitude;
     }
 
-    //Methoden
+    public StpVector(int id, String name, double x, double y, double z) {
+        super(id, name);
+        this.x = x;
+        this.y = y;
+        this.z = z;
 
+        this.magnitude = Math.sqrt(x*x+y*y+z*z);
+
+        this.directionId = -1;
+        this.direction = new StpDirection(-1, "", x/this.magnitude, y/this.magnitude, z/this.magnitude);
+
+    }
+
+    //Methoden
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +56,7 @@ public class StpVector extends StpGeometricRepresentationItem {
         for (StpRepresentationItem entity : availableEntites) {
             if (entity.getId() == this.directionId) {
                 this.direction = (StpDirection) entity;
+                this.direction.convertFromIds(availableEntites);
             }
         }
     }
@@ -53,6 +68,22 @@ public class StpVector extends StpGeometricRepresentationItem {
                 ", direction=" + direction +
                 ", magnitude=" + magnitude +
                 "}";
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public double getMagnitude() {
+        return magnitude;
     }
 
     public StpDirection getDirection() {

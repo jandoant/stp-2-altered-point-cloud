@@ -33,6 +33,7 @@ public class StpModelBuilder {
 
         this.entityStringList = new ArrayList<>();
         this.entityList = new ArrayList<>();
+        this.advancedFaces = new ArrayList<>();
     }
 
     public ArrayList<StpAdvancedFace> parseFile() throws IOException {
@@ -40,13 +41,36 @@ public class StpModelBuilder {
         //make a List of Strings that could describe an entity
         makeListOfEntityStrings();
 
-        //make a list of actual Entities (unimportant Entities get filtered out)
+        //make a list of actual Entities ("unimportant" Entities get filtered out)
         makeListOfEntities();
 
-        //from start to
+        //combine the Entities via their ids
+        convertEntitiesFromIds();
 
-        //Todo: Implement
+        //write all advancedFaces into a List
+        listAdvancesFaces();
+
         return this.advancedFaces;
+    }
+
+    private void listAdvancesFaces() {
+        for (int i = 0; i < entityList.size(); i++) {
+
+            StpRepresentationItem item = entityList.get(i);
+
+            if (item.getClass().getSimpleName().equals("StpAdvancedFace")) {
+
+                advancedFaces.add((StpAdvancedFace) item);
+
+            }
+        }
+    }
+
+    private void convertEntitiesFromIds() {
+
+        for (int i = 0; i < entityList.size(); i++) {
+            entityList.get(i).convertFromIds(entityList);
+        }
     }
 
     private void makeListOfEntities() {

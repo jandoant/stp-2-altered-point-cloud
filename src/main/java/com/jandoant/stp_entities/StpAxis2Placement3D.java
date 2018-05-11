@@ -27,18 +27,21 @@ public class StpAxis2Placement3D extends StpPlacement {
     @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
-        for (StpRepresentationItem entitiy : availableEntities) {
+        for (StpRepresentationItem entity : availableEntities) {
 
-            if (entitiy.getId() == this.locationId) {
-                this.location = (StpCartesianPoint) entitiy;
+            if (entity.getId() == this.locationId) {
+                this.location = (StpCartesianPoint) entity;
+                this.location.convertFromIds(availableEntities);
             }
 
-            if (entitiy.getId() == this.axisId) {
-                this.axis = (StpDirection) entitiy;
+            if (entity.getId() == this.axisId) {
+                this.axis = (StpDirection) entity;
+                this.axis.convertFromIds(availableEntities);
             }
 
-            if (entitiy.getId() == this.refDirectionId) {
-                this.refDirection = (StpDirection) entitiy;
+            if (entity.getId() == this.refDirectionId) {
+                this.refDirection = (StpDirection) entity;
+                this.refDirection.convertFromIds(availableEntities);
             }
         }
     }
