@@ -272,4 +272,74 @@ class StpVectorTest {
         assertEquals(expectedVector, scaledVector);
 
     }
+
+    @Test
+    @DisplayName("should be able to build the dot product of two vectors")
+    void testDotProductOfTwoVectors() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        double dotProduct = v1.dotProduct(v2);
+
+        double expectedDotProduct = 62;
+
+        assertEquals(expectedDotProduct, dotProduct);
+
+    }
+
+    @Test
+    @DisplayName("should be able to build the dot product of two vectors")
+    void testCrossProductOfTwoVectors() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        StpVector crossProduct12 = v1.crossProduct(v2);
+        StpVector crossProduct21 = v2.crossProduct(v1);
+
+        StpVector expectedCrossProduct12 = new StpVector(-1, "", 13, -2, -7);
+        StpVector expectedCrossProduct21 = new StpVector(-1, "", -13, 2, 7);
+
+        assertEquals(expectedCrossProduct12, crossProduct12);
+        assertEquals(expectedCrossProduct21, crossProduct21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to build the nprmalized version of the vector")
+    void testNormalization() {
+
+        StpVector v = new StpVector(-1, "", 3, 2, 5);
+
+        StpVector normalizedVector = v.normalize();
+
+        double mag = Math.sqrt(9 + 4 + 25);
+        StpVector expectedVector = new StpVector(-1, "", 3 / mag, 2 / mag, 5 / mag);
+
+        assertEquals(expectedVector, normalizedVector);
+
+    }
+
+    @Test
+    @DisplayName("should return false  if two vectors are not orthogonal to each other")
+    void testAreOrthogonalFalse() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        assertFalse(v1.isOrthogonalTo(v2));
+
+    }
+
+    @Test
+    @DisplayName("should return false  if two vectors are orthogonal to each other")
+    void testAreOrthogonalTrue() {
+
+        StpVector v1 = new StpVector(-1, "", 0, 0, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 0, 0);
+
+        assertTrue(v1.isOrthogonalTo(v2));
+
+    }
 }
