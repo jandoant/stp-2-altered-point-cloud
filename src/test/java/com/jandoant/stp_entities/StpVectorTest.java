@@ -403,8 +403,23 @@ class StpVectorTest {
     }
 
     @Test
+    @DisplayName("should be able to statically build the dot product of two vectors")
+    void testDotProductOfTwoVectorsStatic() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        double dotProduct = StpVector.dotProduct(v1, v2);
+
+        double expectedDotProduct = 62;
+
+        assertEquals(expectedDotProduct, dotProduct);
+
+    }
+
+    @Test
     @DisplayName("should be able to build the dot product of two vectors")
-    void testDotProductOfTwoVectors() {
+    void testDotProductOfTwoVectorsNonStatic() {
 
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);

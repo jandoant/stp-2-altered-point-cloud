@@ -180,6 +180,12 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.updateDirectionFromXYZ();
     }
 
+    public static double dotProduct(StpVector v1, StpVector v2) {
+
+        return v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ();
+
+    }
+
     public double dotProduct(StpVector otherVector) {
 
         return this.getX() * otherVector.getX() + this.getY() * otherVector.getY() + this.getZ() * otherVector.getZ();
