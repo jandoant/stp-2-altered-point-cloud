@@ -261,20 +261,15 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.z -= pivot.getZ();
 
         //drehen um Ursprungsgerade
-        if (axis.isXAxis()) {
-            System.out.println("Rotate around X");
+        if (axis.isParallel2XAxis()) {
             rotateAroundX(angle);
-
-        } else if (axis.isYAxis()) {
-            System.out.println("Rotate around Y");
+        } else if (axis.isParallel2YAxis()) {
             rotateAroundY(angle);
-
-        } else if (axis.isZAxis()) {
-            System.out.println("Rotate around Z");
+        } else if (axis.isParallel2ZAxis()) {
             rotateAroundZ(angle);
-
         } else {
             System.out.println("Rotate around any axis");
+            rotateAroundAnyAxis(axis, angle);
 
         }
 
@@ -286,6 +281,22 @@ public class StpVector extends StpGeometricRepresentationItem {
         //because x,y,z changes
         this.updateMagnitudeFromXYZ();
         this.updateDirectionFromXYZ();
+
+    }
+
+    private void rotateAroundAnyAxis(StpVector axis, double angle) {
+
+        axis.normalize();
+
+        //deg->rad
+        angle = Math.toRadians(angle);
+
+        //Anwendung der Drehmatrix für beliebige Achsen durch den Ursprung
+        double newX = (axis.getX() * axis.getX() * (1 - Math.cos(angle)) + Math.cos(angle)) * this.x +
+                (axis.getX() * axis.getY() * (1 - Math.cos(angle)) - axis.getZ() * Math.sin(angle)) * this.y +
+                (axis.getX() * axis.getZ() * (1 - Math.cos(angle)) + axis.getY() * Math.sin(angle)) * this.z;
+
+        //Todo: implement newY, newZ
 
     }
 
@@ -331,15 +342,15 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.y = MathHelper.round(newY);
     }
 
-    private boolean isXAxis() {
+    private boolean isParallel2XAxis() {
         return this.x != 0 && this.y == 0 && this.z == 0;
     }
 
-    private boolean isYAxis() {
+    private boolean isParallel2YAxis() {
         return this.x == 0 && this.y != 0 && this.z == 0;
     }
 
-    private boolean isZAxis() {
+    private boolean isParallel2ZAxis() {
         return this.x == 0 && this.y == 0 && this.z != 0;
     }
 }
