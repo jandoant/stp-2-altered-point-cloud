@@ -339,20 +339,34 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should be able to aubtract a vector from another vector")
-    void testSubtractingVectorFromAnother() {
+    @DisplayName("should be able to statically subtract a vector from another vector by creating a new StpVector")
+    void testSubtractingVectorsStatic() {
 
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
         //v1-v2
-        StpVector v12 = v1.subtract(v2);
+        StpVector v12 = StpVector.subtract(v1, v2);
 
         //v2-v1
-        StpVector v21 = v2.subtract(v1);
+        StpVector v21 = StpVector.subtract(v2, v1);
 
         assertEquals(new StpVector(-1, "", -2, 1, -4), v12);
         assertEquals(new StpVector(-1, "", 2, -1, 4), v21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to subtract a vector from another vector by mutating the original vector")
+    void testSubtractingVectorsNonStatic() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        //v1-v2
+        v1.subtract(v2);
+
+        assertEquals(new StpVector(-1, "", -2, 1, -4), v1);
 
     }
 

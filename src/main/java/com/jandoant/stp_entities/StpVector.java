@@ -141,13 +141,25 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     }
 
-    public StpVector subtract(StpVector otherVector) {
+    public static StpVector subtract(StpVector v1, StpVector v2) {
 
-        double newX = this.getX() - otherVector.getX();
-        double newY = this.getY() - otherVector.getY();
-        double newZ = this.getZ() - otherVector.getZ();
+        double newX = v1.getX() - v2.getX();
+        double newY = v1.getY() - v2.getY();
+        double newZ = v1.getZ() - v2.getZ();
 
         return new StpVector(-1, "", newX, newY, newZ);
+
+    }
+
+    public void subtract(StpVector otherVector) {
+
+        this.x -= otherVector.getX();
+        this.y -= otherVector.getY();
+        this.z -= otherVector.getZ();
+
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
 
     }
 
