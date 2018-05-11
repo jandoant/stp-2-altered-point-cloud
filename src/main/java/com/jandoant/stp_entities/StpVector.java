@@ -163,10 +163,21 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     }
 
-    public StpVector scale(double scaleFactor) {
+    public static StpVector scale(StpVector v, double scaleFactor) {
 
-        return new StpVector(-1, "", this.getX() * scaleFactor, this.getY() * scaleFactor, this.getZ() * scaleFactor);
+        return new StpVector(-1, "", v.getX() * scaleFactor, v.getY() * scaleFactor, v.getZ() * scaleFactor);
 
+    }
+
+    public void scale(double scaleFactor) {
+
+        this.x *= scaleFactor;
+        this.y *= scaleFactor;
+        this.z *= scaleFactor;
+
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
     }
 
     public double dotProduct(StpVector otherVector) {

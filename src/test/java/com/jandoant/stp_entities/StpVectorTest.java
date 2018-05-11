@@ -371,18 +371,34 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should be able to scale a vector by a certain Factor")
-    void testScalingOfVector() {
+    @DisplayName("should be able to statically scale a vector by a certain Factor by creating a new vector")
+    void testScalingOfVectorStatic() {
 
         double scaleFactor = 3;
 
         StpVector v = new StpVector(-1, "", 3, 2, 5);
 
-        StpVector scaledVector = v.scale(scaleFactor);
+        StpVector scaledVector = StpVector.scale(v, scaleFactor);
 
         StpVector expectedVector = new StpVector(-1, "", 9, 6, 15);
 
         assertEquals(expectedVector, scaledVector);
+
+    }
+
+    @Test
+    @DisplayName("should be able to statically scale a vector by a certain Factor by creating a new vector")
+    void testScalingOfVectorNonStatic() {
+
+        double scaleFactor = 3;
+
+        StpVector v = new StpVector(-1, "", 3, 2, 5);
+
+        v.scale(scaleFactor);
+
+        StpVector expectedVector = new StpVector(-1, "", 9, 6, 15);
+
+        assertEquals(expectedVector, v);
 
     }
 
