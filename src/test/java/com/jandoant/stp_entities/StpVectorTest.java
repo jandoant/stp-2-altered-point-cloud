@@ -433,20 +433,35 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should be able to build the dot product of two vectors")
-    void testCrossProductOfTwoVectors() {
+    @DisplayName("should be able to build the cross product of two vectors by instantiating a new StpVector")
+    void testCrossProductOfTwoVectorsStatic() {
 
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
-        StpVector crossProduct12 = v1.crossProduct(v2);
-        StpVector crossProduct21 = v2.crossProduct(v1);
+        StpVector crossProduct12 = StpVector.crossProduct(v1, v2);
+        StpVector crossProduct21 = StpVector.crossProduct(v2, v1);
 
         StpVector expectedCrossProduct12 = new StpVector(-1, "", 13, -2, -7);
         StpVector expectedCrossProduct21 = new StpVector(-1, "", -13, 2, 7);
 
         assertEquals(expectedCrossProduct12, crossProduct12);
         assertEquals(expectedCrossProduct21, crossProduct21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to build the cross product of two vectors by mutating the original StpVector")
+    void testCrossProductOfTwoVectorsNonStatic() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        v1.crossProduct(v2);
+
+        StpVector expectedCrossProduct1 = new StpVector(-1, "", 13, -2, -7);
+
+        assertEquals(expectedCrossProduct1, v1);
 
     }
 

@@ -192,13 +192,28 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     }
 
-    public StpVector crossProduct(StpVector v2) {
+    public static StpVector crossProduct(StpVector v1, StpVector v2) {
 
-        double newX = this.getY() * v2.getZ() - this.getZ() * v2.getY();
-        double newY = this.getZ() * v2.getX() - this.getX() * v2.getZ();
-        double newZ = this.getX() * v2.getY() - this.getY() * v2.getX();
+        double newX = v1.getY() * v2.getZ() - v1.getZ() * v2.getY();
+        double newY = v1.getZ() * v2.getX() - v1.getX() * v2.getZ();
+        double newZ = v1.getX() * v2.getY() - v1.getY() * v2.getX();
 
         return new StpVector(-1, "", newX, newY, newZ);
+    }
+
+    public void crossProduct(StpVector otherVector) {
+
+        double newX = this.getY() * otherVector.getZ() - this.getZ() * otherVector.getY();
+        double newY = this.getZ() * otherVector.getX() - this.getX() * otherVector.getZ();
+        double newZ = this.getX() * otherVector.getY() - this.getY() * otherVector.getX();
+
+        this.x = newX;
+        this.y = newY;
+        this.z = newZ;
+
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
     }
 
     public StpVector normalize() {
