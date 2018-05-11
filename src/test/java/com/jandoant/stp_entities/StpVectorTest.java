@@ -15,6 +15,32 @@ class StpVectorTest {
     StpVector vector;
 
     @Test
+    void testToStringNoDirectionOnlyDirectionId() {
+
+        StpVector v = new StpVector(13, "Vector1", 12, 3.3);
+
+        String expected = "StpVector{id=13, name='Vector1', directionId=12, direction=null, magnitude=3.3, x=0.0, y=0.0, z=0.0}";
+
+        assertEquals(v.toString(), expected);
+
+    }
+
+    @Test
+    void testToStringDirection() {
+
+        StpVector v = new StpVector(13, "Vector1", 12, 3.3);
+
+        StpDirection dir = new StpDirection(12, "", 1.0, 0, 0);
+
+        v.setDirection(dir);
+
+        String expected = "StpVector{id=13, name='Vector1', directionId=12, direction=StpDirection{id=12, name='', xDirection=1.0, yDirection=0.0, zDirection=0.0}, magnitude=3.3, x=3.3, y=0.0, z=0.0}";
+
+        assertEquals(v.toString(), expected);
+
+    }
+
+    @Test
     @DisplayName("should return true if the two compared instances have the same values")
     void testEquals() {
 
@@ -176,17 +202,6 @@ class StpVectorTest {
     }
 
     @Test
-    void testToString() {
-
-        StpVector v = new StpVector(13, "Vector1", 12, 3.3);
-
-        String expected = "StpVector{id=13, name='Vector1', directionId=12, direction=null, magnitude=3.3}";
-
-        assertEquals(v.toString(), expected);
-
-    }
-
-    @Test
     @DisplayName("should write the correct x,y,z values if the Dir, Mag Constructor is used")
     void testDirMagConstructorXYZ() {
 
@@ -288,19 +303,38 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should be able to add two vectors together")
-    void testAddingTwoVectors() {
+    @DisplayName("should be able to add two vectors together and return a new one")
+    void testAddingTwoVectorsStatic() {
 
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
-        StpVector v12 = v1.add(v2);
-        StpVector v21 = v2.add(v1);
+        StpVector v12 = StpVector.add(v1, v2);
+        StpVector v21 = StpVector.add(v2, v1);
 
         assertEquals(new StpVector(-1, "", 8, 3, 14), v12);
         assertEquals(new StpVector(-1, "", 8, 3, 14), v21);
 
         assertEquals(v12, v21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to add two vectors together by mutating the first one")
+    void testAddingTwoVectors() {
+
+        //setup
+        StpVector v1 = new StpVector(-2, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        //act
+        v1.add(v2);
+
+        //assert
+        StpVector expectedVector = new StpVector(-2, "", 8, 3, 14);
+
+        assertEquals(expectedVector, v1);
+        assertEquals(new StpVector(-1, "", 5, 1, 9), v2);
 
     }
 
