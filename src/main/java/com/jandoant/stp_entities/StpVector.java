@@ -14,7 +14,7 @@ public class StpVector extends StpGeometricRepresentationItem {
     private StpDirection direction;
     private double magnitude;
 
-    double x, y, z;
+    private double x, y, z;
 
     //Konstruktor
     public StpVector(int id, String name, int directionId, double magnitude) {
@@ -216,9 +216,27 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.updateDirectionFromXYZ();
     }
 
-    public StpVector normalize() {
+    public static StpVector normalize(StpVector v) {
 
-        return new StpVector(-1, "", this.getX() / this.magnitude, this.getY() / this.magnitude, this.getZ() / this.magnitude);
+        return new StpVector(-1, "", v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), v.getZ() / v.getMagnitude());
+
+    }
+
+    public void normalize() {
+
+       this.x /= this.magnitude;
+       this.y /= this.magnitude;
+       this.z /= this.magnitude;
+
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
+
+    }
+
+    public static boolean areOrthogonal(StpVector v1, StpVector v2) {
+
+        return StpVector.dotProduct(v1, v2) == 0;
 
     }
 

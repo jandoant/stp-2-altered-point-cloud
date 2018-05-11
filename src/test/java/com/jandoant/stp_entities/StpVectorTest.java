@@ -466,17 +466,46 @@ class StpVectorTest {
     }
 
     @Test
-    @DisplayName("should be able to build the nprmalized version of the vector")
-    void testNormalization() {
+    @DisplayName("should be able to statically build the normalized version of a vector by creating a new StpVector")
+    void testNormalizationStatic() {
 
         StpVector v = new StpVector(-1, "", 3, 2, 5);
 
-        StpVector normalizedVector = v.normalize();
+        StpVector normalizedVector = StpVector.normalize(v);
 
         double mag = Math.sqrt(9 + 4 + 25);
         StpVector expectedVector = new StpVector(-1, "", 3 / mag, 2 / mag, 5 / mag);
 
         assertEquals(expectedVector, normalizedVector);
+
+    }
+
+    @Test
+    @DisplayName("should be able to build the normalized version of a vector by mutating the original StpVector")
+    void testNormalizationNonStatic() {
+
+        //setup
+        StpVector v = new StpVector(-1, "", 3, 2, 5);
+
+        //act
+        v.normalize();
+
+        //assert
+        double mag = Math.sqrt(9 + 4 + 25);
+        StpVector expectedVector = new StpVector(-1, "", 3 / mag, 2 / mag, 5 / mag);
+
+        assertEquals(expectedVector, v);
+
+    }
+
+    @Test
+    @DisplayName("should return false  if two vectors are not orthogonal to each other")
+    void testIsOrthogonalFalse() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        assertFalse(v1.isOrthogonalTo(v2));
 
     }
 
@@ -487,7 +516,19 @@ class StpVectorTest {
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
-        assertFalse(v1.isOrthogonalTo(v2));
+        assertFalse(StpVector.areOrthogonal(v1,v2));
+
+    }
+
+
+    @Test
+    @DisplayName("should return false  if two vectors are orthogonal to each other")
+    void testIsOrthogonalTrue() {
+
+        StpVector v1 = new StpVector(-1, "", 0, 0, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 0, 0);
+
+        assertTrue(v1.isOrthogonalTo(v2));
 
     }
 
@@ -498,7 +539,7 @@ class StpVectorTest {
         StpVector v1 = new StpVector(-1, "", 0, 0, 5);
         StpVector v2 = new StpVector(-1, "", 5, 0, 0);
 
-        assertTrue(v1.isOrthogonalTo(v2));
+        assertTrue(StpVector.areOrthogonal(v1, v2));
 
     }
 }
