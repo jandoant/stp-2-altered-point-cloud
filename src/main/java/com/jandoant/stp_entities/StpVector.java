@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import com.jandoant.helper.MathHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -39,6 +41,7 @@ public class StpVector extends StpGeometricRepresentationItem {
     }
 
     //Methoden
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +52,9 @@ public class StpVector extends StpGeometricRepresentationItem {
 
         if (directionId != stpVector.directionId) return false;
         if (Double.compare(stpVector.magnitude, magnitude) != 0) return false;
+        if (Double.compare(stpVector.x, x) != 0) return false;
+        if (Double.compare(stpVector.y, y) != 0) return false;
+        if (Double.compare(stpVector.z, z) != 0) return false;
         return direction != null ? direction.equals(stpVector.direction) : stpVector.direction == null;
     }
 
@@ -81,6 +87,7 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     private void updateMagnitudeFromXYZ() {
         this.magnitude = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+
     }
 
     @Override
@@ -224,9 +231,9 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     public void normalize() {
 
-       this.x /= this.magnitude;
-       this.y /= this.magnitude;
-       this.z /= this.magnitude;
+        this.x /= this.magnitude;
+        this.y /= this.magnitude;
+        this.z /= this.magnitude;
 
         //because x,y,z changes
         this.updateMagnitudeFromXYZ();
@@ -244,5 +251,95 @@ public class StpVector extends StpGeometricRepresentationItem {
 
         return this.dotProduct(otherVector) == 0;
 
+    }
+
+    public void rotate(double angle, StpVector pivot, StpVector axis) {
+
+        //axis in den Ursprung verschieben
+        this.x -= pivot.getX();
+        this.y -= pivot.getY();
+        this.z -= pivot.getZ();
+
+        //drehen um Ursprungsgerade
+        if (axis.isXAxis()) {
+            System.out.println("Rotate around X");
+            rotateAroundX(angle);
+
+        } else if (axis.isYAxis()) {
+            System.out.println("Rotate around Y");
+            rotateAroundY(angle);
+
+        } else if (axis.isZAxis()) {
+            System.out.println("Rotate around Z");
+            rotateAroundZ(angle);
+
+        } else {
+            System.out.println("Rotate around any axis");
+
+        }
+
+        //axis wieder zurück verschieben
+        this.x += pivot.getX();
+        this.y += pivot.getY();
+        this.z += pivot.getZ();
+
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
+
+    }
+
+    private void rotateAroundX(double angle) {
+
+        //deg->rad
+        angle = Math.toRadians(angle);
+
+        //Anwendung der Drehmatrix für X-Achse
+        double newY = Math.cos(angle) * this.y - Math.sin(angle) * this.z;
+        double newZ = Math.sin(angle) * this.y + Math.cos(angle) * this.z;
+
+        //Neubelegung der Werte -  Rundung auf einigermaßen sinnvolle Angaben
+        this.y = MathHelper.round(newY);
+        this.z = MathHelper.round(newZ);
+    }
+
+    private void rotateAroundY(double angle) {
+
+        //deg->rad
+        angle = Math.toRadians(angle);
+
+        //Anwendung der Drehmatrix für Y-Achse
+        double newX = Math.cos(angle) * this.x + Math.sin(angle) * this.z;
+        double newZ = -Math.sin(angle) * this.x + Math.cos(angle) * this.z;
+
+        //Neubelegung der Werte -  Rundung auf einigermaßen sinnvolle Angaben
+        this.x = MathHelper.round(newX);
+        this.z = MathHelper.round(newZ);
+    }
+
+    private void rotateAroundZ(double angle) {
+
+        //deg->rad
+        angle = Math.toRadians(angle);
+
+        //Anwendung der Drehmatrix für Z-Achse
+        double newX = Math.cos(angle) * this.x - Math.sin(angle) * this.y;
+        double newY = Math.sin(angle) * this.x + Math.cos(angle) * this.y;
+
+        //Neubelegung der Werte -  Rundung auf einigermaßen sinnvolle Angaben
+        this.x = MathHelper.round(newX);
+        this.y = MathHelper.round(newY);
+    }
+
+    private boolean isXAxis() {
+        return this.x != 0 && this.y == 0 && this.z == 0;
+    }
+
+    private boolean isYAxis() {
+        return this.x == 0 && this.y != 0 && this.z == 0;
+    }
+
+    private boolean isZAxis() {
+        return this.x == 0 && this.y == 0 && this.z != 0;
     }
 }

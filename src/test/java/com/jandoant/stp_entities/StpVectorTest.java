@@ -1,5 +1,6 @@
 package com.jandoant.stp_entities;
 
+import com.jandoant.helper.MathHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -516,10 +517,9 @@ class StpVectorTest {
         StpVector v1 = new StpVector(-1, "", 3, 2, 5);
         StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
-        assertFalse(StpVector.areOrthogonal(v1,v2));
+        assertFalse(StpVector.areOrthogonal(v1, v2));
 
     }
-
 
     @Test
     @DisplayName("should return false  if two vectors are orthogonal to each other")
@@ -542,4 +542,325 @@ class StpVectorTest {
         assertTrue(StpVector.areOrthogonal(v1, v2));
 
     }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and z-axis")
+    void testRotateXUnitVectorAroundZAxis90PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(90, origin, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", 0, 1, 0);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and y-axis")
+    void testRotateXUnitVectorAroundYAxis90PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        //act
+        v.rotate(90, origin, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", 0, 0, -1);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and y-axis")
+    void testRotateXUnitVectorAroundYAxis180PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        //act
+        v.rotate(180, origin, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", -1, 0, 0);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and z-axis")
+    void testRotateXUnitVectorAroundZAxis180PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(180, origin, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", -1, 0, 0);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and z-axis")
+    void testRotateXUnitVectorAroundZAxis45PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(45, origin, axis);
+
+        //assert
+        double expectedX = Math.sqrt(2) / 2;
+        double expectedY = expectedX;
+        StpVector expectedVector = new StpVector(-1, "", MathHelper.round(expectedX), MathHelper.round(expectedY), 0);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,0) and y-axis")
+    void testRotateXUnitVectorAroundYAxis45PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector origin = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        //act
+        v.rotate(45, origin, axis);
+
+        //assert
+        double expectedX = Math.sqrt(2) / 2;
+        double expectedZ = -expectedX;
+        StpVector expectedVector = new StpVector(-1, "", MathHelper.round(expectedX), 0, MathHelper.round(expectedZ));
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (0,0,3) and z-axis")
+    void testRotateXUnitVectorAroundZAxis90() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 3);
+
+        StpVector pivot = new StpVector(-1, "", 0, 0, 3);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(90, pivot, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", 0, 1, 3);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (1,1,3) and z-axis")
+    void testRotateXUnitVectorAroundZAxis45PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", 2, 1, 3);
+
+        StpVector pivot = new StpVector(-1, "", 1, 1, 3);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(45, pivot, axis);
+
+        //assert
+
+        //assert
+        double expectedX = 1 + Math.sqrt(2) / 2;
+        double expectedY = expectedX;
+        StpVector expectedVector = new StpVector(-1, "", MathHelper.round(expectedX), MathHelper.round(expectedY), 3);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (-1,4,-2) and y-axis")
+    void testRotateXUnitVectorAroundYAxis90PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", 0, 4, -2);
+
+        StpVector pivot = new StpVector(-1, "", -1, 4, -2);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        //act
+        v.rotate(90, pivot, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", -1, 4, -3);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (-1,4,-2) and y-axis")
+    void testRotateXUnitVectorAroundYAxis180PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", 0, 4, -2);
+
+        StpVector pivot = new StpVector(-1, "", -1, 4, -2);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        //act
+        v.rotate(180, pivot, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", -2, 4, -2);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x-unit vector around pivot (1,1,3) and z-axis")
+    void testRotateXUnitVectorAroundZAxis90PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", 2, 1, 3);
+
+        StpVector pivot = new StpVector(-1, "", 1, 1, 3);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(90, pivot, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", 1, 2, 3);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (1,1,3) and z-axis")
+    void testRotateXUnitVectorAroundZAxis180PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", 2, 1, 3);
+
+        StpVector pivot = new StpVector(-1, "", 1, 1, 3);
+        StpVector axis = new StpVector(-1, "", 0, 0, 1);
+
+        //act
+        v.rotate(180, pivot, axis);
+
+        //assert
+        StpVector expectedVector = new StpVector(-1, "", 0, 1, 3);
+
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (0,0,0) and y-axis ")
+    void testRotateXUnitVectorAroundYAxisPivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector pivot = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 0, 1, 0);
+
+        v.rotate(90, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", 0, 0, -1);
+
+        assertEquals(expectedVector, v);
+
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (0,0,0) and x-axis ")
+    void testRotateVectorAroundXAxis90PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 0, 0, 1);
+
+        StpVector pivot = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 1, 0, 0);
+
+        v.rotate(90, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", 0, -1, 0);
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (0,0,0) and x-axis ")
+    void testRotateVectorAroundXAxis180PivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 0, 0, 1);
+
+        StpVector pivot = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 1, 0, 0);
+
+        v.rotate(180, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", 0, 0, -1);
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate x unit vector around pivot (0,0,0) and x-axis ")
+    void testRotateXUnitVectorAroundXAxisPivotOrigin() {
+
+        StpVector v = new StpVector(-1, "", 1, 0, 0);
+
+        StpVector pivot = new StpVector(-1, "", 0, 0, 0);
+        StpVector axis = new StpVector(-1, "", 1, 0, 0);
+
+        v.rotate(90, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", 1, 0, 0);
+        assertEquals(expectedVector, v);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (-3,-3,-3) and x-axis ")
+    void testRotateVectorAroundXAxis90PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", -3, -2, -3);
+
+        StpVector pivot = new StpVector(-1, "", -3, -3, -3);
+        StpVector axis = new StpVector(-1, "", 1, 0, 0);
+
+        v.rotate(90, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", -3, -3, -2);
+
+        assertEquals(expectedVector, v);
+
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (-3,-3,-3) and x-axis ")
+    void testRotateVectorAroundXAxis180PivotNotOnAxis() {
+
+        StpVector v = new StpVector(-1, "", -3, -2, -3);
+
+        StpVector pivot = new StpVector(-1, "", -3, -3, -3);
+        StpVector axis = new StpVector(-1, "", 1, 0, 0);
+
+        v.rotate(180, pivot, axis);
+
+        StpVector expectedVector = new StpVector(-1, "", -3, -4, -3);
+
+        assertEquals(expectedVector, v);
+
+    }
+
 }
