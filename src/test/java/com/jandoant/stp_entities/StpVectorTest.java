@@ -226,13 +226,35 @@ class StpVectorTest {
     @DisplayName("should be able to add two vectors together")
     void testAddingTwoVectors() {
 
-        
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
+
+        StpVector v12 = v1.add(v2);
+        StpVector v21 = v2.add(v1);
+
+        assertEquals(new StpVector(-1, "", 8, 3, 14), v12);
+        assertEquals(new StpVector(-1, "", 8, 3, 14), v21);
+
+        assertEquals(v12, v21);
+
+    }
+
+    @Test
+    @DisplayName("should be able to aubtract a vector from another vector")
+    void testSubtractingVectorFromAnother() {
+
+        StpVector v1 = new StpVector(-1, "", 3, 2, 5);
+        StpVector v2 = new StpVector(-1, "", 5, 1, 9);
 
 
+        //v1-v2
+        StpVector v12 = v1.subtract(v2);
 
+        //v2-v1
+        StpVector v21 = v2.subtract(v1);
 
-
-
+        assertEquals(new StpVector(-1, "", -2, 1, -4), v12);
+        assertEquals(new StpVector(-1, "", 2, -1, 4), v21);
 
     }
 }

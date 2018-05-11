@@ -93,4 +93,23 @@ public class StpVector extends StpGeometricRepresentationItem {
     public void setDirection(StpDirection direction) {
         this.direction = direction;
     }
+
+    public StpVector add(StpVector otherVector) {
+
+        double newX = this.x + otherVector.getX();
+        double newY = this.y + otherVector.getY();
+        double newZ = this.z + otherVector.getZ();
+
+        return new StpVector(-1, "", newX, newY, newZ);
+    }
+
+    public StpVector subtract(StpVector otherVector) {
+
+        double newX = this.x - otherVector.getX();
+        double newY = this.y - otherVector.getY();
+        double newZ = this.z - otherVector.getZ();
+
+        return new StpVector(-1, "", newX, newY, newZ);
+
+    }
 }
