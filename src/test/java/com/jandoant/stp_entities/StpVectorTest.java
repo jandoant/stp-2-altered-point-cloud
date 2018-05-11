@@ -26,6 +26,50 @@ class StpVectorTest {
     }
 
     @Test
+    @DisplayName("should return true if the two compared instances have the same values")
+    void testEqualsXYZ() {
+
+        StpVector vector1 = new StpVector(12, "Vector1", 3.4, 3.0, 2.1);
+        StpVector vector2 = new StpVector(12, "Vector1", 3.4, 3.0, 2.1);
+
+        assertTrue(vector1.equals(vector2));
+        assertTrue(vector2.equals(vector1));
+    }
+
+    @Test
+    @DisplayName("should return false if the two compared instances have different x-values")
+    void testEqualsNotX() {
+
+        StpVector vector1 = new StpVector(12, "Vector1", 3.4, 3.0, 2.1);
+        StpVector vector2 = new StpVector(12, "Vector1", 3.1, 3.0, 2.1);
+
+        assertFalse(vector1.equals(vector2));
+        assertFalse(vector2.equals(vector1));
+    }
+
+    @Test
+    @DisplayName("should return false if the two compared instances have different y-values")
+    void testEqualsNotY() {
+
+        StpVector vector1 = new StpVector(12, "Vector1", 3.1, 3.0, 2.1);
+        StpVector vector2 = new StpVector(12, "Vector1", 3.1, 3.2, 2.1);
+
+        assertFalse(vector1.equals(vector2));
+        assertFalse(vector2.equals(vector1));
+    }
+
+    @Test
+    @DisplayName("should return false if the two compared instances have different z-values")
+    void testEqualsNotZ() {
+
+        StpVector vector1 = new StpVector(12, "Vector1", 3.1, 3.0, 2.1);
+        StpVector vector2 = new StpVector(12, "Vector1", 3.1, 3.0, 2.5);
+
+        assertFalse(vector1.equals(vector2));
+        assertFalse(vector2.equals(vector1));
+    }
+
+    @Test
     @DisplayName("should return true if equal vectors get assigned the same direction")
     void testEqualsDirection() {
 
@@ -143,6 +187,23 @@ class StpVectorTest {
     }
 
     @Test
+    @DisplayName("should write the correct x,y,z values if the Dir, Mag Constructor is used")
+    void testDirMagConstructorXYZ() {
+
+        StpVector v = new StpVector(3, "", 41, 10.0);
+
+        //directions always have a magnitude of 1 !!!!
+        StpDirection dir = new StpDirection(41, "", 0, 0, 1.0);
+
+        v.setDirection(dir);
+
+        assertEquals(0, v.getX());
+        assertEquals(0, v.getY());
+        assertEquals(10, v.getZ());
+
+    }
+
+    @Test
     @DisplayName("should return the correct XYZ-values")
     void testXYZConstructor() {
 
@@ -153,9 +214,13 @@ class StpVectorTest {
 
         StpVector v = new StpVector(-1, "", x, y, z);
 
-        assertEquals(4.0, v.getX());
-        assertEquals(2.0, v.getY());
-        assertEquals(3.0, v.getZ());
+        //Rundungsfehler
+        double delta = 0.00000000001;
+
+        assertEquals(4.0, v.getX(), delta);
+        assertEquals(2.0, v.getY(), delta);
+        assertEquals(3.0, v.getZ(), delta);
+
     }
 
     @Test
