@@ -13,6 +13,8 @@ public abstract class StpFaceSurface extends StpFace {
     StpSurface faceGeometry;
     Boolean sameSense;
 
+    ArrayList<StpCartesianPoint> pointCloud;
+
     String type;
 
     //Konstruktor
@@ -71,4 +73,36 @@ public abstract class StpFaceSurface extends StpFace {
     public String getType() {
         return this.type;
     }
+
+    public void meshCylinder(int numOfRadialSegments, int numOfAxialSegments){
+
+        //find the circles
+        
+        //extract the midpoint of the circles
+
+        //make the axis of the circles
+
+        //find one of the points to rotate (doesn't matter which circle it is)
+
+        //find out the increment that each point has to rotate by
+
+        //rotate the point x number of times and write a new cp to the point cloud list
+
+        //find out the increment of the movement
+
+        //move each CP by the increment in the direction of the axis
+
+        //write each new CP to the point cloud list
+
+
+
+
+
+
+
+
+
+
+    };
+
 }
