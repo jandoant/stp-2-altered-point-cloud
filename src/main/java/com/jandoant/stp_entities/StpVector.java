@@ -268,9 +268,7 @@ public class StpVector extends StpGeometricRepresentationItem {
         } else if (axis.isParallel2ZAxis()) {
             rotateAroundZ(angle);
         } else {
-            System.out.println("Rotate around any axis");
             rotateAroundAnyAxis(axis, angle);
-
         }
 
         //axis wieder zurück verschieben
@@ -292,11 +290,26 @@ public class StpVector extends StpGeometricRepresentationItem {
         angle = Math.toRadians(angle);
 
         //Anwendung der Drehmatrix für beliebige Achsen durch den Ursprung
-        double newX = (axis.getX() * axis.getX() * (1 - Math.cos(angle)) + Math.cos(angle)) * this.x +
-                (axis.getX() * axis.getY() * (1 - Math.cos(angle)) - axis.getZ() * Math.sin(angle)) * this.y +
-                (axis.getX() * axis.getZ() * (1 - Math.cos(angle)) + axis.getY() * Math.sin(angle)) * this.z;
+        double n1 = axis.getX();
+        double n2 = axis.getY();
+        double n3 = axis.getZ();
 
-        //Todo: implement newY, newZ
+        double newX = (n1 * n1 * (1 - Math.cos(angle)) + Math.cos(angle)) * this.x +
+                (n1 * n2 * (1 - Math.cos(angle)) - n3 * Math.sin(angle)) * this.y +
+                (n1 * n3 * (1 - Math.cos(angle)) + n2 * Math.sin(angle)) * this.z;
+
+        double newY = (n2 * n1 * (1 - Math.cos(angle)) + n3 * Math.sin(angle)) * this.x +
+                (n2 * n2 * (1 - Math.cos(angle)) + Math.cos(angle)) * this.y +
+                (n2 * n3 * (1 - Math.cos(angle)) - n1 * Math.sin(angle)) * this.z;
+
+        double newZ = (n3 * n1 * (1 - Math.cos(angle)) - n2 * Math.sin(angle)) * this.x +
+                (n3 * n2 * (1 - Math.cos(angle)) + n1 * Math.sin(angle)) * this.y +
+                (n3 * n3 * (1 - Math.cos(angle)) + Math.cos(angle)) * this.z;
+
+        //Neubelegung der Werte -  Rundung auf einigermaßen sinnvolle Angaben
+        this.x = MathHelper.round(newX);
+        this.y = MathHelper.round(newY);
+        this.z = MathHelper.round(newZ);
 
     }
 

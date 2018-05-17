@@ -863,4 +863,78 @@ class StpVectorTest {
 
     }
 
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (1,1,1) and any axis")
+    void testRotateVectorAroundPivotOriginanyAxis90() {
+
+        StpVector v = new StpVector(-1, "", 1.707, 0.293, 1.000);
+
+        StpVector pivot = new StpVector(-1, "", 1, 1, 1);
+        StpVector axis = new StpVector(-1, "", 1, 1, 1);
+
+        v.rotate(90, pivot, axis);
+
+
+        double expectedX = 1.4081866403;
+        double expectedY = 1.4081866403;
+        double expectedZ = 0.1836267194;
+
+        double allowedErr = Math.pow(10, -10);
+
+        assertEquals(expectedX, v.getX(), allowedErr);
+        assertEquals(expectedY, v.getY(), allowedErr);
+        assertEquals(expectedZ, v.getZ(), allowedErr);
+    }
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (1,1,1) and any axis")
+    void testRotateVectorAroundPivotOriginanyAxis135() {
+
+        StpVector v = new StpVector(-1, "", 1.707, 0.293, 1.000);
+
+        StpVector pivot = new StpVector(-1, "", 1, 1, 1);
+        StpVector axis = new StpVector(-1, "", 1, 1, 1);
+
+        v.rotate(135, pivot, axis);
+
+
+        double expectedX = 0.7887070471;
+        double expectedY = 1.7885560357;
+        double expectedZ = 0.4227369173;
+
+        double allowedErr = Math.pow(10, -10);
+
+        assertEquals(expectedX, v.getX(), allowedErr);
+        assertEquals(expectedY, v.getY(), allowedErr);
+        assertEquals(expectedZ, v.getZ(), allowedErr);
+    }
+
+
+    @Test
+    @DisplayName("should be able to rotate vector around pivot (1,1,1) and any axis")
+    void testRotateVectorAroundPivotNotOriginanyAxis90() {
+
+        StpVector v = new StpVector(-1, "", -2.219, 7.625, 5.000);
+
+        StpVector pivot = new StpVector(-1, "", -3, 7, 5);
+        StpVector axis = new StpVector(-1, "", -4, 5, 1);
+
+        v.rotate(90, pivot, axis);
+
+
+        double expectedX = -3.0965348318;
+        double expectedY = 7.1206299639;
+        double expectedZ = 4.011710853;
+
+        double allowedErr = Math.pow(10, -10);
+
+        assertEquals(expectedX, v.getX(), allowedErr);
+        assertEquals(expectedY, v.getY(), allowedErr);
+        assertEquals(expectedZ, v.getZ(), allowedErr);
+    }
+
+
+
+
+
 }
