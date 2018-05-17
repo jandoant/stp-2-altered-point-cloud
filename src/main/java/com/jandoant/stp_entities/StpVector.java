@@ -366,4 +366,15 @@ public class StpVector extends StpGeometricRepresentationItem {
     private boolean isParallel2ZAxis() {
         return this.x == 0 && this.y == 0 && this.z != 0;
     }
+
+    public void move(StpVector dir, double distance) {
+
+        dir.normalize();
+        dir.scale(distance);
+
+        this.x += dir.getX();
+        this.y += dir.getY();
+        this.z += dir.getZ();
+
+    }
 }

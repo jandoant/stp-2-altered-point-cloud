@@ -933,6 +933,47 @@ class StpVectorTest {
         assertEquals(expectedZ, v.getZ(), allowedErr);
     }
 
+    @Test
+    @DisplayName("should be able to move a vector statically along another vector by a certain distance by mutating the original Vector")
+    void testMoveVectorNonStatic(){
+
+
+        StpVector v = new StpVector(-1, "", 0, 0, 0);
+
+        StpVector dir = new StpVector(-1, "", 1, 2, 5);
+
+        double distance = 3.0;
+
+        v.move(dir, distance);
+
+        double expectedX = 0.5477225575;
+        double expectedY = 1.095445115;
+        double expectedZ = 2.7386127875;
+
+        double allowedErr = Math.pow(10, -10);
+
+        assertEquals(expectedX, v.getX(), allowedErr);
+        assertEquals(expectedY, v.getY(), allowedErr);
+        assertEquals(expectedZ, v.getZ(), allowedErr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 
