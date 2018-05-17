@@ -14,6 +14,7 @@ class StpAdvancedFaceTest {
 
     ArrayList<StpRepresentationItem> allAvailableEntities;
     StpAdvancedFace advancedFace;
+    ArrayList<Integer> boundsIds;
 
     @BeforeEach
     void setUp() {
@@ -32,7 +33,7 @@ class StpAdvancedFaceTest {
         };
         allAvailableEntities.addAll(Arrays.asList(entitiesArr));
 
-        ArrayList<Integer> boundsIds = new ArrayList<>();
+        boundsIds = new ArrayList<>();
         boundsIds.add(52);
         boundsIds.add(53);
         advancedFace = new StpAdvancedFace(12, "", boundsIds, 44, true);
@@ -345,10 +346,34 @@ class StpAdvancedFaceTest {
         assertTrue(hasCorrectInstances);
     }
 
+    @Test
+    @DisplayName("should be able to figure out the correct type of Face_Geometry")
+    void testGetFaceGeometryTypePlane(){
+
+        advancedFace.convertFromIds(allAvailableEntities);
+
+        assertEquals("StpPlane", advancedFace.getType());
+    }
+
+    @Test
+    @DisplayName("should be able to figure out the correct type of Face_Geometry")
+    void testGetFaceGeometryTypeCylinder(){
+
+        advancedFace = new StpAdvancedFace(12, "", boundsIds, 45, true);
+
+        advancedFace.convertFromIds(allAvailableEntities);
+
+        assertEquals("StpCylindricalSurface", advancedFace.getType());
+    }
+
+
+
+
     @AfterEach
     void tearDown() {
         allAvailableEntities = null;
         advancedFace = null;
+        boundsIds = null;
     }
 
 }

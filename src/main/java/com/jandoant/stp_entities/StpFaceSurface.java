@@ -13,6 +13,8 @@ public abstract class StpFaceSurface extends StpFace {
     StpSurface faceGeometry;
     Boolean sameSense;
 
+    String type;
+
     //Konstruktor
     public StpFaceSurface(int id, String name, ArrayList<Integer> boundsIds, int faceGeometryId, Boolean sameSense) {
         super(id, name, boundsIds);
@@ -30,6 +32,9 @@ public abstract class StpFaceSurface extends StpFace {
             if (this.faceGeometryId == entity.getId()) {
                 this.faceGeometry = (StpSurface) entity;
                 this.faceGeometry.convertFromIds(availableEntities);
+
+                this.type = this.faceGeometry.getClass().getSimpleName();
+
             }
         }
     }
@@ -63,4 +68,7 @@ public abstract class StpFaceSurface extends StpFace {
         return sameSense.equals(that.sameSense);
     }
 
+    public String getType() {
+        return this.type;
+    }
 }

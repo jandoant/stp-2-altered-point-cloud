@@ -17,7 +17,6 @@ public class StpAdvancedFace extends StpFaceSurface {
     }
 
     //Methoden
-
     @Override
     public String toString() {
         return super.toString() + "}";

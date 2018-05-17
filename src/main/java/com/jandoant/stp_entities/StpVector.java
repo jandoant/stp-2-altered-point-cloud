@@ -376,5 +376,8 @@ public class StpVector extends StpGeometricRepresentationItem {
         this.y += dir.getY();
         this.z += dir.getZ();
 
+        //because x,y,z changes
+        this.updateMagnitudeFromXYZ();
+        this.updateDirectionFromXYZ();
     }
 }
