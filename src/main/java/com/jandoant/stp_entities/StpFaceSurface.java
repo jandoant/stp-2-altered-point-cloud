@@ -77,7 +77,11 @@ public abstract class StpFaceSurface extends StpFace {
     public void meshCylinder(int numOfRadialSegments, int numOfAxialSegments){
 
         //find the circles
-        
+
+
+
+
+
         //extract the midpoint of the circles
 
         //make the axis of the circles

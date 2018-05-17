@@ -62,6 +62,9 @@ public class StpEntityBuilder {
             case EntityTypesContract.LINE:
                 result = makeLine();
                 break;
+            case EntityTypesContract.CIRCLE:
+                result = makeCircle();
+                break;
             case EntityTypesContract.VERTEX_POINT:
                 result = makeVertexPoint();
                 break;
@@ -91,6 +94,15 @@ public class StpEntityBuilder {
         }
 
         return result;
+    }
+
+    private StpRepresentationItem makeCircle() {
+
+        int positionId = Integer.parseInt(this.argumentsList[1]);
+        double radius = Double.parseDouble(this.argumentsList[2]);
+
+        return new StpCircle(this.id, this.name, positionId, radius);
+
     }
 
     private StpAdvancedFace makeAdvancedFace() {

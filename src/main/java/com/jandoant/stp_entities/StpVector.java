@@ -74,9 +74,11 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     private void updateXYZFromDirectionAndMagnitude() {
 
-        this.x = this.direction.xDirection * this.magnitude;
-        this.y = this.direction.yDirection * this.magnitude;
-        this.z = this.direction.zDirection * this.magnitude;
+        if (this.direction != null) {
+            this.x = this.direction.xDirection * this.magnitude;
+            this.y = this.direction.yDirection * this.magnitude;
+            this.z = this.direction.zDirection * this.magnitude;
+        }
 
     }
 

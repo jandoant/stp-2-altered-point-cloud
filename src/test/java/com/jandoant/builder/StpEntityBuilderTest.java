@@ -498,4 +498,22 @@ class StpEntityBuilderTest {
         //Assert
         assertTrue(actual.equals(expected));
     }
+
+    @Test
+    @DisplayName("Should instantiate another StpAdvancedFace if correct Descripton is given")
+    void testCorrectCircle() {
+
+        //SetUp
+        String testDescription = "#26=CIRCLE('',#61,10.);";
+        StpEntityBuilder builder = new StpEntityBuilder(testDescription);
+
+        //expectation
+        StpCircle expected = new StpCircle(26, "", 61, 10.0);
+
+        //Act
+        StpCircle actual = (StpCircle) builder.extractStpEntity();
+
+        //Assert
+        assertTrue(actual.equals(expected));
+    }
 }
