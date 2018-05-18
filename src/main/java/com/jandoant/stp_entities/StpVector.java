@@ -29,9 +29,9 @@ public class StpVector extends StpGeometricRepresentationItem {
 
         super(id, name);
 
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.x = MathHelper.round(x);
+        this.y = MathHelper.round(y);
+        this.z = MathHelper.round(z);
 
         //build magnitude from x,y,z inputs
         this.updateMagnitudeFromXYZ();
@@ -286,15 +286,15 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     private void rotateAroundAnyAxis(StpVector axis, double angle) {
 
-        axis.normalize();
+        StpVector axisNormalized = StpVector.normalize(axis);
 
         //deg->rad
         angle = Math.toRadians(angle);
 
         //Anwendung der Drehmatrix für beliebige Achsen durch den Ursprung
-        double n1 = axis.getX();
-        double n2 = axis.getY();
-        double n3 = axis.getZ();
+        double n1 = axisNormalized.getX();
+        double n2 = axisNormalized.getY();
+        double n3 = axisNormalized.getZ();
 
         double newX = (n1 * n1 * (1 - Math.cos(angle)) + Math.cos(angle)) * this.x +
                 (n1 * n2 * (1 - Math.cos(angle)) - n3 * Math.sin(angle)) * this.y +
@@ -371,15 +371,19 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     public void move(StpVector dir, double distance) {
 
-        dir.normalize();
-        dir.scale(distance);
+        StpVector dirNormalized = StpVector.normalize(dir);
+        dirNormalized.scale(distance);
 
-        this.x += dir.getX();
-        this.y += dir.getY();
-        this.z += dir.getZ();
+        this.x += dirNormalized.getX();
+        this.y += dirNormalized.getY();
+        this.z += dirNormalized.getZ();
 
         //because x,y,z changes
         this.updateMagnitudeFromXYZ();
         this.updateDirectionFromXYZ();
+    }
+
+    public StpCartesianPoint transformToCartesianPoint() {
+        return new StpCartesianPoint(-1, "", this.x, this.y, this.z);
     }
 }

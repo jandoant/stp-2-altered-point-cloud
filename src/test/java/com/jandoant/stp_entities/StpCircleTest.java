@@ -17,7 +17,6 @@ class StpCircleTest {
 
         assertEquals(expected, c.toString());
 
-
     }
 
     @Test
@@ -75,7 +74,6 @@ class StpCircleTest {
 
         StpAxis2Placement3D pos = new StpAxis2Placement3D(44, "", 12, 13, 10);
 
-
         StpCircle c1 = new StpCircle(11, "Circle1", 34, 3.0);
         StpCircle c2 = new StpCircle(11, "Circle1", 34, 3.0);
 
@@ -96,17 +94,31 @@ class StpCircleTest {
         allAvailableEntities.add(new StpAxis2Placement3D(14, "", 36, 47, 57));
         allAvailableEntities.add(new StpAxis2Placement3D(15, "", 37, 48, 58));
 
-
         StpCircle circle = new StpCircle(99, "", 13, 10.0);
-
 
         circle.convertFromIds(allAvailableEntities);
 
         assertEquals(circle.getPosition(), allAvailableEntities.get(1));
 
+    }
+
+    @Test
+    void testGetMidVector() {
+
+        StpCartesianPoint testLocation = new StpCartesianPoint(12, "", 4, -7, 8);
+
+        StpAxis2Placement3D testPosition = new StpAxis2Placement3D(13, "", 12, 23, 33);
+
+        StpCircle circle = new StpCircle(99, "", 13, 10.0);
 
 
+        testPosition.setLocation(testLocation);
+        circle.setPosition(testPosition);
 
+        StpVector expectedVector = new StpVector(-1, "", 4, -7, 8);
+
+
+        assertEquals(expectedVector, circle.getCenterVector());
 
 
 

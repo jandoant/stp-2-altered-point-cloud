@@ -46,4 +46,39 @@ public class StpCartesianPoint extends StpPoint {
         if (Double.compare(that.y, y) != 0) return false;
         return Double.compare(that.z, z) == 0;
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void move(StpVector dir, double distance) {
+
+        StpVector dirNormalized = StpVector.normalize(dir);
+        dirNormalized.scale(distance);
+
+        this.x += dirNormalized.getX();
+        this.y += dirNormalized.getY();
+        this.z += dirNormalized.getZ();
+
+    }
+
+    public static StpCartesianPoint move(StpCartesianPoint oldPoint, StpVector dir, double distance) {
+
+        StpVector dirNormalized = StpVector.normalize(dir);
+        dirNormalized.scale(distance);
+
+        double newX = oldPoint.x + dirNormalized.getX();
+        double newY = oldPoint.y + dirNormalized.getY();
+        double newZ = oldPoint.z + dirNormalized.getZ();
+
+        return new StpCartesianPoint(-1, "", newX, newY, newZ);
+    }
 }

@@ -19,8 +19,11 @@ public class StpCircle extends StpConic {
     }
 
     //Methoden
-    public StpVector getCenterPoint(){
-        return null;
+    public StpVector getCenterVector(){
+
+        StpCartesianPoint centerPoint = this.position.getLocation();
+
+        return new StpVector(-1, "", centerPoint.getX(), centerPoint.getY(), centerPoint.getZ());
     }
 
     @Override
@@ -40,8 +43,5 @@ public class StpCircle extends StpConic {
                 ", radius=" + radius +
                 "}";
     }
-
-
-
 
 }

@@ -83,6 +83,9 @@ public class StpEntityBuilder {
             case EntityTypesContract.CYLINDRICAL_SURFACE:
                 result = makeCylindricalSurface();
                 break;
+            case EntityTypesContract.FACE_BOUND:
+                result = makeFaceBound();
+                break;
             case EntityTypesContract.FACE_OUTER_BOUND:
                 result = makeFaceOuterBound();
                 break;
@@ -94,6 +97,14 @@ public class StpEntityBuilder {
         }
 
         return result;
+    }
+
+    private StpRepresentationItem makeFaceBound() {
+
+        int boundId = Integer.parseInt(this.argumentsList[1]);
+        Boolean orientation = Boolean.valueOf(this.argumentsList[2]);
+
+        return new StpFaceBound(this.id, this.name, boundId, orientation);
     }
 
     private StpRepresentationItem makeCircle() {

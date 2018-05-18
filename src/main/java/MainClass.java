@@ -21,10 +21,34 @@ public class MainClass {
         try {
 
             //load the file
-            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Quader.stp");
+            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Zylinder.stp");
             //parse the file an make advancedFaces
             ArrayList<StpAdvancedFace> advancedFaces = reader.parseFile();
             //mesh each advanced face
+
+            for (StpAdvancedFace advancedFace: advancedFaces) {
+                switch(advancedFace.getType()){
+                    case  "StpCylindricalSurface":
+                        //ask for meshing parameters
+                        int numOfRadialSegments = 17;
+                        int numOfRings = 10;
+
+                        //meshCylinder
+                        advancedFace.meshCylinder(numOfRadialSegments, numOfRings);
+
+                        break;
+                    case  "StpPlane":
+                        //System.out.println(advancedFace.getType());
+                        break;
+                    default:
+                        //default code
+                        break;
+                }
+            }
+
+
+
+
 
             //manipulate the single points of each advanced face
 

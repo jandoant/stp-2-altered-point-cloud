@@ -492,10 +492,15 @@ class StpVectorTest {
         v.normalize();
 
         //assert
-        double mag = Math.sqrt(9 + 4 + 25);
-        StpVector expectedVector = new StpVector(-1, "", 3 / mag, 2 / mag, 5 / mag);
 
-        assertEquals(expectedVector, v);
+        double allowedError = Math.pow(10, -10);
+
+        double mag = MathHelper.round(Math.sqrt(9 + 4 + 25));
+
+        assertEquals(v.getMagnitude(), 1, allowedError);
+        assertEquals(v.getX(), 3/mag, allowedError);
+        assertEquals(v.getY(), 2 / mag, allowedError);
+        assertEquals(v.getZ(), 5 / mag, allowedError);
 
     }
 
@@ -874,7 +879,6 @@ class StpVectorTest {
 
         v.rotate(90, pivot, axis);
 
-
         double expectedX = 1.4081866403;
         double expectedY = 1.4081866403;
         double expectedZ = 0.1836267194;
@@ -897,7 +901,6 @@ class StpVectorTest {
 
         v.rotate(135, pivot, axis);
 
-
         double expectedX = 0.7887070471;
         double expectedY = 1.7885560357;
         double expectedZ = 0.4227369173;
@@ -908,7 +911,6 @@ class StpVectorTest {
         assertEquals(expectedY, v.getY(), allowedErr);
         assertEquals(expectedZ, v.getZ(), allowedErr);
     }
-
 
     @Test
     @DisplayName("should be able to rotate vector around pivot (1,1,1) and any axis")
@@ -921,12 +923,11 @@ class StpVectorTest {
 
         v.rotate(90, pivot, axis);
 
-
         double expectedX = -3.0965348318;
         double expectedY = 7.1206299639;
         double expectedZ = 4.011710853;
 
-        double allowedErr = Math.pow(10, -10);
+        double allowedErr = Math.pow(10, -9);
 
         assertEquals(expectedX, v.getX(), allowedErr);
         assertEquals(expectedY, v.getY(), allowedErr);
@@ -935,8 +936,7 @@ class StpVectorTest {
 
     @Test
     @DisplayName("should be able to move a vector statically along another vector by a certain distance by mutating the original Vector")
-    void testMoveVectorNonStatic(){
-
+    void testMoveVectorNonStatic() {
 
         StpVector v = new StpVector(-1, "", 0, 0, 0);
 
@@ -950,32 +950,12 @@ class StpVectorTest {
         double expectedY = 1.095445115;
         double expectedZ = 2.7386127875;
 
-        double allowedErr = Math.pow(10, -10);
+        double allowedErr = Math.pow(10, -9);
 
         assertEquals(expectedX, v.getX(), allowedErr);
         assertEquals(expectedY, v.getY(), allowedErr);
         assertEquals(expectedZ, v.getZ(), allowedErr);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
 }

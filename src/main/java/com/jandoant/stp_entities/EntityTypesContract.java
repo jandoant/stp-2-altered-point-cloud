@@ -21,4 +21,5 @@ public class EntityTypesContract {
     public static final String FACE_OUTER_BOUND = "FACE_OUTER_BOUND";
     public static final String ADVANCED_FACE = "ADVANCED_FACE";
 
+    public static final String FACE_BOUND = "FACE_BOUND" ;
 }

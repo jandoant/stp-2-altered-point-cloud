@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Klasse StpFaceBound
  * Created by Jan Doant on 25.04.2018
  */
-public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
+public class StpFaceBound extends StpTopologicalRepresentationItem {
 
     //Attribute
     int boundId;
@@ -45,7 +45,7 @@ public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
         return super.toString() +
                 ", boundId=" + boundId +
                 ", bound=" + bound +
-                ", orientation=" + orientation;
+                ", orientation=" + orientation + "}";
     }
 
     @Override
@@ -60,4 +60,11 @@ public abstract class StpFaceBound extends StpTopologicalRepresentationItem {
         if (bound != null ? !bound.equals(that.bound) : that.bound != null) return false;
         return orientation.equals(that.orientation);
     }
+
+
+
+
+
+
+
 }

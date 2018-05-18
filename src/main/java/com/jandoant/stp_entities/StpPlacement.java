@@ -32,6 +32,10 @@ public abstract class StpPlacement extends StpGeometricRepresentationItem {
         return this.location;
     }
 
+    public void setLocation(StpCartesianPoint location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return super.toString() +

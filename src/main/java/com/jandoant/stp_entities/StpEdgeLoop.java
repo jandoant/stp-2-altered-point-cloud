@@ -66,4 +66,8 @@ public class StpEdgeLoop extends StpLoop {
                 ", edgesList=" + edgesList +
                 "}";
     }
+
+    public ArrayList<StpOrientedEdge> getEdgesList() {
+        return edgesList;
+    }
 }

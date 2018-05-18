@@ -80,4 +80,28 @@ class StpCartesianPointTest {
 
         assertEquals(pt.toString(), expected);
     }
+
+    @Test
+    @DisplayName("should be able to move a cartesian point along a vector by a certain distance by mutating the original Vector")
+    void testMoveCPNonStatic() {
+
+        StpCartesianPoint cp = new StpCartesianPoint(-1, "", 0, 0, 0);
+
+        StpVector dir = new StpVector(-1, "", 1, 2, 5);
+
+        double distance = 3.0;
+
+        cp.move(dir, distance);
+
+        double expectedX = 0.5477225575;
+        double expectedY = 1.095445115;
+        double expectedZ = 2.7386127875;
+
+        double allowedErr = Math.pow(10, -9);
+
+        assertEquals(expectedX, cp.getX(), allowedErr);
+        assertEquals(expectedY, cp.getY(), allowedErr);
+        assertEquals(expectedZ, cp.getZ(), allowedErr);
+
+    }
 }
