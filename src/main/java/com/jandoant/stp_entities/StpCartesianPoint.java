@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import Jama.Matrix;
+
 import java.util.ArrayList;
 
 /**
@@ -86,6 +88,28 @@ public class StpCartesianPoint extends StpPoint {
 
         return new StpVector(-1, "", this.x, this.y, this.z);
 
+    }
+
+    public StpCartesianPoint transform(Matrix transformationMatrix) {
+
+        //make CartesianPoint a 1x3 Matrix
+        double[][] vals = {
+                {this.x},
+                {this.y},
+                {this.z}
+        };
+        Matrix ptMatrix = new Matrix(vals);
+
+        //multiply with transformation matrix
+        double[][] values = (transformationMatrix.times(ptMatrix)).getArray();
+
+        //make new 1x3 matrix a Cartesian Point again
+
+        double newX = values[0][0];
+        double newY = values[1][0];
+        double newZ = values[2][0];
+
+        return new StpCartesianPoint(-1, "", newX, newY, newZ);
 
     }
 }

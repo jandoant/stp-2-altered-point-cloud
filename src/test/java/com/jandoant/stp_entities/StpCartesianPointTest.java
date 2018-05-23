@@ -1,5 +1,6 @@
 package com.jandoant.stp_entities;
 
+import Jama.Matrix;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -115,6 +116,30 @@ class StpCartesianPointTest {
         StpVector expectedVector = new StpVector(-1, "", 3, 7.6, 4);
 
         assertEquals(expectedVector, actualVector);
+
+    }
+
+    @Test
+    void testTransformation() {
+
+        //setup
+        StpCartesianPoint pt = new StpCartesianPoint(-1, "", 0, 4, 3);
+
+        double[][] matrixVals = {
+                {0.0, 1.0, 0.0},
+                {0.0, 0.0, 1.0},
+                {1.0, 0.0, 0.0}
+        };
+
+        Matrix transformationMatrix = new Matrix(matrixVals);
+
+        //act
+        StpCartesianPoint ptTransformed = pt.transform(transformationMatrix);
+
+        //assert
+        StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 4, 3, 0);
+
+        assertEquals(expectedPoint, ptTransformed);
 
     }
 }
