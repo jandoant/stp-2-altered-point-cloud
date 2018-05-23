@@ -104,4 +104,17 @@ class StpCartesianPointTest {
         assertEquals(expectedZ, cp.getZ(), allowedErr);
 
     }
+
+    @Test
+    void testConvertToVector() {
+
+        StpCartesianPoint pt = new StpCartesianPoint(-1, "", 3, 7.6, 4);
+
+        StpVector actualVector = pt.convertToVector();
+
+        StpVector expectedVector = new StpVector(-1, "", 3, 7.6, 4);
+
+        assertEquals(expectedVector, actualVector);
+
+    }
 }

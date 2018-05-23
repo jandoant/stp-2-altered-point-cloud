@@ -1,3 +1,4 @@
+import Jama.Matrix;
 import com.jandoant.builder.StpModelBuilder;
 import com.jandoant.stp_entities.StpAdvancedFace;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  * Created by Jan Doant on 25.04.2018
  */
 public class MainClass {
+
     public static final String PATH_TO_MAIN_RESOURCES = "C:\\Users\\Jan\\Google Drive\\stp-2-altered-point-cloud\\src\\main\\resources\\";
 
     //Konstruktor
@@ -26,9 +28,9 @@ public class MainClass {
             ArrayList<StpAdvancedFace> advancedFaces = reader.parseFile();
             //mesh each advanced face
 
-            for (StpAdvancedFace advancedFace: advancedFaces) {
-                switch(advancedFace.getType()){
-                    case  "StpCylindricalSurface":
+            for (StpAdvancedFace advancedFace : advancedFaces) {
+                switch (advancedFace.getType()) {
+                    case "StpCylindricalSurface":
                         //ask for meshing parameters
                         int numOfRadialSegments = 17;
                         int numOfRings = 10;
@@ -37,18 +39,17 @@ public class MainClass {
                         advancedFace.meshCylinder(numOfRadialSegments, numOfRings);
 
                         break;
-                    case  "StpPlane":
-                        //System.out.println(advancedFace.getType());
+                    case "StpPlane":
+                        //entfernung der Punkte voneinander festlegen
+                        double distanceOfPoints = 0.1;
+
+                        advancedFace.meshPolygon(distanceOfPoints);
                         break;
                     default:
                         //default code
                         break;
                 }
             }
-
-
-
-
 
             //manipulate the single points of each advanced face
 

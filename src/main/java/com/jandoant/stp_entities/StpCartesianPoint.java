@@ -81,4 +81,11 @@ public class StpCartesianPoint extends StpPoint {
 
         return new StpCartesianPoint(-1, "", newX, newY, newZ);
     }
+
+    public StpVector convertToVector() {
+
+        return new StpVector(-1, "", this.x, this.y, this.z);
+
+
+    }
 }

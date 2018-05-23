@@ -77,4 +77,12 @@ public class StpAxis2Placement3D extends StpPlacement {
                 ", refDirection=" + refDirection +
                 "}";
     }
+
+    public void setAxis(StpDirection axis) {
+        this.axis = axis;
+    }
+
+    public void setRefDirection(StpDirection refDirection) {
+        this.refDirection = refDirection;
+    }
 }

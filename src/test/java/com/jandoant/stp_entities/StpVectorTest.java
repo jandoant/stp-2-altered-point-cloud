@@ -957,5 +957,4 @@ class StpVectorTest {
         assertEquals(expectedZ, v.getZ(), allowedErr);
 
     }
-
 }

@@ -93,14 +93,13 @@ public abstract class StpFaceSurface extends StpFace {
 
         System.out.println(translateIncrement);
 
-
         //find out the increment that each point has to rotate by
         double angleIncrement = 360.0 / (double) numOfRadialSegments;
 
         //first and nextRings but not the last ring to avoid rounding errors
         double sumOfTranslation = 0;
 
-        while (sumOfTranslation < axis.getMagnitude() - 0.5*translateIncrement) {
+        while (sumOfTranslation < axis.getMagnitude() - 0.5 * translateIncrement) {
 
             createSingleRing(startingVector0, axis, centerVector0, angleIncrement);
 
@@ -184,4 +183,19 @@ public abstract class StpFaceSurface extends StpFace {
         return (StpEdgeCurve) orientedEdge.getEdgeElement();
     }
 
+    public void meshPolygon(double distanceOfPoints) {
+
+        //transformieren der x,y,z Koordinaten in uv Koordinaten
+
+        //Polygon in uv Koordinaten erstellen
+
+        //Netz von Punkten in uv Koordinaten erstellen
+
+        //alle Punkte aus dem Netz löschen, die nicht innerhalb des Polygons liegen
+
+        //Kanten diskretisieren
+
+        //Punktewolke erstellen aus Netz und Punkten der Kanten
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.jandoant.stp_entities;
 
+import Jama.Matrix;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -136,6 +137,125 @@ class StpPlaneTest {
         StpAxis2Placement3D actualPosition = plane.getPosition();
 
         assertTrue(actualPosition.equals(expectedPosition));
+    }
+
+    @Test
+    void testGetLocationVector() {
+
+        //SetUp
+        StpAxis2Placement3D position = new StpAxis2Placement3D(34, "", 12, 13, 14);
+        position.setLocation(new StpCartesianPoint(12, "", 3, 5, -1));
+
+        StpPlane plane = new StpPlane(92, "", 34);
+        plane.setPosition(position);
+
+        //act
+        StpVector actualLocationVector = plane.getLocationVector();
+
+        //assert
+        StpVector expectedLocationVector = new StpVector(-1, "", 3, 5, -1);
+        assertEquals(expectedLocationVector, actualLocationVector);
+
+    }
+
+    @Test
+    void testGetNormalVector() {
+
+        //SetUp
+        StpAxis2Placement3D position = new StpAxis2Placement3D(34, "", 12, 13, 14);
+        position.setAxis(new StpDirection(13, "", 1, 0, 0));
+
+        StpPlane plane = new StpPlane(92, "", 34);
+        plane.setPosition(position);
+
+        //act
+        StpVector actualNormalVector = plane.getNormalVector();
+
+        //assert
+        StpVector expectedNormalVector = new StpVector(-1, "", 1, 0, 0);
+        assertEquals(expectedNormalVector, actualNormalVector);
+
+    }
+
+    @Test
+    void testGetDirectionVectors() {
+
+        //SetUp
+        StpAxis2Placement3D position = new StpAxis2Placement3D(34, "", 12, 13, 14);
+        position.setAxis(new StpDirection(13, "", 0, 0, 1));
+        position.setRefDirection(new StpDirection(14, "", 1, 0, 0));
+
+        StpPlane plane = new StpPlane(92, "", 34);
+        plane.setPosition(position);
+
+        //act
+        StpVector[] directionVectors = plane.getDirectionVectors();
+
+        //assert
+        StpVector dirVector0 = new StpVector(-1, "", 1, 0, 0);
+        StpVector dirVector1 = new StpVector(-1, "", 0, 1, 0);
+
+        assertEquals(directionVectors[0], dirVector0);
+        assertEquals(directionVectors[1], dirVector1);
+
+    }
+
+    @Test
+    void testGetTransformationMatrixWorldToLocal() {
+
+        //setup
+        StpDirection axis = new StpDirection(42, "center_axis", 1, 0, 0);
+        StpDirection refDirection = new StpDirection(43, "ref_direction", 0, 1, 0);
+
+        StpAxis2Placement3D position = new StpAxis2Placement3D(31, "", 41, 42, 43);
+        position.setAxis(axis);
+        position.setRefDirection(refDirection);
+
+        StpPlane plane = new StpPlane(11, "", 31);
+        plane.setPosition(position);
+
+        //act
+        Matrix actualMatrix = plane.getWorldToLocalTransformationMatrix();
+
+        //assert
+
+        double[][] expectedVals = {
+                {0.0, 1.0, 0.0},
+                {0.0, 0.0, 1.0},
+                {1.0, 0.0, 0.0}
+        };
+
+        assertArrayEquals(expectedVals, actualMatrix.getArray());
+
+    }
+
+    @Test
+    void testGetTransformationMatrixLocalToWorld() {
+
+        //setup
+        StpDirection axis = new StpDirection(42, "center_axis", 1, 0, 0);
+        StpDirection refDirection = new StpDirection(43, "ref_direction", 0, 1, 0);
+
+        StpAxis2Placement3D position = new StpAxis2Placement3D(31, "", 41, 42, 43);
+        position.setAxis(axis);
+        position.setRefDirection(refDirection);
+
+        StpPlane plane = new StpPlane(11, "", 31);
+        plane.setPosition(position);
+
+        //act
+        Matrix actualMatrix = plane.getLocalToWorldTransformationMatrix();
+
+        //assert
+
+        double[][] expectedVals = {
+                {0.0, 0.0, 1.0},
+                {1.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0}
+        };
+
+        assertArrayEquals(expectedVals, actualMatrix.getArray());
+
     }
 
     @AfterEach

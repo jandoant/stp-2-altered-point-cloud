@@ -48,4 +48,8 @@ public class StpDirection extends StpGeometricRepresentationItem {
                 ", zDirection=" + zDirection +
                 "}";
     }
+
+    public StpVector convertToVector() {
+        return new StpVector(-1, "", this.xDirection, this.yDirection, this.zDirection);
+    }
 }
