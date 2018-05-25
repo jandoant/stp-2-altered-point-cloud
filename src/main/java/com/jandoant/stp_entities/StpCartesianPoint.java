@@ -1,6 +1,7 @@
 package com.jandoant.stp_entities;
 
 import Jama.Matrix;
+import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,12 @@ public class StpCartesianPoint extends StpPoint {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public static StpCartesianPoint convertToCartesianPoint(Point2D pt) {
+
+        return new StpCartesianPoint(-1, "", pt.getX(), pt.getY(), 0);
+
     }
 
     @Override

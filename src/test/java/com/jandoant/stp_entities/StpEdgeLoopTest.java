@@ -265,6 +265,31 @@ class StpEdgeLoopTest {
         );
     }
 
+    @Test
+    void testGetEdgesList() {
+
+        ArrayList<Integer> edgesIds = new ArrayList<>();
+        edgesIds.add(33);
+
+        StpEdgeLoop loop = new StpEdgeLoop(23, "", edgesIds);
+
+        ArrayList<StpRepresentationItem> availableEntities = new ArrayList();
+        availableEntities.add(new StpOrientedEdge(33, "", 30, 30, 30, true));
+        availableEntities.add(new StpEdgeCurve(30, "", 28, 28, 26, true));
+        availableEntities.add(new StpVertexPoint(28, "", 80));
+        availableEntities.add(new StpCircle(26, "", 61, 10));
+        availableEntities.add(new StpCartesianPoint(80, "", 0, 0, 0));
+        availableEntities.add(new StpAxis2Placement3D(61, "", 81, 70, 71));
+        availableEntities.add(new StpCartesianPoint(81, "", 0, 0, 0));
+        availableEntities.add(new StpDirection(70, "", 0, 0, -1));
+        availableEntities.add(new StpDirection(71, "", -1, 0, 0));
+
+        loop.convertFromIds(availableEntities);
+
+        System.out.println(loop.getEdgesList().get(0));
+
+    }
+
     @AfterEach
     void tearDown() {
         allAvailableEntities = null;

@@ -1,6 +1,6 @@
-import Jama.Matrix;
 import com.jandoant.builder.StpModelBuilder;
 import com.jandoant.stp_entities.StpAdvancedFace;
+import com.jandoant.stp_entities.StpCartesianPoint;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,28 +22,46 @@ public class MainClass {
         //Attribute
         try {
 
-            //load the file
-            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Zylinder.stp");
-            //parse the file an make advancedFaces
-            ArrayList<StpAdvancedFace> advancedFaces = reader.parseFile();
-            //mesh each advanced face
+            // 1. load the file
+            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Quader.stp");
 
+            // 2. parse the file an make advancedFaces
+            ArrayList<StpAdvancedFace> advancedFaces = reader.parseFile();
+
+            // 3. mesh and deform each advanced face
             for (StpAdvancedFace advancedFace : advancedFaces) {
                 switch (advancedFace.getType()) {
                     case "StpCylindricalSurface":
-                        //ask for meshing parameters
-                        int numOfRadialSegments = 17;
-                        int numOfRings = 10;
+                        /*  meshing and deforming any cylindrical surface
+                            the user can choose the meshing parameters
+                            the user can choose the deformation Functions and their parameters */
+
+                        // 1. ask the user for meshing parameters
+                        int numOfRadialSegments = 4;
+                        int numOfRings = 3;
 
                         //meshCylinder
                         advancedFace.meshCylinder(numOfRadialSegments, numOfRings);
 
                         break;
                     case "StpPlane":
-                        //entfernung der Punkte voneinander festlegen
-                        double distanceOfPoints = 0.1;
 
-                        advancedFace.meshPolygon(distanceOfPoints);
+                        /*  meshing and deforming any straight line polygon or circle lying on a Plane
+                            the user can choose the meshing parameter
+                            the user can choose the deformationfunctions and their parameters */
+
+                        double radialSegments = 4;
+                        double numOfRings = 3;
+
+                        // 1. ask the user for the meshing parameters
+                        double distanceOfPoints = 1.0;
+
+                        // 2.1 find the outer edge points of the Polygon or the seam points of the circle in uvw-space
+                        StpCartesianPoint[] outerEdgePointsUVW = advancedFace.getOuterEdgePointsUVW();
+
+                        //3. mesh the outer 2D-Polygon and Fill the PointCloud of the Face
+                        advancedFace.mesh2DPolygonUVW(outerEdgePointsUVW, distanceOfPoints);
+
                         break;
                     default:
                         //default code

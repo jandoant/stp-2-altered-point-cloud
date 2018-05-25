@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -60,6 +61,30 @@ class StpVertexPointTest {
 
         assertFalse(pt1.equals(pt2));
         assertFalse(pt2.equals(pt1));
+
+    }
+
+    @Test
+    void testConvertToCartesianPoint() {
+
+
+        //setup
+        StpVertexPoint vp = new StpVertexPoint(12, "", 34);
+
+        vp.setVertexGeometry(new StpCartesianPoint(34, "", 3.3, 1.2, -6.7));
+
+        //act
+        StpCartesianPoint actualPoint = vp.convertToCartesianPoint();
+
+        //assert
+        StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 3.3, 1.2, -6.7);
+
+
+        assertEquals(expectedPoint, actualPoint);
+
+
+
+
 
     }
 

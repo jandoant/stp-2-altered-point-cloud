@@ -69,7 +69,12 @@ public class StpModelBuilder {
     private void convertEntitiesFromIds() {
 
         for (int i = 0; i < entityList.size(); i++) {
-            entityList.get(i).convertFromIds(entityList);
+
+            if(entityList.get(i).getClass().getSimpleName().equals("StpAdvancedFace")){
+                entityList.get(i).convertFromIds(entityList);
+            }
+
+
         }
     }
 

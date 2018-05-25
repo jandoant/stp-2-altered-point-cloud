@@ -436,4 +436,6 @@ class StpOrientedEdgeTest {
         edgeWithInheritance2 = null;
         edgeWithInheritance3 = null;
     }
+
+
 }

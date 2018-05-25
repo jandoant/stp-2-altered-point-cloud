@@ -22,7 +22,6 @@ public class StpOrientedEdge extends StpEdge {
     }
 
     //Methoden
-
     @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
@@ -61,7 +60,6 @@ public class StpOrientedEdge extends StpEdge {
 
             this.edgeStartVertex.convertFromIds(availableEntities);
             this.edgeEndVertex.convertFromIds(availableEntities);
-
 
         }
 
@@ -118,8 +116,6 @@ public class StpOrientedEdge extends StpEdge {
                 "}";
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,5 +135,9 @@ public class StpOrientedEdge extends StpEdge {
 
     public void setEdgeElement(StpEdge edgeElement) {
         this.edgeElement = edgeElement;
+    }
+
+    public boolean getOrientation() {
+        return orientation;
     }
 }

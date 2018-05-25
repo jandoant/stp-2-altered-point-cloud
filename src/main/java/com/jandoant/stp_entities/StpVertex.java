@@ -14,5 +14,10 @@ public abstract class StpVertex extends StpTopologicalRepresentationItem {
     }
 
     //Methoden
+    public abstract double getX();
+    public abstract double getY();
+    public abstract double getZ();
+
+    public abstract StpCartesianPoint convertToCartesianPoint();
 
 }

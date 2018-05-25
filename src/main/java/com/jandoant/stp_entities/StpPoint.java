@@ -14,4 +14,8 @@ public abstract class StpPoint extends StpGeometricRepresentationItem {
     }
 
     //Methoden
+    public abstract double getX();
+    public abstract double getY();
+    public abstract double getZ();
+
 }

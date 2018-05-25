@@ -44,21 +44,21 @@ public class StpPlane extends StpElementarySurface {
 
     }
 
-    public Matrix getWorldToLocalTransformationMatrix() {
+    public Matrix getXYZtoUVWTransformationMatrix() {
 
-        Matrix worldBaseMatrix = getWorldBaseMatrix();
-        Matrix localBaseMatrix = getLocalBaseMatrix();
+        Matrix XYZBaseMatrix = getXYZBaseMatrix();
+        Matrix UVWBaseMatrix = getUVWBaseMatrix();
 
-        return (localBaseMatrix.inverse()).times(worldBaseMatrix);
+        return (UVWBaseMatrix.inverse()).times(XYZBaseMatrix);
     }
 
-    public Matrix getLocalToWorldTransformationMatrix() {
-        return this.getWorldToLocalTransformationMatrix().inverse();
+    public Matrix getUVWToXYZTransformationMatrix() {
+        return this.getXYZtoUVWTransformationMatrix().inverse();
     }
 
 
 
-    private Matrix getLocalBaseMatrix(){
+    private Matrix getUVWBaseMatrix(){
 
         //wird für jede StpPlane erstellt aus Normalenvektor und den Richtungsvektoren
 
@@ -76,7 +76,7 @@ public class StpPlane extends StpElementarySurface {
     }
 
 
-    private Matrix getWorldBaseMatrix() {
+    private Matrix getXYZBaseMatrix() {
 
         //is always the same
         double[][] baseWorldVals = {

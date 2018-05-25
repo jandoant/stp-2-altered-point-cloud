@@ -150,11 +150,11 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     }
 
-    public static StpVector subtract(StpVector v1, StpVector v2) {
+    public static StpVector subtract(StpVector v1, StpVector v0) {
 
-        double newX = v1.getX() - v2.getX();
-        double newY = v1.getY() - v2.getY();
-        double newZ = v1.getZ() - v2.getZ();
+        double newX = v1.getX() - v0.getX();
+        double newY = v1.getY() - v0.getY();
+        double newZ = v1.getZ() - v0.getZ();
 
         return new StpVector(-1, "", newX, newY, newZ);
 

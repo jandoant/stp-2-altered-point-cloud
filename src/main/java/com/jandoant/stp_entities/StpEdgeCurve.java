@@ -62,4 +62,12 @@ public class StpEdgeCurve extends StpEdge {
     public StpCurve getEdgeGeometry() {
         return edgeGeometry;
     }
+
+    public void setEdgeGeometry(StpCurve edgeGeometry) {
+        this.edgeGeometry = edgeGeometry;
+    }
+
+    public String getType() {
+        return this.edgeGeometry.getClass().getSimpleName();
+    }
 }

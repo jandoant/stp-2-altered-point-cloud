@@ -66,4 +66,26 @@ public class StpVertexPoint extends StpVertex {
                 ", vertexGeometry=" + vertexGeometry +
                 "}";
     }
+
+    @Override
+    public double getX() {
+        return this.vertexGeometry.getX();
+    }
+
+    @Override
+    public double getY() {
+        return this.vertexGeometry.getY();
+    }
+
+    @Override
+    public double getZ() {
+        return this.vertexGeometry.getZ();
+    }
+
+    @Override
+    public StpCartesianPoint convertToCartesianPoint() {
+
+        return new StpCartesianPoint(-1, "", this.vertexGeometry.getX(), this.vertexGeometry.getY(), this.vertexGeometry.getZ());
+
+    }
 }

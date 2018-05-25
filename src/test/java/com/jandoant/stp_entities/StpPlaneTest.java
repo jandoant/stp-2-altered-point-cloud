@@ -215,7 +215,7 @@ class StpPlaneTest {
         plane.setPosition(position);
 
         //act
-        Matrix actualMatrix = plane.getWorldToLocalTransformationMatrix();
+        Matrix actualMatrix = plane.getXYZtoUVWTransformationMatrix();
 
         //assert
 
@@ -244,7 +244,7 @@ class StpPlaneTest {
         plane.setPosition(position);
 
         //act
-        Matrix actualMatrix = plane.getLocalToWorldTransformationMatrix();
+        Matrix actualMatrix = plane.getUVWToXYZTransformationMatrix();
 
         //assert
 

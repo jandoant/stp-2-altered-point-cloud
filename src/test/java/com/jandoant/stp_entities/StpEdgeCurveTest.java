@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -194,6 +195,23 @@ class StpEdgeCurveTest {
         StpCurve expectedEdgeGeometry = (StpCurve) allAvailableEntities.get(6);
         //assert
         assertTrue(edgeCurve.getEdgeGeometry().equals(expectedEdgeGeometry));
+    }
+
+    @Test
+    void testGetType() {
+
+        //setup
+        StpEdgeCurve edgeCurve = new StpEdgeCurve(59, "", 51, 52, 27, true);
+        StpLine edgeLine = new StpLine(27, "", 22, 33);
+        edgeCurve.setEdgeGeometry(edgeLine);
+
+        String type = edgeCurve.getType();
+
+        String expectedType = "StpLine";
+
+        assertEquals(expectedType, type);
+
+
     }
 
     @AfterEach

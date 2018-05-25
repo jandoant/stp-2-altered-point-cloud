@@ -36,7 +36,6 @@ public class StpEdgeLoop extends StpLoop {
 
                 this.edgesList.add(orientedEdge);
             }
-
         }
     }
 
@@ -69,5 +68,9 @@ public class StpEdgeLoop extends StpLoop {
 
     public ArrayList<StpOrientedEdge> getEdgesList() {
         return edgesList;
+    }
+
+    public void setEdgesList(ArrayList<StpOrientedEdge> edgesList) {
+        this.edgesList = edgesList;
     }
 }
