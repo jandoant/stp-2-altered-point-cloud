@@ -1,6 +1,9 @@
 import com.jandoant.builder.StpModelBuilder;
+import com.jandoant.geometric.PolygonUVW;
+import com.jandoant.geometric.SurfaceUVW;
 import com.jandoant.stp_entities.StpAdvancedFace;
-import com.jandoant.stp_entities.StpCartesianPoint;
+import com.jandoant.stp_entities.StpFaceBound;
+import com.jandoant.stp_entities.StpPlane;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,7 +26,7 @@ public class MainClass {
         try {
 
             // 1. load the file
-            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Quader.stp");
+            StpModelBuilder reader = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + "Zylinder.stp");
 
             // 2. parse the file an make advancedFaces
             ArrayList<StpAdvancedFace> advancedFaces = reader.parseFile();
@@ -32,6 +35,7 @@ public class MainClass {
             for (StpAdvancedFace advancedFace : advancedFaces) {
                 switch (advancedFace.getType()) {
                     case "StpCylindricalSurface":
+
                         /*  meshing and deforming any cylindrical surface
                             the user can choose the meshing parameters
                             the user can choose the deformation Functions and their parameters */
@@ -46,30 +50,47 @@ public class MainClass {
                         break;
                     case "StpPlane":
 
-                        /*  meshing and deforming any straight line polygon or circle lying on a Plane
-                            the user can choose the meshing parameter
-                            the user can choose the deformationfunctions and their parameters */
 
-                        double radialSegments = 4;
-                        double numOfRings = 3;
+                        System.out.println(advancedFace);
 
-                        // 1. ask the user for the meshing parameters
-                        double distanceOfPoints = 1.0;
+                        // 1. Finde die positiven Bounds
+                        ArrayList<StpFaceBound> positiveBounds = advancedFace.getPositiveBounds();
 
-                        // 2.1 find the outer edge points of the Polygon or the seam points of the circle in uvw-space
-                        StpCartesianPoint[] outerEdgePointsUVW = advancedFace.getOuterEdgePointsUVW();
+                        // 2. Meshe alle positiven Bounds und füge die Punkte zur PointCloud hinzu (uvw)
+                        StpPlane plane = (StpPlane) advancedFace.getFaceGeometry();
 
-                        //3. mesh the outer 2D-Polygon and Fill the PointCloud of the Face
-                        advancedFace.mesh2DPolygonUVW(outerEdgePointsUVW, distanceOfPoints);
+                        for (StpFaceBound positiveBound : positiveBounds) {
 
-                        break;
-                    default:
-                        //default code
-                        break;
+                            if (positiveBound.isPolygon()) {
+
+                                // Den Nutzer nach den MeshingParametern fragen (im Moment nicht implementiert)
+                                double distanceOfPoints = 5.0;
+
+                                // Die positve Fläche in UVW transformieren und meshen
+                                PolygonUVW polygonUVW = new PolygonUVW(positiveBound, plane, true);
+                                polygonUVW.mesh(distanceOfPoints);
+
+                                // Die erzeugten Mesh-Punkte zur PointCloud der Advanced Face hinzufügen
+                                advancedFace.addPositiveSurfaceUVW(polygonUVW);
+
+                            } else if (positiveBound.isCircle()) {
+                            /*CircleUVW circleUVW = new CircleUVW(positiveBound, plane, isPositive);
+                            circleUVW.mesh(numOfRadialSegments, numOfRings);
+
+                            advancedFace.addToPointCloud(circleUVW.getMeshUVW());*/
+                            }
+
+                        }
+
+                        //3. Die folgenden bounds in der Liste sind die negativen und müssen abgezogen werden
+
                 }
+
+                //manipulate the single points of each advanced face with deformation function
+
             }
 
-            //manipulate the single points of each advanced face
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

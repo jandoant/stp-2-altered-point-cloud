@@ -1,7 +1,7 @@
 package com.jandoant.stp_entities;
 
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
+import com.jandoant.geometric.SurfaceUVW;
+import javafx.collections.ObservableList;
 import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
@@ -29,6 +29,15 @@ public abstract class StpFaceSurface extends StpFace {
     }
 
     //Methoden
+
+    public StpSurface getFaceGeometry() {
+        return faceGeometry;
+    }
+
+    public void setFaceGeometry(StpSurface faceGeometry) {
+        this.faceGeometry = faceGeometry;
+    }
+
     @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
 
@@ -42,12 +51,77 @@ public abstract class StpFaceSurface extends StpFace {
         }
     }
 
-    public StpSurface getFaceGeometry() {
-        return faceGeometry;
+    public void addPositiveSurfaceUVW(SurfaceUVW positiveBound) {
+
+        this.pointCloud.addAll(positiveBound.getMeshUVW());
     }
 
-    public void setFaceGeometry(StpSurface faceGeometry) {
-        this.faceGeometry = faceGeometry;
+    private void meshEdgesOf2DPolygon(Polygon polygon, double distanceOfPoints) {
+
+        /*
+        Diskretisiert die Kanten eines Polygons und fügt die Ergebnispunkte der Punktewolke hinzu.
+         */
+
+        // 1. Liste von Eckpunkten des Polygons erstellen
+        ObservableList<Double> edgeCoordinates = polygon.getPoints();
+
+        ArrayList<StpCartesianPoint> edgePoints = new ArrayList<>();
+
+        for (int i = 0; i < edgeCoordinates.size() / 2; i++) {
+
+            double u = edgeCoordinates.get(2 * i);
+            double v = edgeCoordinates.get(2 * i + 1);
+
+            StpCartesianPoint pt = new StpCartesianPoint(-1, "", u, v, 0);
+
+            edgePoints.add(pt);
+
+        }
+
+        // 2. Kanten des Polygons als Vektoren beschreiben (dazu ist die Liste der Eckpunkte nötig)
+        ArrayList<StpVector> edgeVectors = new ArrayList<>();
+
+        for (int i = 0; i < edgePoints.size(); i++) {
+
+            StpVector v0 = new StpVector(-1, "", edgePoints.get(i).getX(), edgePoints.get(i).getY(), 0);
+
+            StpVector v1;
+
+            if (i + 1 == edgePoints.size()) {
+                v1 = new StpVector(-1, "", edgePoints.get(0).getX(), edgePoints.get(0).getY(), 0);
+
+            } else {
+                v1 = new StpVector(-1, "", edgePoints.get(i + 1).getX(), edgePoints.get(i + 1).getY(), 0);
+
+            }
+
+            edgeVectors.add(StpVector.subtract(v1, v0));
+
+        }
+
+        // 3. Kanten des Polygons meshen und die Punkte in Point Cloud schreiben
+        for (StpVector v : edgeVectors) {
+
+            double sumOfTranslation = 0;
+            double totalDistance = v.getMagnitude();
+            int i = edgeVectors.indexOf(v);
+
+            StpCartesianPoint currPoint = edgePoints.get(i);
+
+            while (sumOfTranslation < totalDistance) {
+
+                this.pointCloud.add(new StpCartesianPoint(-1, "", currPoint.getX(), currPoint.getY(), currPoint.getZ()));
+
+                currPoint.move(v, distanceOfPoints);
+
+                sumOfTranslation += distanceOfPoints;
+            }
+
+            //move Location Vector back
+            currPoint.move(v, -v.getMagnitude());
+
+        }
+
     }
 
     @Override
@@ -189,235 +263,48 @@ public abstract class StpFaceSurface extends StpFace {
         return (StpEdgeCurve) orientedEdge.getEdgeElement();
     }
 
-    public StpCartesianPoint[] getOuterEdgePointsUVW() {
-
-        /*
-        Es sollen alle Eckpunkte des äußeren Polygons gefunden werden.
-        Diese Eckpunkte werden in uvw-Koordinaten transformiert und als Array zurückgegeben.
-        */
-
-        // alle Eckpukte des äußeren Polygons finden
-        StpCartesianPoint[] outerEdgePointsXYZ = this.getOuterEdgePointsXYZ();
-
-        // alle Eckpunkte in uvw transformieren und zurück geben
-        return this.transformEdgePointsToUVW(outerEdgePointsXYZ);
-
-    }
-
-    private StpCartesianPoint[] getOuterEdgePointsXYZ() {
-
-        /*
-        Es sollen alle Eckpunkte des äußeren Polygons gefunden werden.
-        Diese Eckpunkte werden in xyz-Koordinaten als Array zurückgegeben.
-        */
-
-        // alle Kanten des äußeren Polygons finden
-        ArrayList<StpOrientedEdge> outerEdges = findOuterEdges();
-
-        // alle Eckpunkte des äußeren Polygons aus diesen Kanten extrahieren
-        return getEdgePointsOfPolygon(outerEdges);
-
-    }
-
-    public StpCartesianPoint[] getInnerEdgePointsXYZ() {
-
-        //Todo: Implement
-
-        return null;
-    }
-
-    private StpCartesianPoint[] transformEdgePointsToUVW(StpCartesianPoint[] edgePointsOfPolygon) {
-
-        /*
-        Jeder einzelne Eckpunkt des Polygons muss in uvw transformiert werden.
-        Dazu ist es auch notwendig den Ortsvektor der Ebene vorher abzuziehen.
-        Die transformierten Punkte werden in ein neues Ergebnis-Array geschrieben und zurückgegeben
-         */
-
-        StpCartesianPoint[] result = new StpCartesianPoint[edgePointsOfPolygon.length];
-
-        for (int i = 0; i < edgePointsOfPolygon.length; i++) {
-
-            // auf welcher Ebene befiondet sich das Polygon?
-            StpPlane plane = (StpPlane) this.faceGeometry;
-
-            // vorher Ortsvektor dieser Ebene abziehen
-            StpVector locationVector = plane.getLocationVector();
-            edgePointsOfPolygon[i].move(locationVector, -locationVector.getMagnitude());
-
-            // transformieren mithilfe der entsprechenden Transformationsmatrix der Ebene
-            result[i] = edgePointsOfPolygon[i].transform(plane.getXYZtoUVWTransformationMatrix());
-        }
-
-        //in uvw transformierte Punkte zurückgeben
-        return result;
-    }
-
-    private StpCartesianPoint[] getEdgePointsOfPolygon(ArrayList<StpOrientedEdge> outerEdges) {
-
-        /*
-        Aus den outer orientedEdges sollen die EdgePoints des Polygons extrahiert werden.
-        Dafür werden die jeweiligen Anfangspukte der Edges gesucht und in ein Array geschrieben.
-        Das Ergebnis-Array hat die gleiche Größe, wie die Anzahl der Edges, da es genauso viele Eckpunkte wie Edges gibt.
-         */
-
-        StpCartesianPoint[] result = new StpCartesianPoint[outerEdges.size()];
-
-        for (int i = 0; i < outerEdges.size(); i++) {
-
-            StpCartesianPoint startingPointOfEdge;
-
-            // falls die orientation false ist, müssen Start- und EndVertex umgedreht werden
-            if (outerEdges.get(i).orientation == true) {
-                startingPointOfEdge = outerEdges.get(i).getEdgeStartVertex().convertToCartesianPoint();
-            } else {
-                startingPointOfEdge = outerEdges.get(i).getEdgeEndVertex().convertToCartesianPoint();
-            }
-
-            result[i] = startingPointOfEdge;
-        }
-
-        return result;
-    }
-
-    private ArrayList<StpOrientedEdge> findOuterEdges() {
-
-        /*
-        Es sollen alle Kanten des äußeren Polygons gefunden werden.
-         */
-
-        // finden de äußeren Umrandung des äußeren Polygons
-        StpFaceBound faceOuterBound = this.getBounds().get(0);
-
-        // finden des Kantenverbundes des äüßeren Polygons
-        StpEdgeLoop outerEdgeLoop = (StpEdgeLoop) faceOuterBound.getBound();
-
-        // Rückgabe einer Liste aller Kanten des äußeren Polygons
-        return outerEdgeLoop.getEdgesList();
-
-    }
-
     public ArrayList<StpCartesianPoint> getPointCloud() {
         return pointCloud;
     }
 
-    public ArrayList<StpCartesianPoint> mesh2DPolygonUVW(StpCartesianPoint[] outerEdgePointsUVW, double distanceOfPoints) {
+    public void removeNegativeSurfaceUVW(SurfaceUVW negativeSurfaceUVW) {
 
         /*
-        Soll ein 2D-Polygon aus den Eckpunkten des Polygons erzeugen.
-        Ermittlung der Bounding-Box des Polygons und füllen dieser Bounding-Box mit Punkteraster im  vorgegebenen Abstand.
+        Löscht alle Punkte, die innerhalb eines negativen Polygons liegen.
+        Fügt die diskretisierten Punkte der Kanten des negativen Polygons hinzu.
          */
 
-        // erstellen des 2D-Polygons in uvw Kooridinaten
+        // 1. alle Punkte der Point Cloud löschen, die innerhalb der Kontur liegen
+        for (StpCartesianPoint pt : this.pointCloud) {
 
-        // die Skalierung ist notwendig, weil Polygon nur Integer annimmt
+            if (negativeSurfaceUVW.contains(pt)) {
 
-        int numOfPoints = outerEdgePointsUVW.length;
-
-        // 2D Polygon erstellen
-
-        double[] coordinates = new double[numOfPoints * 2];
-
-        for (int i = 0; i < numOfPoints; i++) {
-
-            double u = outerEdgePointsUVW[i].getX();
-            double v = outerEdgePointsUVW[i].getY();
-
-            // apply u
-            coordinates[2 * i] = u;
-
-            //appy v
-            coordinates[2 * i + 1] = v;
-
-        }
-
-        ArrayList<StpVector> edgeVectors = new ArrayList<>();
-
-        for (int i = 0; i < numOfPoints; i++) {
-
-            //build the edgeVectors
-            StpVector v0 = new StpVector(-1, "", outerEdgePointsUVW[i].getX(), outerEdgePointsUVW[i].getY(), 0);
-            StpVector v1;
-
-            if (i + 1 == numOfPoints) {
-                v1 = new StpVector(-1, "", outerEdgePointsUVW[0].getX(), outerEdgePointsUVW[0].getY(), 0);
-
-            } else {
-                v1 = new StpVector(-1, "", outerEdgePointsUVW[i + 1].getX(), outerEdgePointsUVW[i + 1].getY(), 0);
+                this.pointCloud.remove(pt);
 
             }
-
-            edgeVectors.add(StpVector.subtract(v1, v0));
-
         }
+        // 2. im Anschluss die Kanten des inneren Polygons meshen (der PointCloud hinzufügen)
+        //only add the EdgePoints that I dont have already!!!!!
 
-        //mesh the edges of the polygon
+        for (StpCartesianPoint pt : negativeSurfaceUVW.getMeshUVW()) {
 
-        ArrayList<Point2D> mesh = new ArrayList<>();
-
-        for (StpVector v : edgeVectors) {
-
-            double sumOfTranslation = 0;
-            double totalDistance = v.getMagnitude();
-            int i = edgeVectors.indexOf(v);
-
-            StpCartesianPoint currPoint = outerEdgePointsUVW[i];
-
-            while (sumOfTranslation < totalDistance) {
-
-                mesh.add(new Point2D(currPoint.getX(), currPoint.getY()));
-
-                currPoint.move(v, distanceOfPoints);
-
-                sumOfTranslation += distanceOfPoints;
+            if (!this.pointCloud.contains(pt)) {
+                this.pointCloud.add(pt);
             }
 
-            //move Location Vector back
-            outerEdgePointsUVW[i].move(v, -v.getMagnitude());
-
         }
 
-        Polygon polygon = new Polygon(coordinates);
+    }
 
-        //bounding Box des Polygons
-        Bounds boundingBox = polygon.getBoundsInLocal();
+    public ArrayList<StpFaceBound> getPositiveBounds() {
 
-        double uMin = boundingBox.getMinX();
-        double uMax = boundingBox.getMaxX();
+        ArrayList<StpFaceBound> result = new ArrayList<>();
 
-        double vMin = boundingBox.getMinY();
-        double vMax = boundingBox.getMaxY();
-
-        //mesh inside of polygon
-        double v = vMin;
-
-        while (v <= vMax) {
-
-            double u = uMin;
-
-            while (u <= uMax) {
-
-                Point2D pt = new Point2D(u, v);
-
-                if (polygon.contains(pt) && !mesh.contains(pt)) {
-                    mesh.add(pt);
-                }
-
-                u += distanceOfPoints;
+        for (StpFaceBound bound : this.getBounds()) {
+            if (bound.getType().equals("StpFaceOuterBound")) {
+                result.add(bound);
             }
-
-            v += distanceOfPoints;
         }
-
-        // convert all Point2D to StpCartesianPoints
-
-
-        ArrayList<StpCartesianPoint> result = new ArrayList<>();
-
-        for (Point2D pt : mesh) {
-            result.add(StpCartesianPoint.convertToCartesianPoint(pt));
-        }
-
 
         return result;
 
