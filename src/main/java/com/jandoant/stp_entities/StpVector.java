@@ -40,6 +40,12 @@ public class StpVector extends StpGeometricRepresentationItem {
 
     }
 
+    public static StpVector create(StpCartesianPoint p0, StpCartesianPoint p1) {
+
+        return new StpVector(-1, "", p1.getX() - p0.getX(), p1.getY() - p0.getY(), p1.getZ() - p0.getZ());
+
+    }
+
     //Methoden
 
     @Override

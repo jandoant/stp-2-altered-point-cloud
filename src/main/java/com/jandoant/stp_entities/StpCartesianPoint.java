@@ -29,6 +29,15 @@ public class StpCartesianPoint extends StpPoint {
 
     }
 
+    public static double distance(StpCartesianPoint centerPoint, StpCartesianPoint startingPoint) {
+
+        return Math.sqrt(
+                Math.pow(centerPoint.getX() - startingPoint.getX(), 2) +
+                        Math.pow(centerPoint.getY() - startingPoint.getY(), 2) +
+                        Math.pow(centerPoint.getZ() - startingPoint.getZ(), 2)
+        );
+    }
+
     @Override
     public void convertFromIds(ArrayList<StpRepresentationItem> availableEntities) {
         //is not needed, because StpCartesian does not reference other entities

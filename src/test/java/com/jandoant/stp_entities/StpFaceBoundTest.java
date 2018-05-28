@@ -2,7 +2,6 @@ package com.jandoant.stp_entities;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -110,7 +109,6 @@ class StpFaceBoundTest {
         edgesIds2.add(67);
         edgesIds2.add(68);
 
-
         StpLoop[] bounds = {
                 new StpEdgeLoop(20, "", edgesIds0),
                 new StpEdgeLoop(21, "", edgesIds1),
@@ -124,6 +122,24 @@ class StpFaceBoundTest {
         fb.convertFromIds(availableEntities);
 
         assertTrue(availableEntities.get(2).equals(fb.getBound()));
+
+    }
+
+    @Test
+    void testIsFaceOuterBoundTrue() {
+
+        StpFaceBound fb = new StpFaceOuterBound(12, "", 34, true);
+
+        assertTrue(fb.isOuterFaceBound());
+
+    }
+
+    @Test
+    void testIsFaceOuterBoundFalse() {
+
+        StpFaceBound fb = new StpFaceBound(13, "", 35, true);
+
+        assertFalse(fb.isOuterFaceBound());
 
     }
 }

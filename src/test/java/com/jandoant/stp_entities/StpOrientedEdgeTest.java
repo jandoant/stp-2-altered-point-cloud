@@ -318,7 +318,7 @@ class StpOrientedEdgeTest {
     void testConvertFromIdsEdgeEndVertexIdInherited2() {
 
         edgeWithInheritance2.convertFromIds(allAvailableEntities);
-        
+
         //expectations
         int expectedEdgeEndVertexId = 15;
 
@@ -436,6 +436,5 @@ class StpOrientedEdgeTest {
         edgeWithInheritance2 = null;
         edgeWithInheritance3 = null;
     }
-
 
 }

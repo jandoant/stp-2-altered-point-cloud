@@ -111,16 +111,12 @@ class StpCircleTest {
 
         StpCircle circle = new StpCircle(99, "", 13, 10.0);
 
-
         testPosition.setLocation(testLocation);
         circle.setPosition(testPosition);
 
         StpVector expectedVector = new StpVector(-1, "", 4, -7, 8);
 
-
         assertEquals(expectedVector, circle.getCenterVector());
-
-
 
     }
 }

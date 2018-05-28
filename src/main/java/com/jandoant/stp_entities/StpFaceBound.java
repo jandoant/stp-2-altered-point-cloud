@@ -13,6 +13,8 @@ public class StpFaceBound extends StpTopologicalRepresentationItem {
     StpLoop bound;
     Boolean orientation;
 
+    StpPlane plane;
+
     //Konstruktor
     public StpFaceBound(int id, String name, int boundId, Boolean orientation) {
         super(id, name);
@@ -61,10 +63,30 @@ public class StpFaceBound extends StpTopologicalRepresentationItem {
         return orientation.equals(that.orientation);
     }
 
+    public boolean isOuterFaceBound() {
 
+        return this.getClass().getSimpleName().equals("StpFaceOuterBound");
 
+    }
 
+    public boolean isPolygon() {
 
+        StpEdgeLoop edgeLoop = (StpEdgeLoop) this.getBound();
 
+        return edgeLoop.getEdgesList().size() > 2;
 
+    }
+
+    public boolean isCircle() {
+
+        StpEdgeLoop edgeLoop = (StpEdgeLoop) this.getBound();
+
+        return edgeLoop.getEdgesList().size() == 1;
+
+    }
+
+    public String getType() {
+
+        return this.getClass().getSimpleName();
+    }
 }

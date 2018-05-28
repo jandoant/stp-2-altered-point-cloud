@@ -498,7 +498,7 @@ class StpVectorTest {
         double mag = MathHelper.round(Math.sqrt(9 + 4 + 25));
 
         assertEquals(v.getMagnitude(), 1, allowedError);
-        assertEquals(v.getX(), 3/mag, allowedError);
+        assertEquals(v.getX(), 3 / mag, allowedError);
         assertEquals(v.getY(), 2 / mag, allowedError);
         assertEquals(v.getZ(), 5 / mag, allowedError);
 

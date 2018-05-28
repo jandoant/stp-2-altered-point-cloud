@@ -46,6 +46,14 @@ public class StpAxis2Placement3D extends StpPlacement {
         }
     }
 
+    public void setAxis(StpDirection axis) {
+        this.axis = axis;
+    }
+
+    public void setRefDirection(StpDirection refDirection) {
+        this.refDirection = refDirection;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,13 +84,5 @@ public class StpAxis2Placement3D extends StpPlacement {
                 ", refDirectionId=" + refDirectionId +
                 ", refDirection=" + refDirection +
                 "}";
-    }
-
-    public void setAxis(StpDirection axis) {
-        this.axis = axis;
-    }
-
-    public void setRefDirection(StpDirection refDirection) {
-        this.refDirection = refDirection;
     }
 }

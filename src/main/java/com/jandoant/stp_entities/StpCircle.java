@@ -1,13 +1,10 @@
 package com.jandoant.stp_entities;
 
-import java.util.ArrayList;
-
 /**
  * Klasse StpCircle
  * Created by Jan Doant on 17.05.2018
  */
 public class StpCircle extends StpConic {
-
 
     //Attribute
     double radius;
@@ -19,12 +16,13 @@ public class StpCircle extends StpConic {
     }
 
     //Methoden
-    public StpVector getCenterVector(){
+    public StpVector getCenterVector() {
 
         StpCartesianPoint centerPoint = this.position.getLocation();
 
         return new StpVector(-1, "", centerPoint.getX(), centerPoint.getY(), centerPoint.getZ());
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -35,6 +33,10 @@ public class StpCircle extends StpConic {
         StpCircle stpCircle = (StpCircle) o;
 
         return Double.compare(stpCircle.radius, radius) == 0;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     @Override
