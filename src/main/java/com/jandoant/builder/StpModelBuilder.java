@@ -38,16 +38,16 @@ public class StpModelBuilder {
 
     public ArrayList<StpAdvancedFace> parseFile() throws IOException {
 
-        //make a List of Strings that could describe an entity
+        // 1. make a List of Strings that could describe an entity
         makeListOfEntityStrings();
 
-        //make a list of actual Entities ("unimportant" Entities get filtered out)
+        // 2. make a list of actual Entities ("unimportant" Entities get filtered out)
         makeListOfEntities();
 
-        //combine the Entities via their ids
+        // 3. combine the Entities via their ids
         convertEntitiesFromIds();
 
-        //write all advancedFaces into a List
+        // 4. write all advancedFaces into a List
         listAdvancesFaces();
 
         return this.advancedFaces;
@@ -70,14 +70,17 @@ public class StpModelBuilder {
 
         for (int i = 0; i < entityList.size(); i++) {
 
-            if(entityList.get(i).getClass().getSimpleName().equals("StpAdvancedFace")){
+            if (entityList.get(i).getClass().getSimpleName().equals("StpAdvancedFace")) {
                 entityList.get(i).convertFromIds(entityList);
             }
-
 
         }
     }
 
+    /**
+     * Erzeugt für jede Zeichenkette der in makeListOfEntityStrings()
+     * extrahierten Liste die entsprechende Instanz der beschriebenen Entität
+     */
     private void makeListOfEntities() {
 
         StpEntityBuilder entityBuilder;
@@ -90,7 +93,6 @@ public class StpModelBuilder {
                 entityList.add(entity);
             }
         }
-
     }
 
     private void makeListOfEntityStrings() throws IOException {

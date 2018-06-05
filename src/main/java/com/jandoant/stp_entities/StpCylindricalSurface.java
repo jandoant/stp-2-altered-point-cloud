@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import Jama.Matrix;
+
 /**
  * Klasse StpCylindricalSurface
  * Created by Jan Doant on 25.04.2018
@@ -33,4 +35,9 @@ public class StpCylindricalSurface extends StpElementarySurface {
                 ", radius=" + radius +
                 "}";
     }
+
+
+
+
+
 }

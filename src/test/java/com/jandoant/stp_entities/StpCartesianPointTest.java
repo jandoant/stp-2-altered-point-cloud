@@ -120,7 +120,7 @@ class StpCartesianPointTest {
     }
 
     @Test
-    void testTransformation() {
+    void testBaseTransformation() {
 
         //setup
         StpCartesianPoint pt = new StpCartesianPoint(-1, "", 0, 4, 3);
@@ -134,12 +134,84 @@ class StpCartesianPointTest {
         Matrix transformationMatrix = new Matrix(matrixVals);
 
         //act
-        StpCartesianPoint ptTransformed = pt.transform(transformationMatrix);
+        StpCartesianPoint ptTransformed = pt.baseTransform(transformationMatrix);
 
         //assert
         StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 4, 3, 0);
 
         assertEquals(expectedPoint, ptTransformed);
+
+    }
+
+    @Test
+    void testCylinderTransformation() {
+
+        //setup
+        StpCartesianPoint ptXYZ = new StpCartesianPoint(-1, "", 10, 0, 3);
+
+        //act
+        StpCartesianPoint ptRPhiZ = ptXYZ.cylinderTransform();
+
+        //assert
+        StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 0, 3, 10);
+
+        assertEquals(expectedPoint, ptRPhiZ);
+
+    }
+
+    @Test
+    void testCylinderTransformation2() {
+
+        //setup
+        StpCartesianPoint ptXYZ = new StpCartesianPoint(-1, "", 0, 10, 3);
+
+        //act
+        StpCartesianPoint ptRPhiZ = ptXYZ.cylinderTransform();
+
+        //assert
+        StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 90, 3, 10);
+
+        assertEquals(expectedPoint, ptRPhiZ);
+
+    }
+
+    @Test
+    void testCylinderTransformationToXYZ() {
+
+        //setup
+        StpCartesianPoint ptRPhiZ = new StpCartesianPoint(-1, "", 90, 3, 10);
+
+        //act
+        StpCartesianPoint ptXYZ = ptRPhiZ.cylinderTransformToCartesian();
+
+        //assert
+        StpCartesianPoint expectedPoint = new StpCartesianPoint(-1, "", 0, 10, 3);
+
+        double allowedErr = Math.pow(10, -10);
+        assertEquals(expectedPoint.getX(), ptXYZ.getX(), allowedErr);
+        assertEquals(expectedPoint.getY(), ptXYZ.getY(), allowedErr);
+        assertEquals(expectedPoint.getY(), ptXYZ.getY(), allowedErr);
+
+    }
+
+    @Test
+    void testPrint() {
+
+        StpCartesianPoint pt = new StpCartesianPoint(-1, "", 3.4, -6.8, 1.0);
+
+
+        String expected = "3.4;-6.8;1.0";
+
+        String actual = pt.print(";");
+
+        assertEquals(expected, actual);
+
+
+
+
+
+
+
 
     }
 }

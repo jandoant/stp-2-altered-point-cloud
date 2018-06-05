@@ -101,7 +101,7 @@ public abstract class SurfaceUVW {
         StpVector locationVector = this.plane.getLocationVector();
         pointXYZ.move(locationVector, -locationVector.getMagnitude());
         // transformieren mithilfe der entsprechenden Transformationsmatrix der Ebene
-        return pointXYZ.transform(this.plane.getXYZtoUVWTransformationMatrix());
+        return pointXYZ.baseTransform(this.plane.getXYZtoUVWTransformationMatrix());
 
     }
 

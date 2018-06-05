@@ -1,5 +1,7 @@
 package com.jandoant.stp_entities;
 
+import Jama.Matrix;
+
 import java.util.ArrayList;
 
 /**
@@ -57,4 +59,48 @@ public abstract class StpElementarySurface extends StpSurface {
         }
 
     }
+
+    protected Matrix getXYZBaseMatrix() {
+
+        //is always the same
+        double[][] baseWorldVals = {
+                {1.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0},
+                {0.0, 0.0, 1.0}
+        };
+
+        return new Matrix(baseWorldVals);
+    }
+
+    protected Matrix getUVWBaseMatrix(){
+
+        //wird für jede StpCylindrical Surface aus der Position extrahiert
+        StpVector u = this.position.getRefDirection().convertToVector();
+        StpVector w = this.position.getAxis().convertToVector();
+
+        StpVector v = StpVector.crossProduct(w, u);
+
+        double[][] baseLocalVals = {
+                {u.getX(), v.getX(), w.getX()},
+                {u.getY(), v.getY(), w.getY()},
+                {u.getZ(), v.getZ(), w.getZ()}
+        };
+
+        return new Matrix(baseLocalVals);
+    }
+
+    public Matrix getXYZtoUVWTransformationMatrix() {
+
+        Matrix XYZBaseMatrix = getXYZBaseMatrix();
+        Matrix UVWBaseMatrix = getUVWBaseMatrix();
+
+        return (UVWBaseMatrix.inverse()).times(XYZBaseMatrix);
+    }
+
+    public Matrix getUVWToXYZTransformationMatrix() {
+        return this.getXYZtoUVWTransformationMatrix().inverse();
+    }
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.jandoant.stp_entities;
 
 import Jama.Matrix;
+import com.jandoant.helper.MathHelper;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class StpCartesianPoint extends StpPoint {
 
     }
 
-    public StpCartesianPoint transform(Matrix transformationMatrix) {
+    public StpCartesianPoint baseTransform(Matrix transformationMatrix) {
 
         //make CartesianPoint a 1x3 Matrix
         double[][] vals = {
@@ -120,7 +121,6 @@ public class StpCartesianPoint extends StpPoint {
         double[][] values = (transformationMatrix.times(ptMatrix)).getArray();
 
         //make new 1x3 matrix a Cartesian Point again
-
         double newX = values[0][0];
         double newY = values[1][0];
         double newZ = values[2][0];
@@ -128,4 +128,33 @@ public class StpCartesianPoint extends StpPoint {
         return new StpCartesianPoint(-1, "", newX, newY, newZ);
 
     }
+
+    public StpCartesianPoint cylinderTransform() {
+
+        double r = Math.sqrt(this.x * this.x + this.y * this.y);
+        double phi = Math.toDegrees(Math.atan2(this.y, this.x));
+
+        // Reihenfolge der Paramter beachten
+        return new StpCartesianPoint(-1, "", phi, this.z, r);
+    }
+
+    public StpCartesianPoint cylinderTransformToCartesian() {
+
+        //z ist eigentlich R, y ist eigentlich phi
+        double newX = this.z * Math.cos(Math.toRadians(this.x));
+        double newY = this.z * Math.sin(Math.toRadians(this.x));
+
+        return new StpCartesianPoint(-1, "", newX, newY, this.y);
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    public String print(String seperator) {
+
+        return MathHelper.round(this.x) + seperator + MathHelper.round(this.y) + seperator + MathHelper.round(this.z);
+
+    }
+
 }

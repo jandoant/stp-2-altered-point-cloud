@@ -44,49 +44,8 @@ public class StpPlane extends StpElementarySurface {
 
     }
 
-    public Matrix getXYZtoUVWTransformationMatrix() {
-
-        Matrix XYZBaseMatrix = getXYZBaseMatrix();
-        Matrix UVWBaseMatrix = getUVWBaseMatrix();
-
-        return (UVWBaseMatrix.inverse()).times(XYZBaseMatrix);
-    }
-
-    public Matrix getUVWToXYZTransformationMatrix() {
-        return this.getXYZtoUVWTransformationMatrix().inverse();
-    }
 
 
-
-    private Matrix getUVWBaseMatrix(){
-
-        //wird für jede StpPlane erstellt aus Normalenvektor und den Richtungsvektoren
-
-        StpVector u = this.getDirectionVectors()[0];
-        StpVector v = this.getDirectionVectors()[1];
-        StpVector w = this.getNormalVector();
-
-        double[][] baseLocalVals = {
-                {u.getX(), v.getX(), w.getX()},
-                {u.getY(), v.getY(), w.getY()},
-                {u.getZ(), v.getZ(), w.getZ()}
-        };
-
-        return new Matrix(baseLocalVals);
-    }
-
-
-    private Matrix getXYZBaseMatrix() {
-
-        //is always the same
-        double[][] baseWorldVals = {
-                {1.0, 0.0, 0.0},
-                {0.0, 1.0, 0.0},
-                {0.0, 0.0, 1.0}
-        };
-
-        return new Matrix(baseWorldVals);
-    }
 
 
 

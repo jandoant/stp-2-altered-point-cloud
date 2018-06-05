@@ -1,5 +1,6 @@
 package com.jandoant.stp_entities;
 
+import com.jandoant.deformation.DeformTimesAdapter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -364,6 +365,34 @@ class StpAdvancedFaceTest {
         advancedFace.convertFromIds(allAvailableEntities);
 
         assertEquals("StpCylindricalSurface", advancedFace.getType());
+    }
+
+    @Test
+    void testAddDeformFunction() {
+
+        //Setup
+        ArrayList<StpCartesianPoint> mockPointCloud = new ArrayList<>();
+        mockPointCloud.add(new StpCartesianPoint(-1, "", 0, 0, 0));
+        mockPointCloud.add(new StpCartesianPoint(-1, "", 1, 2, 0));
+        mockPointCloud.add(new StpCartesianPoint(-1, "", 5, 6, 0));
+        mockPointCloud.add(new StpCartesianPoint(-1, "", 1, -3, 0));
+
+        StpAdvancedFace advancedFace = new StpAdvancedFace(-1, "", boundsIds, 33, true);
+
+        advancedFace.setLocalPointCloud(mockPointCloud);
+
+        //Act
+        advancedFace.applyDeformationFunction(new DeformTimesAdapter());
+
+        //Assert
+        ArrayList<StpCartesianPoint> expectedPointCloud = new ArrayList<>();
+        expectedPointCloud.add(new StpCartesianPoint(-1, "", 0, 0, 0));
+        expectedPointCloud.add(new StpCartesianPoint(-1, "", 1, 2, 2));
+        expectedPointCloud.add(new StpCartesianPoint(-1, "", 5, 6, 30));
+        expectedPointCloud.add(new StpCartesianPoint(-1, "", 1, -3, -3));
+
+        assertEquals(expectedPointCloud, advancedFace.getLocalPointCloud());
+
     }
 
     @AfterEach

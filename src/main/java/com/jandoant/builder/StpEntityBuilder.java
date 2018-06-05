@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Helps to build a StpEntity by splitting a String
- * Created by Jan Doant on 12.04.2018
+ * Diese Klasse erzeugt eine konkrete Instanz einer STEP-Entity aus einem übergeben String
+ * Mögliche Referenzobjekte, auf die sich die erzeugte Entität bezieht werden vorerst nur
+ * über Ihre ID angegeben und zu einem späteren Zeitpunkt des Programmablaufs der Entität angefügt.
  */
 public class StpEntityBuilder {
 
@@ -20,22 +21,41 @@ public class StpEntityBuilder {
     String type;
     String[] argumentsList;
 
-    //Konstruktor
+    /*
+    Der Konstruktor nimmt die Zeichenkette der jeweiligen STEP-Zeile entgegen
+     */
     public StpEntityBuilder(String description) {
         this.description = description;
     }
 
-    //Methoden
+    /*
+    Wandelt die übergebene Zeichenkette in eine STEP-Entität um und gibt diese zurück.
+    Beschreibt die Zeichenkette eine Zeile aus der HEADER-Sektion der Datei oder eine
+    nicht aufgeführte STEP-Entität, dann gibt die Methode ein null-Objekt zurück.
+     */
     public StpRepresentationItem extractStpEntity() {
 
-        parseDescription();
+        // 1. Aufteilen der Beschreibung in ihre 3 Teile (ID, Klassenname, Attributsliste)
+        splitDescription();
 
+        // 2. Herausfiltern der ID
         extractIdFromDescription();
+
+        // 3. Herausfiltern der zu erzeugenden Entität
         extractTypeFromDescription();
+
+        //4. Herausfiltern der Argumentsliste
         extractArgumentsListFromDescription();
+
+        // 5. Herausfiltern des Namens aus den Argumenten
         extractNameFromDescription();
 
+        // 6. Erzeuge konkrete STEP-Entität aus ID, Typ und Argumentliste
         return makeEntity();
+    }
+
+    private void splitDescription() {
+        this.partsOfDescription = this.description.split("[\\=\\(\\)\\;]+", 3);
     }
 
     private void extractNameFromDescription() {
@@ -46,6 +66,8 @@ public class StpEntityBuilder {
 
         StpRepresentationItem result;
 
+        // Entscheide aufgrund des herausgefundenen Entitäts-Typs, welche Java-Klasse instantiiert werden soll
+        // nur, wenn der Typ einer der in EntityTypesContract festgelegte Klassen entsprcht wird ein Ergebnis zurückgebene, andernfalls null
         switch (this.type) {
             case EntityTypesContract.CARTESIAN_POINT:
                 result = makeCartesianPoint();
@@ -284,10 +306,6 @@ public class StpEntityBuilder {
     private void extractIdFromDescription() {
         String hashedID = this.partsOfDescription[0];
         this.id = Integer.parseInt(hashedID.split("#")[1]);
-    }
-
-    private void parseDescription() {
-        this.partsOfDescription = this.description.split("[\\=\\(\\)\\;]+", 3);
     }
 
     public boolean describesEntity() {
