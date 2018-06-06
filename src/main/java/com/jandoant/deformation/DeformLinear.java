@@ -10,17 +10,15 @@ public class DeformLinear implements DeformationFunction {
     double offset;
     String direction;
 
-    public final static String DIRECTION_U = "u";
-    public final static String DIRECTION_V = "v";
-
     public DeformLinear(double slope, double offset, String direction) {
         this.slope = slope;
         this.offset = offset;
+        this.direction = direction;
     }
 
     @Override
     public double f(double u, double v) {
-        if (direction.equals(DIRECTION_U)) {
+        if (direction.equals(DeformationFunction.DIRECTION_U)) {
             return this.slope * u + this.offset;
         } else {
             return this.slope * v + this.offset;

@@ -1,6 +1,5 @@
 import com.jandoant.builder.StpModelBuilder;
-import com.jandoant.deformation.DeformConstant;
-import com.jandoant.deformation.DeformTimesAdapter;
+import com.jandoant.deformation.*;
 import com.jandoant.geometric.CircleUVW;
 import com.jandoant.geometric.CylinderRPhiW;
 import com.jandoant.geometric.PolygonUVW;
@@ -28,35 +27,32 @@ import static java.nio.file.StandardOpenOption.CREATE;
  */
 public class MainClass {
 
+    // Pfad zu den Beispieldateien
     public static final String PATH_TO_MAIN_RESOURCES = System.getProperty("user.dir") + "\\src\\main\\resources\\";
-    public static final String PATH_TO_RESULT = System.getProperty("user.dir") + "\\src\\main\\results\\";
-    //Konstruktor
 
-    //Methoden
     public static void main(String[] args) {
 
-        //Attribute
         try {
-
-            // 1. load the file
-            String stpFileName = "Zylinder.stp";
+            // 1. Laden der gewünschten Datei
+            String stpFileName = "Quader.stp";
             StpModelBuilder modelBuilder = new StpModelBuilder(PATH_TO_MAIN_RESOURCES + stpFileName);
 
-            // 2. parse the file an make advancedFaces
+            // 2. Die STEP-Datei wird decodiert und in Java abgebildet
             ArrayList<StpAdvancedFace> advancedFaces = modelBuilder.parseFile();
 
-            // 3. mesh and deform each advanced face
+            // 3. Jede ADVANCED_FACE wird diskretisiert
             for (StpAdvancedFace advancedFace : advancedFaces) {
 
                 // Entscheiden ob es sich um eine zylindrische Fläche oder eine planare Fläche handelt
                 switch (advancedFace.getType()) {
                     case "StpCylindricalSurface":
 
-                        // 1. ask the user for meshing parameters
+                        // 1.   Hier kann der Nutzer die Diskretisierungsparameter
+                        //      für zylindrische Körperflächen wählen
                         int numOfRadialSegments = 4;
                         int numOfRings = 3;
 
-                        // 2. Zylinder meshen (in r phi w -Koordinaten)
+                        // 2. Zylinder diskretisieren (in phi w r-Koordinaten)
                         CylinderRPhiW cylinder = new CylinderRPhiW(advancedFace);
                         cylinder.mesh(numOfRadialSegments, numOfRings);
 
@@ -72,15 +68,15 @@ public class MainClass {
                         // 2. Finde die positiven Bounds
                         ArrayList<StpFaceBound> positiveBounds = advancedFace.getPositiveBounds();
 
-                        // 3. Meshe alle positiven Bounds entsprechend der Parameter des Nutzers und füge die Punkte zur PointCloud hinzu (uvw)
+                        // 3. Diskretisiere alle positiven Bounds entsprechend der Parameter des Nutzers und füge die Punkte zur PointCloud hinzu (uvw)
                         for (StpFaceBound positiveBound : positiveBounds) {
 
                             if (positiveBound.isPolygon()) {
 
-                                // 1. Den Nutzer nach den MeshingParametern fragen
+                                // 1. Den Nutzer nach den Diskretisierungs-Parametern fragen
                                 double distanceOfPoints = 5.0;
 
-                                // 2. Die positve Polygonfläche in UVW transformieren und meshen
+                                // 2. Die positve Polygonfläche in UVW transformieren und diskretisieren
                                 PolygonUVW polygonUVW = new PolygonUVW(positiveBound, plane, true);
                                 polygonUVW.mesh(distanceOfPoints);
 
@@ -89,22 +85,22 @@ public class MainClass {
 
                             } else if (positiveBound.isCircle()) {
 
-                                // 1. Den Nutzer nach den MeshingParametern fragen
+                                // 1. Den Nutzer nach den Diskretisierungs-Parametern fragen
                                 numOfRadialSegments = 4;
                                 numOfRings = 3;
 
-                                // 2. Die positve Kreisfläche in UVW transformieren und meshen
+                                // 2. Die positve Kreisfläche in UVW transformieren und diskretisieren
                                 CircleUVW circleUVW = new CircleUVW(positiveBound, plane, true);
                                 circleUVW.mesh(numOfRadialSegments, numOfRings);
 
-                                // 3. Die erzeugten Mesh-Punkte(uvw) zur PointCloud der Advanced Face hinzufügen
+                                // 3. Die erzeugte Punktewolke(uvw) zur PointCloud der Advanced Face hinzufügen
                                 advancedFace.addPositiveSurfaceUVW(circleUVW);
 
                             }
 
                         }
 
-                        // 4. Finde die negativen Bounds
+                        // 4. Finde die negativen Bounds jeder planaren ADVANCED_FACE
                         ArrayList<StpFaceBound> negativeBounds = advancedFace.getNegativeBounds();
 
                         // 5. Für jede negative Umrandung, ziehe die Punkte der PointCloud, die innerhalb dieser Umrandung liegen ab unf füge die Kantenpunkte der Umrandung hinzu
@@ -143,13 +139,16 @@ public class MainClass {
             }
 
             // 4. Deformation der ersten drei Advanced Faces mit gewünschten Deformationsfunktionen
-            advancedFaces.get(0).applyDeformationFunction(new DeformConstant(4.0));
+            advancedFaces.get(0).applyDeformationFunction(new DeformConstant(0.05));
+            advancedFaces.get(0).applyDeformationFunction(new DeformLinear(0.3, 0.0, DeformationFunction.DIRECTION_V));
+            advancedFaces.get(0).applyDeformationFunction(new DeformUniDirectionalSine(0.03, 2, 0.0, 0.0, DeformationFunction.DIRECTION_V));
 
+            advancedFaces.get(1).applyDeformationFunction(new DeformBiLinear(3, 0.4, 0.5));
+            advancedFaces.get(1).applyDeformationFunction(new DeformQuadratic(-4, 3, 0, DeformationFunction.DIRECTION_U));
 
+            advancedFaces.get(2).applyDeformationFunction(new DeformBiQuadratic(3.3, -1.2, 4, -2.3, 1.0, 0.0));
 
-
-
-            // 5. Ausgabe der verformten Geometrie in xyz-Koordinaten
+            // 5. Ausgabe der verformten Geometrie als Text-Datei in xyz-Koordinaten
             SimpleDateFormat date = new SimpleDateFormat("YYYY_MM_dd-HHmmss-");
             String fileNamePrefix = date.format(new Date());
 
@@ -165,6 +164,10 @@ public class MainClass {
             try (OutputStream out = new BufferedOutputStream(
                     Files.newOutputStream(p, CREATE, APPEND))) {
                 out.write(data, 0, data.length);
+
+                System.out.println(
+                        "Ihre deformierten Koordinaten wurden erfolgreich in der Datei '" + fileNamePrefix + stpFileName + ".txt'" + " im Ordner " + "'./src/main/results/'" + " gespeichert.");
+
             } catch (IOException x) {
                 System.err.println(x);
             }

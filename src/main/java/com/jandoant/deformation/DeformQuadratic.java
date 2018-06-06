@@ -12,11 +12,8 @@ public class DeformQuadratic implements DeformationFunction {
 
     double a2, a1, a0;
 
-    public final static String DIRECTION_U = "u";
-    public final static String DIRECTION_V = "v";
-
     //Konstruktor
-    public DeformQuadratic(String direction, double a2, double a1, double a0) {
+    public DeformQuadratic(double a2, double a1, double a0, String direction) {
         this.direction = direction;
         this.a2 = a2;
         this.a1 = a1;
@@ -26,7 +23,7 @@ public class DeformQuadratic implements DeformationFunction {
     //Methoden
     @Override
     public double f(double u, double v) {
-        if (direction.equals(DIRECTION_U)) {
+        if (direction.equals(DeformationFunction.DIRECTION_U)) {
             return this.a2 * u * u + this.a1 * u + this.a0;
         } else {
             return this.a2 * v * v + this.a1 * v + this.a0;

@@ -91,18 +91,21 @@ public abstract class StpFaceSurface extends StpFace {
         Fügt die diskretisierten Punkte der Kanten des negativen Polygons hinzu.
          */
 
+        ArrayList<StpCartesianPoint> pointsToRemove = new ArrayList<>();
+
         // 1. alle Punkte der Point Cloud löschen, die innerhalb der Kontur liegen
         for (StpCartesianPoint pt : this.localPointCloud) {
 
             if (negativeSurfaceUVW.contains(pt)) {
 
-                this.localPointCloud.remove(pt);
+                pointsToRemove.add(pt);
 
             }
         }
+        this.localPointCloud.removeAll(pointsToRemove);
+
         // 2. im Anschluss die Kanten des inneren Polygons meshen (der PointCloud hinzufügen)
         //only add the EdgePoints that I dont have already!!!!!
-
         for (StpCartesianPoint pt : negativeSurfaceUVW.getMeshUVW()) {
 
             if (!this.localPointCloud.contains(pt)) {
@@ -132,6 +135,7 @@ public abstract class StpFaceSurface extends StpFace {
         ArrayList<StpFaceBound> result = new ArrayList<>();
 
         for (StpFaceBound bound : this.getBounds()) {
+
             if (bound.getType().equals("StpFaceBound")) {
                 result.add(bound);
             }
@@ -190,7 +194,7 @@ public abstract class StpFaceSurface extends StpFace {
 
         String printString = "ADVANCED_FACE (" + this.getType() + ") with ID=" + this.id + "\n";
 
-        for (StpCartesianPoint pt: this.getPointCloudXYZ()) {
+        for (StpCartesianPoint pt : this.getPointCloudXYZ()) {
             printString += pt.print(";") + "\n";
         }
 
